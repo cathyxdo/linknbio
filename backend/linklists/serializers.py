@@ -5,12 +5,12 @@ from django.contrib.auth.models import User
 class SocialMediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialMedia
-        fields = ['id', 'type', 'link']
+        fields = ['id', 'type', 'link', 'list']
 
 class LinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Link
-        fields = ['id', 'link', 'title', 'photo']
+        fields = ['id', 'link', 'title', 'photo', 'list']
 
 class ListSerializer(serializers.ModelSerializer):
     social_media_profiles = SocialMediaSerializer(many=True, read_only=True)
