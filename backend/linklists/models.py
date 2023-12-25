@@ -42,7 +42,7 @@ class SocialMedia(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.user_profile.name}'s {self.get_type_display()} Profile"
+        return f"{self.user}'s {self.type} profile"
 
 class Link(models.Model):
     list = models.ForeignKey(List, on_delete=models.CASCADE, related_name='links')
@@ -51,4 +51,4 @@ class Link(models.Model):
     photo = models.ImageField(upload_to='link_photos/', blank=True, null=True)
 
     def __str__(self):
-        return f"{self.user_profile.name}'s Link: {self.title}"
+        return f"Link: {self.title}"
