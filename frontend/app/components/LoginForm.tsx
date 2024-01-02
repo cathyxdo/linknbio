@@ -1,6 +1,51 @@
+'use client';
+
 import Image from "next/image";
+import Link from "next/link";
+import { FormEvent, useState } from "react";
+
+interface FormData {
+    username: string;
+    email: string;
+    password: string;
+}
 
 export default function LoginForm() {
+    const[formData, setFormData] = useState<FormData>({
+        username: '',
+        email: '',
+        password: '',
+    });
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+    const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://127.0.0.1:8000/dj-rest-auth/login/', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Origin': 'http://localhost:3000',
+                },
+                body: JSON.stringify(formData),
+            });
+        
+            if (response.ok) {
+                // Handle successful registration, e.g., redirect or show a success message
+                console.log('User successfully logged in!');
+                console.log(response);
+            } else {
+                // Handle errors, e.g., display error messages to the user
+                const errorData = await response.json();
+                console.error('Registration failed:', errorData);
+            }
+        } catch (error) {
+            console.error('error during registration', error);
+        }
+    }
     return (
         <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
             <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
@@ -47,18 +92,29 @@ export default function LoginForm() {
                             </div>
 
                             <div className="mx-auto max-w-xs">
-                                <input
-                                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                                    type="email" placeholder="Email" />
-                                <input
-                                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                                    type="password" placeholder="Password" />
-                                <button
-                                    className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
-                                    <span className="ml-3">
-                                        Login
-                                    </span>
-                                </button>
+                                <form onSubmit={handleFormSubmit}>
+                                    <label className="">Username</label>
+                                    <input
+                                        className="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-5"
+                                        type="text" name="username" value={formData.username} onChange={handleInputChange} placeholder="Email" />
+
+                                    <label className="">Email</label>
+                                    <input
+                                        className="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-5"
+                                        type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Email" />
+
+                                    <label className="">Password</label>
+                                    <input
+                                        className="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                                        type="password" name="password" value={formData.password} onChange={handleInputChange} placeholder="Password" />
+                                    <button
+                                        className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                                        type="submit">
+                                        <span className="ml-3">
+                                            Login
+                                        </span>
+                                    </button>
+                                </form>
                                 <p className="mt-6 text-xs text-gray-600 text-center">
                                     I agree to abide by Linknbio's 
                                     <a href="#" className="border-b border-gray-500 border-dotted">
@@ -71,6 +127,16 @@ export default function LoginForm() {
                                 </p>
                             </div>
                         </div>
+                    </div>
+                    <div className="mt-4">
+                        <p className="text-gray-600">No Account yet? </p>
+                        <Link 
+                        key='Signup'
+                        href='/signup'
+                        className=""
+                        >
+                            <span className="">Sign Up</span>
+                        </Link>
                     </div>
                 </div>
                 <div className="flex-1 bg-indigo-100 text-center hidden lg:flex">
