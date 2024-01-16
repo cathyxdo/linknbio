@@ -1,5 +1,6 @@
 import { Add } from "@mui/icons-material";
 import AddSocialMediaForm from "../components/AddSocialMediaForm";
+import AddLinkForm from "../components/AddLinkForm";
 interface SharePageProps {
     listid: string;
     list: ListProfile;
@@ -82,26 +83,13 @@ export default async function Page() {
 
                                 <label>Bio</label>
                                 <textarea className="px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white resize-none"></textarea>
-                                <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">Add</button>
+                                <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">Edit</button>
                             </form>
                         </div>
                     </div>
-
-
                     <AddSocialMediaForm listid={1}/>
-                    <div className="p-4">
-                        <button className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Add Link</button>
-                        <div className="p-4 mb-4 space-y-6 bg-white border border-gray-400 rounded-lg shadow-sm ">
-                            <form className="flex flex-col gap-2">
-                                <label>Title</label>
-                                <input className="px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white"></input>
-                                <label>URL</label>
-                                <input className="px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white"></input>
-                                <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">Add</button>
-                            </form>
-                        </div>
-                    </div>
-                    
+                    <AddLinkForm listid={1} />
+    
                 </div>
 
 
