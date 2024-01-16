@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-
+import { useRouter } from "next/navigation";
 interface FormData {
     username: string;
     email: string;
@@ -16,6 +16,8 @@ export default function LoginForm() {
         email: '',
         password: '',
     });
+    const router = useRouter();
+
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -24,7 +26,7 @@ export default function LoginForm() {
     const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:8000/dj-rest-auth/login/', {
+            const response = await fetch('http://127.0.0.1:8000/login/', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -37,22 +39,29 @@ export default function LoginForm() {
                 // Handle successful registration, e.g., redirect or show a success message
                 console.log('User successfully logged in!');
                 console.log(response);
+                router.push('/dashboard')
+
             } else {
                 // Handle errors, e.g., display error messages to the user
                 const errorData = await response.json();
-                console.error('Registration failed:', errorData);
+                console.error('login failed:', errorData);
             }
         } catch (error) {
-            console.error('error during registration', error);
+            console.error('error during login', error);
         }
     }
     return (
         <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
             <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
                 <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-                    <div>
-                        <img src="https://storage.googleapis.com/devitary-image-host.appspot.com/15846435184459982716-LogoMakr_7POjrN.png"
-                            className="w-32 mx-auto" />
+                    <div className="flex flex-col items-center">
+                        <Link
+                        key='Home'
+                        href='/'
+                        className=""
+                        >
+                            <span className="self-center text-2xl font-semibold whitespace-nowrap">Linknbio</span>
+                        </Link>
                     </div>
                     <div className="mt-12 flex flex-col items-center">
                         <h1 className="text-2xl xl:text-3xl font-extrabold">
