@@ -4,9 +4,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import Image from 'next/image';
-import { GetServerSideProps, NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { link } from 'fs';
+
 
 interface SharePageProps {
     listid: string;
@@ -46,8 +44,8 @@ interface Link {
     list: number;
 } 
 
-export default async function Page() {
-    const list = await getList();
+export default async function Page({ params }: any) {
+    const list = await getList(params.id);
     const imageStyle = {
         borderRadius: '50%',
     }
@@ -85,7 +83,7 @@ export default async function Page() {
                 </div>
                 <div>
                     <ul className="flex gap-4 mt-4 mb-4">
-                        {list.social_media_profiles.map(profile => (
+                        {list.social_media_profiles && list.social_media_profiles.map(profile => (
                             <li key={profile.id}>
                                 <a target="_blank" href={profile.link}>{renderSocialMediaIcons(profile.type)}</a>
                             </li>
@@ -93,7 +91,7 @@ export default async function Page() {
                     </ul>
                 </div>
                 <div className="flex flex-col gap-6 w-full">
-                    {list.links.map(link => (
+                    {list.links && list.links.map(link => (
                         <a target="_blank" key={link.id} href={link.link} className="bg-slate-300 px-6 py-6 rounded-full ease-in transform hover:scale-105 transition duration-150" >
                             <Image
                                 src={link.photo || '/test_img.jpg'} // Fallback to a default image if photo is not available
@@ -111,12 +109,13 @@ export default async function Page() {
             </div>
 
          </div>
+                    
     )
 }
 
 
-async function getList(): Promise<ListProfile> {
-    const res = await fetch('http://127.0.0.1:8000/api/lists/' + 1);
+async function getList(id: string): Promise<ListProfile> {
+    const res = await fetch('http://127.0.0.1:8000/api/lists/' + id);
     const list: ListProfile = await res.json();
 
     return list;

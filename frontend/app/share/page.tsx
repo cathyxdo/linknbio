@@ -1,11 +1,10 @@
-
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import Image from 'next/image';
 import { FormEvent, useEffect, useState } from "react";
-
+import { useRouter } from 'next/router';
 interface ListProfile {
     id: number;
     user: number;
