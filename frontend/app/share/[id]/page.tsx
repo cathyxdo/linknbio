@@ -115,7 +115,7 @@ export default async function Page({ params }: any) {
 
 
 async function getList(id: string): Promise<ListProfile> {
-    const res = await fetch('http://127.0.0.1:8000/api/lists/' + id);
+    const res = await fetch('http://127.0.0.1:8000/api/lists/' + id, { cache: 'no-store' });
     const list: ListProfile = await res.json();
 
     return list;
