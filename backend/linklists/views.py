@@ -16,7 +16,7 @@ class ListList(generics.ListCreateAPIView):
 class ListDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = List.objects.all()
     serializer_class = ListSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    #permission_classes = [IsAuthenticatedOrReadOnly]
 
 class CreateLink(generics.ListCreateAPIView):
     queryset = Link.objects.all()
