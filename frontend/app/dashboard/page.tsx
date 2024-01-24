@@ -1,11 +1,10 @@
 import { Add } from "@mui/icons-material";
-import AddSocialMediaForm from "../components/AddSocialMediaForm";
-import AddLinkForm from "../components/AddLinkForm";
-import EditProfileForm from "../components/EditProfileForm";
-interface SharePageProps {
-    listid: string;
-    list: ListProfile;
-}
+import AddSocialMediaForm from "@/components/AddSocialMediaForm";
+import SocialMedia from "@/components/SocialMedia";
+import AddLinkForm from "@/components/AddLinkForm";
+import EditProfileForm from "@/components/EditProfileForm";
+import LinkElement from "@/components/LinkElement";
+import { useState, useEffect } from "react";
 
 interface ListProfile {
     id: number;
@@ -39,8 +38,53 @@ interface Link {
     photo: string;
     list: number;
 } 
-export default async function Page() {
+export default async  function Page() {
     const list = await getList();
+    /* const initialPageData = {
+        id: 0,
+        user: 0,
+        name: "hello",
+        bio: "",
+        photo: "",
+        profile_font: "",
+        profile_font_color: "",
+        background_flag: "",
+        background_color: "",
+        background_image: "",
+        link_bubble_style: "",
+        link_font: "",
+        social_media_icons_location: "",
+        social_media_profiles: [],
+        links: []
+    }
+    const [pageData, setPageData] = useState<ListProfile>(initialPageData);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch('http://127.0.0.1:8000/api/lists/1', {
+                    method: "GET",
+                    
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': 'http://localhost:3000',
+
+                    }
+                });
+                if (!res.ok) {
+                    throw new Error(`Error: ${res.status}`);
+                }
+                const data: ListProfile = await res.json();
+                console.log(res);
+                setPageData(data);
+            } catch (error) {
+                console.error("Fetch error:", error);
+            }
+        };
+
+        fetchData();
+    },[]);
+ */
 
     return (
         <div className="px-8 py-8">
@@ -61,8 +105,18 @@ export default async function Page() {
                 <div className="basis-full lg:basis-3/4 mt-8 px-24 ">
                     <EditProfileForm id={1} user={list.user} name={list.name} bio={list.bio} photo={list.photo} />
                     <AddSocialMediaForm listid={1}/>
+                    <div className="p-4">
+                        {list.social_media_profiles.map((profile) => (
+                            <SocialMedia key={profile.id} {...profile} />
+                        ))}
+                    </div>
                     <AddLinkForm listid={1} />
-    
+                    <div className="p-4">
+                        {list.links.map((link) => (
+                            <LinkElement key={link.id} {...link} />
+                        ))}
+                    </div>
+
                 </div>
 
 
@@ -80,9 +134,7 @@ export default async function Page() {
                     </div>
 
                 </div>
-
             </div>
-
         </div>
     )
 }
@@ -91,4 +143,4 @@ async function getList(): Promise<ListProfile> {
     const list: ListProfile = await res.json();
     console.log(list);
     return list;
-};
+}; 
