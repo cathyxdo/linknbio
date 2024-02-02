@@ -1,4 +1,3 @@
-"use client"
 import { useState } from "react";
 
 interface ProfileFormProps {
@@ -7,9 +6,11 @@ interface ProfileFormProps {
     name: string;
     bio: string;
     photo: string;
+    updateProfile: (newName: string, newBio: string) => void;
+
 }
 
-export default function EditProfileForm({ id, user, name, bio, photo } : ProfileFormProps) {
+export default function EditProfileForm({ id, user, name, bio, photo, updateProfile} : ProfileFormProps) {
     const [formData, setFormData] = useState( {
         name : name ? name : "",
         bio: bio ? bio : "",
@@ -37,6 +38,7 @@ export default function EditProfileForm({ id, user, name, bio, photo } : Profile
                 throw new Error(`Error: ${response.status}`);
             } else {
                 console.log('Profile updated successfully');
+                updateProfile(formData.name, formData.bio);
             }
 
         } catch (error) {
@@ -46,8 +48,8 @@ export default function EditProfileForm({ id, user, name, bio, photo } : Profile
 
     return (
             <div className="p-4">
-                <div className="p-4 mb-4 space-y-6 bg-white border border-gray-400 rounded-lg shadow-sm ">
-                    <h3 className="text-lg">Edit Profile</h3>
+                <div className="p-4 mb-4 space-y-6 bg-white border rounded-xl shadow ">
+                    <h3 className="text-lg font-semibold">Edit Profile</h3>
                     <form onSubmit={handleSubmit} className="flex flex-col gap-2">
 
                         <div className="flex ">
@@ -66,10 +68,10 @@ export default function EditProfileForm({ id, user, name, bio, photo } : Profile
                         </div>
                         
                         <label>Name</label>
-                        <input value={formData.name} onChange={handleChange} name="name" className="px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white"></input>
+                        <input value={formData.name} onChange={handleChange} name="name" className="px-2 py-2 rounded-lg font-medium  border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white"></input>
 
                         <label>Bio</label>
-                        <textarea value={formData.bio} onChange={handleChange} name="bio" className="px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white resize-none"></textarea>
+                        <textarea value={formData.bio} onChange={handleChange} name="bio" className="px-2 py-2 rounded-lg font-medium border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white resize-none"></textarea>
                         <button type="submit" className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">Edit</button>
                     </form>
                 </div>
