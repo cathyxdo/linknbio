@@ -72,7 +72,9 @@ export default function EditProfileForm({ id, user, name, bio, photo, updateProf
 
                         <label>Bio</label>
                         <textarea value={formData.bio} onChange={handleChange} name="bio" className="px-2 py-2 rounded-lg font-medium border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white resize-none"></textarea>
-                        <button type="submit" className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">Edit</button>
+                        <div className="flex justify-center">
+                            <button type="submit" className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-1/4 py-4 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">Edit</button>
+                        </div>
                     </form>
                 </div>
             </div>

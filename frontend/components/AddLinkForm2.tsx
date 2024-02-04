@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import AddIcon from '@mui/icons-material/Add';
 import { Link } from "@/shared/interfaces";
 
 interface LinkProps {
@@ -53,7 +54,10 @@ export default function AddLinkForm2({ id, addNewLink}: LinkProps) {
         <div className="p-4">
             {!showLinkForm ? 
                 (
-                    <button onClick={() => setShowLinkForm(true)} className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-blue-400 dark:hover:bg-blue-600">Add Link</button>
+                    <button onClick={() => setShowLinkForm(true)} className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex gap-2 items-center justify-center focus:shadow-outline focus:outline-none">
+                        <AddIcon />
+                        <p>Add Link</p>
+                    </button>
                 )
                 : (
                     <div className="p-6 mb-4 space-y-6 bg-white rounded-xl shadow-xl ">
@@ -67,7 +71,11 @@ export default function AddLinkForm2({ id, addNewLink}: LinkProps) {
                             <input name="title" value={linkForm.title} onChange={handleChange} className="px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white"></input>
                             <label>URL</label>
                             <input name="link"value={linkForm.link} onChange={handleChange} className="px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white"></input>
-                            <button type="submit" className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">Add</button>
+                            <div className="flex justify-end">
+                                <button type="submit" className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-1/4 py-4 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                                    Add
+                                </button>
+                            </div>
                         </form>
                     </div>
                 )

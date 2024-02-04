@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation';
 
 export default function NavBar() {
     return (
-        <nav className="bg-white fixed w-full z-20 top-0 start-0 shadow-lg">
+        <nav className="bg-white fixed w-full z-50 top-0 start-0 shadow-lg">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link
                     key='Home'
