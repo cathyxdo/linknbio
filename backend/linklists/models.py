@@ -60,6 +60,7 @@ class Link(models.Model):
     link = models.URLField()
     title = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='link_photos/', blank=True, null=True)
-
+    is_active = models.BooleanField(default=True)
+    
     def __str__(self):
         return f"Link: {self.title}"
