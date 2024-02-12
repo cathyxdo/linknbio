@@ -18,6 +18,6 @@ class ListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = List
-        fields = ['id', 'user', 'name', 'bio', 'photo', 'profile_font', 'profile_font_color', 'background_flag', 'background_color', 'background_image', 'link_bubble_style', 'link_font', 'social_media_icons_location', 'social_media_profiles', 'links']
+        fields = ['id', 'user', 'name', 'bio', 'photo', 'profile_font', 'profile_font_color', 'background_flag', 'background_color', 'background_image', 'link_bubble_style', 'link_bubble_color', 'link_font', 'link_font_color', 'social_media_icons_location', 'social_media_profiles', 'links']
 
 
