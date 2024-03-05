@@ -48,6 +48,7 @@ export default async function Page({ params }: any) {
     const list = await getList(params.id);
     const imageStyle = {
         borderRadius: '50%',
+        
     }
 
     const renderSocialMediaIcons = (type: string) => {
@@ -92,15 +93,15 @@ export default async function Page({ params }: any) {
                 </div>
                 <div className="flex flex-col gap-6 w-full">
                     {list.links && list.links.map(link => (
-                        <a target="_blank" key={link.id} href={link.link} className="bg-slate-300 px-6 py-6 rounded-full ease-in transform hover:scale-105 transition duration-150" >
+                        <a target="_blank" key={link.id} href={link.link} className="bg-slate-300 px-4 py-4 rounded-full ease-in transform hover:scale-105 transition duration-150" >
                             <Image
                                 src={link.photo || '/test_img.jpg'} // Fallback to a default image if photo is not available
-                                width={50}
-                                height={50}
+                                width={45}
+                                height={45}
                                 style={imageStyle}
                                 alt={link.title}
-                                className="absolute left-4 top-3"/>
-                            <p>{link.title}</p>
+                                className="absolute left-1 top-1"/>
+                            <p className="text-sm">{link.title}</p>
                         </a>
                     ))}
                 </div>
