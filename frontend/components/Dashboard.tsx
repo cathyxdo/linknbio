@@ -6,6 +6,8 @@ import SocialMedia from "./SocialMedia";
 import AddSocialMediaForm2 from "./AddSocialMediaForm2";
 import AddLinkForm2 from "./AddLinkForm2";
 import LinkElement2 from "./LinkElement2";
+import PhonePreview from "./PhonePreview";
+import { Phone } from "@mui/icons-material";
 interface DashboardProps {
     data: ListProfile,
 }
@@ -77,20 +79,7 @@ export default function Dashboard({ data }: DashboardProps) {
     }
 
     return (
-        <div className="px-8 py-8 bg-stone-100">
-            <div className="flex justify-center">
-                <ul className="px-4 py-4 mt-4 fixed flex gap-4 bg-white w-full rounded-3xl shadow">
-                    <li>
-                        Content
-                    </li>
-                    <li>
-                        Appearance
-                    </li>
-                    <li>
-                        Analytics
-                    </li>
-                </ul>
-            </div>
+        <div className="px-8 py-8 ">
             <div className="py-20 flex min-h-screen gap-8">
                 <div className="basis-full lg:basis-3/4 mt-8 px-16 ">
                     <EditProfileForm id={pageData.id} user={pageData.user} name={pageData.name} bio={pageData.bio} photo={pageData.photo} updateProfile={handleProfileUpdate}/>
@@ -107,22 +96,8 @@ export default function Dashboard({ data }: DashboardProps) {
                         ))}
                     </div>        
                 </div>
+                <PhonePreview pageData={pageData}/>
 
-
-                <div className="basis-1/4 justify-center hidden lg:flex">
-                    <div className="fixed top-1/4 m-4 h-[692px] w-[320px] p-4 mb-4 space-y-6 bg-white border-gray-900 border-8 rounded-3xl shadow-sm ">
-                        <div className="px-4 py-2 text-gray-400 border border-gray-200 border-dashed rounded dark:border-gray-600">
-                            <h3>Card header</h3>
-                        </div>
-                        <div className="h-32 px-4 py-2 text-gray-400 border border-gray-200 border-dashed rounded dark:border-gray-600">
-                            <h3>Card body</h3>
-                        </div>
-                        <div className="px-4 py-2 text-gray-400 border border-gray-200 border-dashed rounded dark:border-gray-600">
-                            <h3>Card footer</h3>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </div>
     )
