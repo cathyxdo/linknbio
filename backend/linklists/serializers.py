@@ -10,7 +10,7 @@ class SocialMediaSerializer(serializers.ModelSerializer):
 class LinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Link
-        fields = ['id', 'link', 'title', 'photo', 'list']
+        fields = ['id', 'link', 'title', 'photo', 'is_active', 'list']
 
 class ListSerializer(serializers.ModelSerializer):
     social_media_profiles = SocialMediaSerializer(many=True, read_only=True)
