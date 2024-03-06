@@ -51,7 +51,38 @@ export default function Apperance({ data }: AppearanceProps) {
             console.error('Failed to update: ', error);
         }
     }
-    
+
+    function getLinkBubbleStyle(style: string) {
+        if (style === pageData.link_bubble_style) {
+            return 'border-4 border-blue-400 rounded-lg'
+        } else {
+            return 'border-4 border-transparent'
+        }
+    }
+    async function handleLinkBubbleClick(style: string) {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+                method: 'PATCH', // or 'PUT' if you are replacing the entire resource
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({link_bubble_style: style})
+            });
+            if (!response.ok) {
+                console.log(response);
+                throw new Error(`Error: ${response.status}`);
+            } else {
+                console.log('Profile updated successfully');
+                setPageData(prevState => ({
+                    ...prevState,
+                    link_bubble_style: style,
+                }));
+            }
+
+        } catch (error) {
+            console.error('Failed to update: ', error);
+        }
+    }
     return (
         <div className="px-8 py-8 ">
             <div className="py-20 flex min-h-screen gap-8">
@@ -85,44 +116,43 @@ export default function Apperance({ data }: AppearanceProps) {
                     <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
                         <div className="flex flex-col gap-2">
                             <h3>Fill</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 ">
-                                <button className="p-2 border-4 border-blue-400 rounded-lg" >
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 ">
+                                <button onClick={() => handleLinkBubbleClick('bubble_filled')} className={`p-2 ${getLinkBubbleStyle('bubble_filled')} `} >
                                     <div className="bg-black h-9 w-full"></div>
                                 </button>
-                                <button className="p-2">
+                                <button onClick={() => handleLinkBubbleClick('bubble_filled_rounded')} className={`p-2 ${getLinkBubbleStyle('bubble_filled_rounded')} `} >
                                     <div className="bg-black h-9 rounded-xl"></div>
                                 </button>
-                                <button className="p-2">
+                                <button onClick={() => handleLinkBubbleClick('bubble_filled_circular')} className={`p-2 ${getLinkBubbleStyle('bubble_filled_circular')} `} >
                                     <div className="bg-black h-9 rounded-full"></div>
                                 </button>
                             </div>
                         </div>
                         <div className="flex flex-col gap-2">
                             <h3>Outline</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 ">
-
-                                <button className="p-2">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                <button onClick={() => handleLinkBubbleClick('bubble_outline')} className={`p-2 ${getLinkBubbleStyle('bubble_outline')} `} >
                                     <div className="bg-white border-black border-2 h-9"></div>
                                 </button>
-                                <button className="p-2">
+                                <button onClick={() => handleLinkBubbleClick('bubble_outline_rounded')} className={`p-2 ${getLinkBubbleStyle('bubble_outline_rounded')} `} >
                                     <div className="bg-white h-9 border-black border-2 rounded-xl"></div>
 
                                 </button>
-                                <button className="p-2">
+                                <button onClick={() => handleLinkBubbleClick('bubble_outline_circular')} className={`p-2 ${getLinkBubbleStyle('bubble_outline_circular')} `} >
                                     <div className="bg-white h-9 border-black border-2 rounded-full"></div>
                                 </button>
                             </div>
                         </div>
                         <div className="flex flex-col gap-2">
                             <h3>Shadow</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 ">
-                                <button className="p-2">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 ">
+                                <button onClick={() => handleLinkBubbleClick('bubble_shadow')} className={`p-2 ${getLinkBubbleStyle('bubble_shadow')} `} >
                                     <div className="bg-white shadow-lg h-9"></div>
                                 </button>
-                                <button className="p-2">
+                                <button onClick={() => handleLinkBubbleClick('bubble_shadow_rounded')} className={`p-2 ${getLinkBubbleStyle('bubble_shadow_rounded')} `} >
                                     <div className="bg-white h-9 shadow-lg rounded-xl"></div>
                                 </button>
-                                <button className="p-2">
+                                <button onClick={() => handleLinkBubbleClick('bubble_shadow_circular')} className={`p-2 ${getLinkBubbleStyle('bubble_shadow_circular')} `} >
                                     <div className="bg-white h-9 shadow-lg rounded-full"></div>
                                 </button>
                             </div>

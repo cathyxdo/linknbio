@@ -66,6 +66,31 @@ export default async function Page({ params }: any) {
         }
     }
 
+    function getLinkBubbleStyle() {
+        switch(list.link_bubble_style) {
+            case 'bubble_filled':
+                return '';
+            case 'bubble_filled_rounded':
+                return 'rounded_xl';
+            case 'bubble_filled_circular':
+                return 'rounded_full';
+            case 'bubble_outline':
+                return 'border-black border-2 ';
+            case 'bubble_outline_rounded':
+                return 'border-black border-2 rounded-xl';
+            case 'bubble_outline_circular':
+                return 'border-black border-2 rounded-full';
+            case 'bubble_shadow':
+                return 'shadow-lg';
+            case 'bubble_shadow_rounded':
+                return 'shadow-lg rounded-xl';
+            case 'bubble_shadow_circular':
+                return 'shadow-lg rounded-full';    
+            default:
+                return 'border-2 border-black';           
+        }
+    }
+
     return (
         <div className="flex flex-col items-center ml-4 mr-4">
             <div className="flex flex-col gap-4 items-center text-center m-10 w-full max-w-2xl ">
@@ -82,18 +107,20 @@ export default async function Page({ params }: any) {
                     <div className="text-xl font-bold">{list.name}</div>
                     <div className="text-l">{list.bio}</div>
                 </div>
-                <div>
-                    <ul className="flex gap-4 mt-4 mb-4">
-                        {list.social_media_profiles && list.social_media_profiles.map(profile => (
-                            <li key={profile.id}>
-                                <a target="_blank" href={profile.link}>{renderSocialMediaIcons(profile.type)}</a>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                {list.social_media_icons_location === "top" && 
+                    <div>
+                        <ul className="flex gap-4 mt-4 mb-4">
+                            {list.social_media_profiles && list.social_media_profiles.map(profile => (
+                                <li key={profile.id}>
+                                    <a target="_blank" href={profile.link}>{renderSocialMediaIcons(profile.type)}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                }
                 <div className="flex flex-col gap-6 w-full">
                     {list.links && list.links.map(link => (
-                        <a target="_blank" key={link.id} href={link.link} className="bg-slate-300 px-4 py-4 rounded-full ease-in transform hover:scale-105 transition duration-150" >
+                        <a target="_blank" key={link.id} href={link.link} className={`${getLinkBubbleStyle()} px-4 py-4  ease-in transform hover:scale-105 transition duration-150`} >
                             <Image
                                 src={link.photo || '/test_img.jpg'} // Fallback to a default image if photo is not available
                                 width={45}
@@ -105,6 +132,17 @@ export default async function Page({ params }: any) {
                         </a>
                     ))}
                 </div>
+               {list.social_media_icons_location === "bottom" && 
+                    <div>
+                        <ul className="flex gap-4 mt-4 mb-4">
+                            {list.social_media_profiles && list.social_media_profiles.map(profile => (
+                                <li key={profile.id}>
+                                    <a target="_blank" href={profile.link}>{renderSocialMediaIcons(profile.type)}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                }
                 <ul>
                 </ul>
             </div>

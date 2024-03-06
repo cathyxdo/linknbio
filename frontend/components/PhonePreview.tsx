@@ -26,6 +26,31 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
         }
     }
 
+    function getLinkBubbleStyle() {
+        switch(pageData.link_bubble_style) {
+            case 'bubble_filled':
+                return '';
+            case 'bubble_filled_rounded':
+                return 'rounded_xl';
+            case 'bubble_filled_circular':
+                return 'rounded_full';
+            case 'bubble_outline':
+                return 'border-black border-2 ';
+            case 'bubble_outline_rounded':
+                return 'border-black border-2 rounded-xl';
+            case 'bubble_outline_circular':
+                return 'border-black border-2 rounded-full';
+            case 'bubble_shadow':
+                return 'shadow-lg';
+            case 'bubble_shadow_rounded':
+                return 'shadow-lg rounded-xl';
+            case 'bubble_shadow_circular':
+                return 'shadow-lg rounded-full';    
+            default:
+                return 'border-2 border-black';           
+        }
+    }
+
     return (
         <div className="basis-1/4 justify-center hidden lg:flex">
             <div className={` bg-[${pageData.background_color}] fixed top-1/4 m-4 h-[692px] w-[320px] p-4 mb-4 space-y-2  border-gray-900 border-8 rounded-3xl shadow-sm flex flex-col items-center text-center`}>
@@ -55,7 +80,7 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
                 }
                 <div className="flex flex-col gap-4 w-full">
                     {pageData.links && pageData.links.map(link => (
-                        <a target="_blank" key={link.id} href={link.link} className="relative bg-slate-300 text-xs px-3 py-3 rounded-full " >
+                        <a target="_blank" key={link.id} href={link.link} className={`${getLinkBubbleStyle()} relative  text-xs px-3 py-3  `} >
                             <Image
                                 src={link.photo || '/test_img.jpg'} // Fallback to a default image if photo is not available
                                 width={33}
