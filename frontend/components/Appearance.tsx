@@ -25,6 +25,33 @@ export default function Apperance({ data }: AppearanceProps) {
         social_media_profiles: data.social_media_profiles || [],
         links: data.links || []
     });
+
+    async function handleLocationChange(e: React.ChangeEvent<HTMLInputElement> ) {
+ 
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+                method: 'PATCH', // or 'PUT' if you are replacing the entire resource
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({social_media_icons_location: e.target.value})
+            });
+            if (!response.ok) {
+                console.log(response);
+                throw new Error(`Error: ${response.status}`);
+            } else {
+                console.log('Profile updated successfully');
+                setPageData(prevState => ({
+                    ...prevState,
+                    social_media_icons_location: e.target.value,
+                }));   
+            }
+
+        } catch (error) {
+            console.error('Failed to update: ', error);
+        }
+    }
+    
     return (
         <div className="px-8 py-8 ">
             <div className="py-20 flex min-h-screen gap-8">
@@ -141,11 +168,26 @@ export default function Apperance({ data }: AppearanceProps) {
 
                             <div className="flex flex-col gap-2">
                                 <div className="">
-                                    <input type="radio" id="top" name="location" value="top" />
+                                    <input 
+                                        type="radio" 
+                                        id="top" 
+                                        name="location" 
+                                        value="top" 
+                                        checked={pageData.social_media_icons_location === "top"} 
+                                        onChange={handleLocationChange}
+
+                                    />
                                     <label htmlFor="top" className="ml-4">Top</label>
                                 </div>
                                 <div>
-                                    <input type="radio" id="bottom" name="location" value="bottom"  />
+                                    <input 
+                                        type="radio" 
+                                        id="bottom" 
+                                        name="location" 
+                                        value="bottom" 
+                                        checked={pageData.social_media_icons_location === "bottom"}
+                                        onChange={handleLocationChange}
+                                    />
                                     <label htmlFor="bottom" className="ml-4">Bottom</label>
                                 </div>
                             </div>

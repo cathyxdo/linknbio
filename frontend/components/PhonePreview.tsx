@@ -14,13 +14,13 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
     const renderSocialMediaIcons = (type: string) => {
         switch (type) {
             case 'instagram':
-                return <InstagramIcon className='text-sm'/>;
+                return <InstagramIcon className='text-m'/>;
             case 'facebook':
-                return <FacebookIcon className='text-sm'/>;
+                return <FacebookIcon className='text-m'/>;
             case 'youtube':
-                return <YouTubeIcon className='text-sm'/>
+                return <YouTubeIcon className='text-m'/>
             case 'twitter':
-                return <TwitterIcon className='text-sm'/>
+                return <TwitterIcon className='text-m'/>
             default:
                 return null;
         }
@@ -42,15 +42,18 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
                     <div className="text-sm font-bold">{pageData.name}</div>
                     <div className="text-xs">{pageData.bio}</div>
                 </div>
-                <div className="">
-                    <ul className="flex gap-2 text-black">
-                        {pageData.social_media_profiles && pageData.social_media_profiles.map(profile => (
-                            <li key={profile.id}>
-                                <a target="_blank" href={profile.link}>{renderSocialMediaIcons(profile.type)}</a>
-                            </li>
-                        ))}
-                    </ul>                </div>
-                <div className="flex flex-col gap-4 w-full  ">
+                {pageData.social_media_icons_location === "top" && 
+                    <div className="">
+                        <ul className="flex gap-2 text-black">
+                            {pageData.social_media_profiles && pageData.social_media_profiles.map(profile => (
+                                <li key={profile.id}>
+                                    <a target="_blank" href={profile.link}>{renderSocialMediaIcons(profile.type)}</a>
+                                </li>
+                            ))}
+                        </ul>                
+                    </div>
+                }
+                <div className="flex flex-col gap-4 w-full">
                     {pageData.links && pageData.links.map(link => (
                         <a target="_blank" key={link.id} href={link.link} className="relative bg-slate-300 text-xs px-3 py-3 rounded-full " >
                             <Image
@@ -64,6 +67,17 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
                         </a>
                     ))}
                 </div>
+                {pageData.social_media_icons_location === "bottom" && 
+                    <div className="">
+                        <ul className="flex gap-2 text-black">
+                            {pageData.social_media_profiles && pageData.social_media_profiles.map(profile => (
+                                <li key={profile.id}>
+                                    <a target="_blank" href={profile.link}>{renderSocialMediaIcons(profile.type)}</a>
+                                </li>
+                            ))}
+                        </ul>                
+                    </div>
+                }
             </div>
         </div>
     )
