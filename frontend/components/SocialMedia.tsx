@@ -102,9 +102,7 @@ export default function SocialMedia({id, type: initialType, link: initialLink, d
 
                 </>
             )}
-                <button className="p-1 hover:bg-stone-100 rounded-lg">
-                    <InsertPhotoOutlinedIcon />
-                </button>
+
             </div>
             {!deleteMenu ?  (
                     <button onClick={() => setDeleteMenu(true)}className="absolute bottom-2 right-2 hover:bg-stone-100 rounded-lg p-1">
