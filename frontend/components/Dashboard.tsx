@@ -80,8 +80,8 @@ export default function Dashboard({ data }: DashboardProps) {
 
     return (
         <div className="px-8 py-8 ">
-            <div className="py-20 flex min-h-screen gap-8">
-                <div className="basis-full lg:basis-3/4 mt-8 px-16 ">
+            <div className="py-10 flex min-h-screen gap-8">
+                <div className="basis-full lg:basis-3/4 px-16 ">
                     <EditProfileForm id={pageData.id} user={pageData.user} name={pageData.name} bio={pageData.bio} photo={pageData.photo} updateProfile={handleProfileUpdate}/>
                     <AddSocialMediaForm2 id={pageData.id} addNewProfile={handleSocialMediaAdd}/>
                     <div className="p-4">
