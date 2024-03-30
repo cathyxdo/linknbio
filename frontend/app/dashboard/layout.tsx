@@ -12,9 +12,9 @@ export default function DashboardLayout({
   const pathname = usePathname(); // Use usePathname to get the current path
 
   return (
-    <section className="bg-stone-100">
-      <nav className="flex justify-center">            
-          <ul className="px-10 py-3 mt-4 mx-4 fixed flex gap-6 w-full bg-white rounded-full shadow">
+    <section className="bg-stone-100" >
+      <nav className="flex justify-center sticky top-0 z-50" >            
+          <ul className="px-10 py-3 mt-4 mx-4 flex gap-6 w-full bg-white rounded-full shadow">
               <li className="">
                 <Link 
                   key='content'
