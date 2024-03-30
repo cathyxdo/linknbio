@@ -3,7 +3,7 @@ import { Phone, PhotoOutlined } from "@mui/icons-material";
 import { ChromePicker } from "react-color";
 import PhonePreview from "./PhonePreview";
 import { ListProfile } from "@/shared/interfaces";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 interface AppearanceProps {
     data: ListProfile,
 }
@@ -25,6 +25,19 @@ export default function Apperance({ data }: AppearanceProps) {
         social_media_profiles: data.social_media_profiles || [],
         links: data.links || []
     });
+    const [showColorBgPicker, setShowColorBgPicker] = useState(false);
+    const [backgroundColor, setBackgroundColor] = useState("#fff");
+    const pickerRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+          if (pickerRef.current && !pickerRef.current.contains(event.target as Node)) {
+            setShowColorBgPicker(false);
+          }
+        };
+    
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+      }, [pickerRef]);
 
     async function handleLocationChange(e: React.ChangeEvent<HTMLInputElement> ) {
  
@@ -85,7 +98,7 @@ export default function Apperance({ data }: AppearanceProps) {
     }
     return (
         <div className="px-8 py-8 ">
-            <div className="py-20 flex min-h-screen gap-8">
+            <div className="py-10 flex min-h-screen gap-8">
                 <div className="basis-full lg:basis-3/4 mt-8 px-16 ">
                     <h2 className="text-lg font-semibold">Background</h2>
                     <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
@@ -104,13 +117,23 @@ export default function Apperance({ data }: AppearanceProps) {
                             </div>
                             <div>
                                 <h3>Background Color</h3>
-                                <button className="mt-2 bg-blue-400 w-10 h-10 rounded-lg">
+                                <button 
+                                    className="mt-2 bg-blue-400 w-10 h-10 rounded-lg"
+                                    onClick={() => setShowColorBgPicker(showColowBgPicker => !showColorBgPicker)}
+                                >
                                 </button>
+                                {showColorBgPicker && 
+                                <div ref={pickerRef} className="absolute z-10">
+                                    <ChromePicker 
+                                        color={backgroundColor}
+                                        onChangeComplete={(newColor) => setBackgroundColor(newColor.hex)}
+                                    />
+                                </div>
+                                }
                             </div>
                         </div>
 
                     </div>
-                    <ChromePicker />
 
                     <h2 className="mt-4 text-lg font-semibold">Buttons</h2>
                     <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
