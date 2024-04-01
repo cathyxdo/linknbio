@@ -20,25 +20,137 @@ export default function Apperance({ data }: AppearanceProps) {
         background_color: data.background_color || "",
         background_image: data.background_image || "",
         link_bubble_style: data.link_bubble_style || "",
+        link_bubble_color: data.link_bubble_color || "",
         link_font: data.link_font || "",
+        link_font_color: data.link_font_color || "",
         social_media_icons_location: data.social_media_icons_location || "",
         social_media_profiles: data.social_media_profiles || [],
         links: data.links || []
     });
-    const [showColorBgPicker, setShowColorBgPicker] = useState(false);
-    const [backgroundColor, setBackgroundColor] = useState("#fff");
-    const pickerRef = useRef<HTMLDivElement>(null);
+    const [showBgColorPicker, setShowBgColorPicker] = useState(false);
+    const [showButtonColorPicker, setShowButtonColorPicker] = useState(false);
+    const [showButtonFontColorPicker, setShowButtonFontColorPicker] = useState(false);
+    const [showProfileFontColorPicker, setShowProfileFontColorPicker] = useState(false);
+    const bgPickerRef = useRef<HTMLDivElement>(null);
+    const buttonColorPickerRef = useRef<HTMLDivElement>(null);
+    const buttonFontColorPickerRef = useRef<HTMLDivElement>(null);
+    const profileFontColorPickerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-          if (pickerRef.current && !pickerRef.current.contains(event.target as Node)) {
-            setShowColorBgPicker(false);
-          }
+            if (
+                bgPickerRef.current && !bgPickerRef.current.contains(event.target as Node) &&
+                buttonColorPickerRef.current && !buttonColorPickerRef.current.contains(event.target as Node) &&
+                buttonFontColorPickerRef.current && !buttonFontColorPickerRef.current.contains(event.target as Node) &&
+                profileFontColorPickerRef.current && !profileFontColorPickerRef.current.contains(event.target as Node)
+            ) {
+                setShowBgColorPicker(false);
+                setShowButtonColorPicker(false);
+                setShowButtonFontColorPicker(false);
+                setShowProfileFontColorPicker(false);
+            }
         };
-    
+
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-      }, [pickerRef]);
+    }, []);
+    
+    async function handleBgColorChange(newColor: string) {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+                method: 'PATCH', // or 'PUT' if you are replacing the entire resource
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({background_color: newColor})
+            });
+            if (!response.ok) {
+                console.log(response);
+                throw new Error(`Error: ${response.status}`);
+            } else {
+                console.log('Profile updated successfully');
+                setPageData(prevState => ({
+                    ...prevState,
+                    background_color: newColor,
+                }));               
+            }
 
+        } catch (error) {
+            console.error('Failed to update: ', error);
+        }
+    }
+    async function handleButtonFontColorChange(newColor: string) {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+                method: 'PATCH', // or 'PUT' if you are replacing the entire resource
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({link_font_color: newColor})
+            });
+            if (!response.ok) {
+                console.log(response);
+                throw new Error(`Error: ${response.status}`);
+            } else {
+                console.log('Profile updated successfully');
+                setPageData(prevState => ({
+                    ...prevState,
+                    link_font_color: newColor,
+                }));               
+            }
+
+        } catch (error) {
+            console.error('Failed to update: ', error);
+        }
+    }
+
+    async function handleButtonColorChange(newColor: string) {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+                method: 'PATCH', // or 'PUT' if you are replacing the entire resource
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({link_bubble_color: newColor})
+            });
+            if (!response.ok) {
+                console.log(response);
+                throw new Error(`Error: ${response.status}`);
+            } else {
+                console.log('Profile updated successfully');
+                setPageData(prevState => ({
+                    ...prevState,
+                    link_bubble_color: newColor,
+                }));               
+            }
+
+        } catch (error) {
+            console.error('Failed to update: ', error);
+        }
+    }
+    async function handleProfileFontColorChange(newColor: string) {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+                method: 'PATCH', // or 'PUT' if you are replacing the entire resource
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({profile_font_color: newColor})
+            });
+            if (!response.ok) {
+                console.log(response);
+                throw new Error(`Error: ${response.status}`);
+            } else {
+                console.log('Profile updated successfully');
+                setPageData(prevState => ({
+                    ...prevState,
+                    profile_font_color: newColor,
+                }));               
+            }
+
+        } catch (error) {
+            console.error('Failed to update: ', error);
+        }
+    }
     async function handleLocationChange(e: React.ChangeEvent<HTMLInputElement> ) {
  
         try {
@@ -67,7 +179,7 @@ export default function Apperance({ data }: AppearanceProps) {
 
     function getLinkBubbleStyle(style: string) {
         if (style === pageData.link_bubble_style) {
-            return 'border-4 border-blue-400 rounded-lg'
+            return 'border-4 border-indigo-500 rounded-lg'
         } else {
             return 'border-4 border-transparent'
         }
@@ -118,15 +230,16 @@ export default function Apperance({ data }: AppearanceProps) {
                             <div>
                                 <h3>Background Color</h3>
                                 <button 
-                                    className="mt-2 bg-blue-400 w-10 h-10 rounded-lg"
-                                    onClick={() => setShowColorBgPicker(showColowBgPicker => !showColorBgPicker)}
+                                    className="mt-2 w-10 h-10 rounded-lg border-2"
+                                    style={{backgroundColor: pageData.background_color}}
+                                    onClick={() => setShowBgColorPicker(showBgColorPicker => !showBgColorPicker)}
                                 >
                                 </button>
-                                {showColorBgPicker && 
-                                <div ref={pickerRef} className="absolute z-10">
+                                {showBgColorPicker && 
+                                <div ref={bgPickerRef} className="absolute z-10">
                                     <ChromePicker 
-                                        color={backgroundColor}
-                                        onChangeComplete={(newColor) => setBackgroundColor(newColor.hex)}
+                                        color={pageData.background_color}
+                                        onChangeComplete={(newColor) => handleBgColorChange(newColor.hex)}
                                     />
                                 </div>
                                 }
@@ -182,13 +295,40 @@ export default function Apperance({ data }: AppearanceProps) {
                         </div>
                         <div>
                             <h3>Button Color</h3>
-                            <button className="mt-2 bg-blue-400 w-10 h-10 rounded-lg">
+                            <button 
+                                className="mt-2 w-10 h-10 rounded-lg"
+                                style={{ backgroundColor: pageData.link_bubble_color }}    
+                                onClick={() => setShowButtonColorPicker(showButtonColorPicker => !showButtonColorPicker)}
+                            >
                             </button>
+                            {showButtonColorPicker && 
+                                <div ref={buttonColorPickerRef} className="absolute z-10">
+                                    <ChromePicker 
+                                        color={pageData.link_bubble_color}
+                                        onChangeComplete={(newColor) => handleButtonColorChange(newColor.hex)}
+
+                                    />
+                                </div>
+                            }
+
                         </div>
                         <div>
                             <h3>Button Font Color</h3>
-                            <button className="mt-2 bg-blue-600 w-10 h-10 rounded-lg">
+                            <button 
+                                className="mt-2 w-10 h-10 rounded-lg"
+                                style={{ backgroundColor: pageData.link_font_color }}
+                                onClick={() => setShowButtonFontColorPicker(showButtonFontColorPicker => !showButtonFontColorPicker)}
+                            >
                             </button>
+                            {showButtonFontColorPicker && 
+                                <div ref={buttonFontColorPickerRef} className="absolute z-10">
+                                    <ChromePicker
+                                        color={pageData.link_font_color}
+                                        onChangeComplete={(newColor) => handleButtonFontColorChange(newColor.hex)}
+
+                                    />
+                                </div>
+                            }
                         </div>
 
                     </div>
@@ -207,8 +347,20 @@ export default function Apperance({ data }: AppearanceProps) {
                         </div>
                         <div>
                             <h3>Profile Font Color</h3>
-                            <button className="mt-2 bg-blue-600 w-10 h-10 rounded-lg">
+                            <button 
+                                className="mt-2 w-10 h-10 rounded-lg"
+                                style={{ backgroundColor: pageData.profile_font_color }}
+                                onClick={() => setShowProfileFontColorPicker(showProfileFontColorPicker => !showProfileFontColorPicker)}
+                            >
                             </button>
+                            {showProfileFontColorPicker && 
+                                <div ref={profileFontColorPickerRef} className="absolute z-10">
+                                    <ChromePicker
+                                        color={pageData.profile_font_color}
+                                        onChangeComplete={(newColor) => handleProfileFontColorChange(newColor.hex)}
+                                    />
+                                </div>
+                            }   
                         </div>
 
                     </div>

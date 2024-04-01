@@ -14,32 +14,38 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
     const renderSocialMediaIcons = (type: string) => {
         switch (type) {
             case 'instagram':
-                return <InstagramIcon className='text-m'/>;
+                return <InstagramIcon className='text-m' style={{color: pageData.profile_font_color}}/>;
             case 'facebook':
-                return <FacebookIcon className='text-m'/>;
+                return <FacebookIcon className='text-m' style={{color: pageData.profile_font_color}}/>;
             case 'youtube':
-                return <YouTubeIcon className='text-m'/>
+                return <YouTubeIcon className='text-m' style={{color: pageData.profile_font_color}}/>
             case 'twitter':
-                return <TwitterIcon className='text-m'/>
+                return <TwitterIcon className='text-m' style={{color: pageData.profile_font_color}}/>
             default:
                 return null;
         }
     }
-
+    function getLinkBubbleColorStyle() {
+        if (pageData.link_bubble_style.includes('bubble_outline')) {
+            return {outlineStyle: 'solid', outlineColor: pageData.link_bubble_color, color: pageData.link_font_color}
+        } else {
+            return {backgroundColor: pageData.link_bubble_color, color: pageData.link_font_color}
+        } 
+    }
     function getLinkBubbleStyle() {
         switch(pageData.link_bubble_style) {
             case 'bubble_filled':
                 return '';
             case 'bubble_filled_rounded':
-                return 'rounded_xl';
+                return 'rounded-xl';
             case 'bubble_filled_circular':
-                return 'rounded_full';
+                return 'rounded-full';
             case 'bubble_outline':
-                return 'border-black border-2 ';
+                return '';
             case 'bubble_outline_rounded':
-                return 'border-black border-2 rounded-xl';
+                return 'rounded-xl';
             case 'bubble_outline_circular':
-                return 'border-black border-2 rounded-full';
+                return 'rounded-full';
             case 'bubble_shadow':
                 return 'shadow-lg';
             case 'bubble_shadow_rounded':
@@ -53,7 +59,8 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
 
     return (
         <div className="basis-1/4 justify-center hidden lg:flex">
-            <div className={` bg-[${pageData.background_color}] fixed top-1/4 m-4 h-[692px] w-[320px] p-4 mb-4 space-y-2  border-gray-900 border-8 rounded-3xl shadow-sm flex flex-col items-center text-center`}>
+            <div style = {{backgroundColor: pageData.background_color }} 
+                className=" fixed top-1/4 m-4 h-[692px] w-[320px] p-4 mb-4 space-y-2  border-gray-900 border-8 rounded-3xl shadow-sm flex flex-col items-center text-center" >
                 <div className=" text-black flex flex-col gap-2 items-center">
                     <div className="">
                         <Image
@@ -64,8 +71,18 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
                             alt="link picture"
                             className=""/>
                     </div>
-                    <div className="text-sm font-bold">{pageData.name}</div>
-                    <div className="text-xs">{pageData.bio}</div>
+                    <div 
+                        style={{color: pageData.profile_font_color}}
+                        className="text-sm font-bold" 
+                    >        
+                        {pageData.name}
+                    </div>
+                    <div 
+                        style={{color: pageData.profile_font_color}}
+                        className="text-xs"
+                    >
+                        {pageData.bio}
+                    </div>
                 </div>
                 {pageData.social_media_icons_location === "top" && 
                     <div className="">
@@ -80,7 +97,7 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
                 }
                 <div className="flex flex-col gap-4 w-full">
                     {pageData.links && pageData.links.map(link => (
-                        <a target="_blank" key={link.id} href={link.link} className={`${getLinkBubbleStyle()} relative  text-xs px-3 py-3  `} >
+                        <a target="_blank" key={link.id} href={link.link} style={getLinkBubbleColorStyle()} className={`${getLinkBubbleStyle()} relative  text-xs px-3 py-3  `} >
                             <Image
                                 src={link.photo || '/test_img.jpg'} // Fallback to a default image if photo is not available
                                 width={33}

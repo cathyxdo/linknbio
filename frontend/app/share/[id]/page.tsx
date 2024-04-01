@@ -4,14 +4,17 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import Image from 'next/image';
+import { ListProfile } from "@/shared/interfaces";
 
 
 interface SharePageProps {
-    listid: string;
-    list: ListProfile;
+    list: ListProfile
+
+    //listid: string;
+    //list: ListProfile;
 }
 
-interface ListProfile {
+/* interface ListProfile {
     id: number;
     user: number;
     name: string;
@@ -42,7 +45,7 @@ interface Link {
     title: string;
     photo: string;
     list: number;
-} 
+}  */
 
 export default async function Page({ params }: any) {
     const list = await getList(params.id);
@@ -54,32 +57,39 @@ export default async function Page({ params }: any) {
     const renderSocialMediaIcons = (type: string) => {
         switch (type) {
             case 'instagram':
-                return <InstagramIcon className='ease-in transform hover:scale-110 transition duration-150'/>;
+                return <InstagramIcon className='ease-in transform hover:scale-110 transition duration-150' style={{color: list.profile_font_color}}/>;
             case 'facebook':
-                return <FacebookIcon className='ease-in transform hover:scale-110 transition duration-150'/>;
+                return <FacebookIcon className='ease-in transform hover:scale-110 transition duration-150' style={{color: list.profile_font_color}}/>;
             case 'youtube':
-                return <YouTubeIcon className='ease-in transform hover:scale-110 transition duration-150'/>
+                return <YouTubeIcon className='ease-in transform hover:scale-110 transition duration-150' style={{color: list.profile_font_color}}/>
             case 'twitter':
-                return <TwitterIcon className='ease-in transform hover:scale-110 transition duration-150'/>
+                return <TwitterIcon className='ease-in transform hover:scale-110 transition duration-150' style={{color: list.profile_font_color}}/>
             default:
                 return null;
         }
     }
 
+    function getLinkBubbleColorStyle() {
+        if (list.link_bubble_style.includes('bubble_outline')) {
+            return {outlineStyle: 'solid', outlineColor: list.link_bubble_color, color: list.link_font_color}
+        } else {
+            return {backgroundColor: list.link_bubble_color, color: list.link_font_color}
+        } 
+    }
     function getLinkBubbleStyle() {
         switch(list.link_bubble_style) {
             case 'bubble_filled':
                 return '';
             case 'bubble_filled_rounded':
-                return 'rounded_xl';
+                return 'rounded-xl';
             case 'bubble_filled_circular':
-                return 'rounded_full';
+                return 'rounded-full';
             case 'bubble_outline':
-                return 'border-black border-2 ';
+                return '';
             case 'bubble_outline_rounded':
-                return 'border-black border-2 rounded-xl';
+                return 'rounded-xl';
             case 'bubble_outline_circular':
-                return 'border-black border-2 rounded-full';
+                return 'rounded-full';
             case 'bubble_shadow':
                 return 'shadow-lg';
             case 'bubble_shadow_rounded':
@@ -90,9 +100,8 @@ export default async function Page({ params }: any) {
                 return 'border-2 border-black';           
         }
     }
-
     return (
-        <div className="flex flex-col items-center ml-4 mr-4">
+        <div className="flex flex-col items-center h-screen" style={{ backgroundColor: list.background_color}}>
             <div className="flex flex-col gap-4 items-center text-center m-10 w-full max-w-2xl ">
                 <div className="flex flex-col gap-2 items-center">
                     <div className="">
@@ -104,8 +113,18 @@ export default async function Page({ params }: any) {
                             alt="link picture"
                             className=""/>
                     </div>
-                    <div className="text-xl font-bold">{list.name}</div>
-                    <div className="text-l">{list.bio}</div>
+                    <div 
+                        style={{color: list.profile_font_color}}
+                        className="text-xl font-bold" 
+                    >        
+                        {list.name}
+                    </div>
+                    <div 
+                        style={{color: list.profile_font_color}}
+                        className="text-l"
+                    >
+                        {list.bio}
+                    </div>
                 </div>
                 {list.social_media_icons_location === "top" && 
                     <div>
@@ -120,7 +139,7 @@ export default async function Page({ params }: any) {
                 }
                 <div className="flex flex-col gap-6 w-full">
                     {list.links && list.links.map(link => (
-                        <a target="_blank" key={link.id} href={link.link} className={`${getLinkBubbleStyle()} px-4 py-4  ease-in transform hover:scale-105 transition duration-150`} >
+                        <a target="_blank" key={link.id} href={link.link} style={getLinkBubbleColorStyle()} className={`${getLinkBubbleStyle()} px-4 py-4  ease-in transform hover:scale-105 transition duration-150`} >
                             <Image
                                 src={link.photo || '/test_img.jpg'} // Fallback to a default image if photo is not available
                                 width={45}
