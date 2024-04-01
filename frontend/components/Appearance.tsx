@@ -39,14 +39,14 @@ export default function Apperance({ data }: AppearanceProps) {
         const handleClickOutside = (event: MouseEvent) => {
             if (
                 bgPickerRef.current && !bgPickerRef.current.contains(event.target as Node) &&
-                buttonColorPickerRef.current && !buttonColorPickerRef.current.contains(event.target as Node) &&
+                buttonColorPickerRef.current && !buttonColorPickerRef.current.contains(event.target as Node) /*&&
                 buttonFontColorPickerRef.current && !buttonFontColorPickerRef.current.contains(event.target as Node) &&
-                profileFontColorPickerRef.current && !profileFontColorPickerRef.current.contains(event.target as Node)
+                profileFontColorPickerRef.current && !profileFontColorPickerRef.current.contains(event.target as Node)*/
             ) {
                 setShowBgColorPicker(false);
                 setShowButtonColorPicker(false);
-                setShowButtonFontColorPicker(false);
-                setShowProfileFontColorPicker(false);
+                /*setShowButtonFontColorPicker(false);
+                setShowProfileFontColorPicker(false); */
             }
         };
 

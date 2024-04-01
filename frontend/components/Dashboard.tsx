@@ -24,7 +24,9 @@ export default function Dashboard({ data }: DashboardProps) {
         background_color: data.background_color || "",
         background_image: data.background_image || "",
         link_bubble_style: data.link_bubble_style || "",
+        link_bubble_color: data.link_bubble_color || "",
         link_font: data.link_font || "",
+        link_font_color: data.link_font_color || "",
         social_media_icons_location: data.social_media_icons_location || "",
         social_media_profiles: data.social_media_profiles || [],
         links: data.links || []
