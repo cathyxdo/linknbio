@@ -9,7 +9,12 @@ from django.conf import settings
 import boto3
 
 class ImageUploadView(APIView):
-    def post(self, request, format=None):
+    def post(self, request, pk, format=None):
+        try:
+            link = Link.objects.get(id=pk)
+        except Link.DoesNotExist:
+            return Response({'error': 'Link not found'}, status=status.HTTP_404_NOT_FOUND)
+
         # Ensure 'file' field exists in the request
         if 'file' not in request.data:
             return Response({'error': 'No file found in request'}, status=status.HTTP_400_BAD_REQUEST)
@@ -29,7 +34,44 @@ class ImageUploadView(APIView):
             # Get the URL of the uploaded file
             file_url = f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{file_obj.name}"
 
-            return Response({'url': file_url}, status=status.HTTP_201_CREATED)
+            # Update the link_photo_url field of the Link object
+            link.link_photo_url = file_url
+            link.save()
+            serializer = LinkSerializer(link)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class ImageDeleteView(APIView):
+    def delete(self, request, pk, format=None):
+        try:
+            link = Link.objects.get(id=pk)
+        except Link.DoesNotExist:
+            return Response({'error': 'Link not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        # Get the current image URL
+        file_url = link.link_photo_url
+
+        # Connect to S3 bucket
+        s3 = boto3.client('s3',
+                          aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                          aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
+
+        try:
+            # Extract the filename from the URL
+            file_name = file_url.split('/')[-1]
+
+            # Delete the file from S3 bucket
+            s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=file_name)
+
+            # Update the link_photo_url field of the Link object
+            link.link_photo_url = ''
+            link.save()
+            serializer = LinkSerializer(link)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

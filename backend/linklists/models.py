@@ -44,7 +44,7 @@ class SocialMedia(models.Model):
     SOCIAL_MEDIA_CHOICES = [
         ('instagram', 'Instagram'),
         ('facebook', 'Facebook'),
-        ('linkedin', 'LinkedIn'),
+        ('twitter', 'Twitter'),
         ('youtube', 'Youtube'),
 
         # Add more choices as needed
