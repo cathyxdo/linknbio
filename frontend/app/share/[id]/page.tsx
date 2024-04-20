@@ -140,13 +140,15 @@ export default async function Page({ params }: any) {
                 <div className="flex flex-col gap-6 w-full">
                     {list.links && list.links.map(link => (
                         <a target="_blank" key={link.id} href={link.link} style={getLinkBubbleColorStyle()} className={`${getLinkBubbleStyle()} px-4 py-4  ease-in transform hover:scale-105 transition duration-150`} >
-                            <Image
-                                src={link.photo || '/test_img.jpg'} // Fallback to a default image if photo is not available
-                                width={45}
-                                height={45}
-                                style={imageStyle}
-                                alt={link.title}
-                                className="absolute left-1 top-1"/>
+                            {link.link_photo_url && 
+                                <Image
+                                    src={link.link_photo_url} // Fallback to a default image if photo is not available
+                                    width={45}
+                                    height={45}
+                                    style={imageStyle}
+                                    alt={link.title}
+                                    className="absolute left-1 top-1"/>
+                            }
                             <p className="text-sm">{link.title}</p>
                         </a>
                     ))}

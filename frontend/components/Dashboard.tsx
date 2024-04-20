@@ -7,6 +7,7 @@ import AddSocialMediaForm2 from "./AddSocialMediaForm2";
 import AddLinkForm2 from "./AddLinkForm2";
 import LinkElement2 from "./LinkElement2";
 import PhonePreview from "./PhonePreview";
+import ImageModal from "./ImageModal";
 import { Phone } from "@mui/icons-material";
 interface DashboardProps {
     data: ListProfile,
@@ -31,6 +32,12 @@ export default function Dashboard({ data }: DashboardProps) {
         social_media_profiles: data.social_media_profiles || [],
         links: data.links || []
     });
+    const [showImageModal, setShowImageModal] = useState(false);
+    const [imageModalData, setImageModalData] = useState({
+        type: "",
+        id: 0,
+    })
+
     function handleLinkAdd(newLink: Link) {
         setPageData(prevPageData => ({
             ...prevPageData,
@@ -79,6 +86,16 @@ export default function Dashboard({ data }: DashboardProps) {
             bio: newBio
         }));
     }
+    function closeImageModal() {
+        setShowImageModal(false);
+    }
+    function openImageModal(type: string, id: number) {
+        setShowImageModal(true);
+        setImageModalData({
+            type: type,
+            id: id
+        })
+    }
 
     return (
         <div className="px-8 py-8 ">
@@ -91,16 +108,20 @@ export default function Dashboard({ data }: DashboardProps) {
                             <SocialMedia key={profile.id} {...profile} deleteSocialMedia={handleSocialMediaDelete} updateSocialMedia={handleSocialMediaUpdate} />
                         ))}
                     </div>
+
                     <AddLinkForm2 id={pageData.id} addNewLink={handleLinkAdd} />
                     <div className="p-4">
                         {pageData.links.map((link) => (
-                            <LinkElement2 key={link.id} {...link} deleteLink={handleLinkDelete} updateLink={handleLinkUpdate} />
+                            <LinkElement2 key={link.id} {...link} deleteLink={handleLinkDelete} updateLink={handleLinkUpdate} openImageModal={openImageModal}/>
                         ))}
-                    </div>        
+                    </div>    
                 </div>
                 <PhonePreview pageData={pageData}/>
 
             </div>
+            {showImageModal && 
+                <ImageModal closeImageModal={closeImageModal} data={imageModalData}/>
+            }    
         </div>
     )
 }

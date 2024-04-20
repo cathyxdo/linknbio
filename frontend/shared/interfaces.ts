@@ -31,4 +31,5 @@ export interface Link {
     title: string;
     photo: string;
     list: number;
+    link_photo_url: string;
 } 

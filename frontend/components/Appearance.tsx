@@ -4,6 +4,9 @@ import { ChromePicker } from "react-color";
 import PhonePreview from "./PhonePreview";
 import { ListProfile } from "@/shared/interfaces";
 import { useState, useRef, useEffect } from "react";
+import ImageCropper from "./ImageCropper";
+import { fileURLToPath } from "url";
+
 interface AppearanceProps {
     data: ListProfile,
 }
@@ -35,6 +38,9 @@ export default function Apperance({ data }: AppearanceProps) {
     const buttonColorPickerRef = useRef<HTMLDivElement>(null);
     const buttonFontColorPickerRef = useRef<HTMLDivElement>(null);
     const profileFontColorPickerRef = useRef<HTMLDivElement>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
@@ -53,7 +59,35 @@ export default function Apperance({ data }: AppearanceProps) {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
-    
+
+    function handleFileChange (event: React.ChangeEvent<HTMLInputElement>) {
+        if (event.target.files && event.target.files.length > 0) {
+          setSelectedFile(event.target.files[0]);
+        }
+    }
+    async function handleUpload() {
+        if (!selectedFile) {
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            const response = await fetch("http://127.0.0.1:8000/upload/", {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to upload image');
+            }
+            const responseData = await response.json();
+            setImageUrl(responseData.url);
+
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    }
     async function handleBgColorChange(newColor: string) {
         try {
             const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
@@ -220,12 +254,12 @@ export default function Apperance({ data }: AppearanceProps) {
                                     <div className="bg-black h-9 w-full"></div>
                                     <p>Color</p>
                                 </button>
-                                <button className="p-2">
+                                {/* <button className="p-2">
                                     <div className="bg-white h-9 rounded-xl border border-black border-dashed flex items-center justify-center">
                                         <PhotoOutlined />
                                     </div>
                                     <p>Image</p>
-                                </button>
+                                </button> */}
                             </div>
                             <div>
                                 <h3>Background Color</h3>
@@ -244,6 +278,22 @@ export default function Apperance({ data }: AppearanceProps) {
                                 </div>
                                 }
                             </div>
+                            {/* <div>
+                                <h3>Background Image</h3>
+
+                                        <input
+                                    type="file"
+                                    id="fileInput"
+                                    onChange={handleFileChange}
+                                    />
+                                    <button onClick={handleUpload} disabled={!selectedFile}>
+                                    Upload
+                                    </button>
+                                    <p>{imageUrl}</p>
+                                    
+
+                            </div> */}
+                           
                         </div>
 
                     </div>

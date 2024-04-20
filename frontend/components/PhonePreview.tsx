@@ -98,13 +98,15 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
                 <div className="flex flex-col gap-4 w-full">
                     {pageData.links && pageData.links.map(link => (
                         <a target="_blank" key={link.id} href={link.link} style={getLinkBubbleColorStyle()} className={`${getLinkBubbleStyle()} relative  text-xs px-3 py-3  `} >
+                            {link.link_photo_url && 
                             <Image
-                                src={link.photo || '/test_img.jpg'} // Fallback to a default image if photo is not available
+                                src={link.link_photo_url} 
                                 width={33}
                                 height={33}
                                 style={imageStyle}
                                 alt={link.title}
                                 className="absolute left-1 top-1"/>
+                            }
                             <p className="text-center text-xs">{link.title}</p>
                         </a>
                     ))}

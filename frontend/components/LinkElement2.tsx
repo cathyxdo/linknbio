@@ -3,23 +3,25 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import { Link } from "@/shared/interfaces";
-
+import Image from 'next/image';
 interface LinkProps {
     id: number,
     title: string,
     link: string,
+    link_photo_url: string,
     deleteLink: (id: number) => void;
     updateLink: (link: Link) => void;
-
+    openImageModal: (type: string, id: number) => void;
 }
-export default function LinkElement2({id, title: initialTitle, link: initialLink, deleteLink, updateLink} : LinkProps) {
+export default function LinkElement2({id, title: initialTitle, link: initialLink, link_photo_url: initialPhotoUrl, deleteLink, updateLink, openImageModal} : LinkProps) {
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMenu, setDeleteMenu] = useState<boolean>(false);
-
+    const [imageMenu, setImageMenu] = useState<boolean>(false);
     const [linkData, setLinkData] = useState({
         id: id,
         title: initialTitle,
-        link: initialLink
+        link: initialLink,
+        link_photo_url: initialPhotoUrl
     });
 
     const toggleEditMode = (): void => {
@@ -96,14 +98,58 @@ export default function LinkElement2({id, title: initialTitle, link: initialLink
                     <p className="p-1">{linkData.link}</p>
                 </>
             )}
-                <button className="p-1 hover:bg-stone-100 rounded-lg">
+                <button 
+                    className="p-1 hover:bg-stone-100 rounded-lg"
+                    onClick={() => {setImageMenu(!imageMenu)/*openImageModal("link", id)*/}}
+                >
                     <InsertPhotoOutlinedIcon />
                 </button>
             </div>
             {!deleteMenu ?  (
-                    <button onClick={() => setDeleteMenu(true)}className="absolute bottom-2 right-2 hover:bg-stone-100 rounded-lg p-1">
+                <>
+                    <button onClick={() => setDeleteMenu(true)} className="absolute bottom-2 right-2 hover:bg-stone-100 rounded-lg p-1">
                         <DeleteOutlinedIcon className="w-5 h-5 text-stone-500 "/>
                     </button>
+                    {imageMenu && (
+                        <div className="">
+                            <h2 className="bg-slate-100 text-center">Thumbnail Image</h2>
+
+                            {linkData.link_photo_url ? (
+                                <>
+                                    <div className="flex gap-4">
+                                        <Image
+                                            src={linkData.link_photo_url} 
+                                            width={100}
+                                            height={100}
+                                            alt={linkData.title}
+                                            className="border-2"
+                                        />
+                                        <button 
+                                                className="rounded-full bg-blue-100 hover:bg-blue-300 font-medium px-5 py-2.5 text-center my-4"
+                                                onClick={() => openImageModal("link", id)}
+                                            >
+                                                Update Thumbnail
+                                            </button>
+                                            <button 
+                                                className="rounded-full bg-red-100 hover:bg-red-400 font-medium px-5 py-2.5 text-center my-4"
+                                                onClick={() => openImageModal("link", id)}
+                                            >
+                                                Delete Thumbnail
+                                            </button>
+                                    </div>
+                                </>
+                            ) : (
+                                <button
+                                    className="rounded-full bg-blue-100 hover:bg-blue-300 font-medium px-5 py-2.5 text-center my-4"
+                                    onClick={() => openImageModal("link", id)}
+                                >
+                                    Set Thumbnail
+                                </button>
+                            )}
+                                
+                        </div>
+                    )}
+                </>
                 ) : (
                     <div className="flex flex-col gap-4 mt-8">
                         <h3>Delete this link? You will not be able to undo this action.</h3>
@@ -114,7 +160,6 @@ export default function LinkElement2({id, title: initialTitle, link: initialLink
                         
                     </div>
                 )}
-                
             
         </div>
     )
