@@ -9,11 +9,13 @@ import ReactCrop, {
 } from 'react-image-crop'
 import { canvasPreview } from './canvasPreview'
 import { useDebounceEffect } from './useDebounceEffect'
-
+import { Link } from "@/shared/interfaces";
 import 'react-image-crop/dist/ReactCrop.css'
 interface ImageCropperProps {
   id: number,
-  closeImageModal: () => void ;
+  closeImageModal: () => void,
+  updateLink: (link: Link) => void,
+  setNewLinkImageData: (newPhotoUrl: string) => void,
 }
 // This is to demonstate how to make and center a % aspect crop
 // which is a bit trickier so we use some helper functions.
@@ -37,7 +39,7 @@ function centerAspectCrop(
   )
 }
 
-export default function ImageCropper({id, closeImageModal} : ImageCropperProps) {
+export default function ImageCropper({id, closeImageModal, updateLink, setNewLinkImageData} : ImageCropperProps) {
   const [imgSrc, setImgSrc] = useState('')
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
@@ -117,11 +119,15 @@ export default function ImageCropper({id, closeImageModal} : ImageCropperProps) 
         method: 'POST',
         body: formData,
       });
-      closeImageModal();
-      
-      // Handle the response from the API as needed
-      console.log('Upload response:', response);
-      
+      if (!response.ok) {
+          console.log(response);
+          throw new Error(`Error: ${response.status}`);
+      } else {
+        const updatedLink : Link = await response.json();
+        updateLink(updatedLink);
+        setNewLinkImageData(updatedLink.link_photo_url);
+        closeImageModal();
+      }
     } catch (error) {
       console.error('Error uploading image:', error);
     }
