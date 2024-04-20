@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import Image from "next/image";
 interface ProfileFormProps {
     id: number;
     user: number;
@@ -64,7 +64,9 @@ export default function EditProfileForm({ id, user, name, bio, photo, updateProf
                                     </p>
                                 </div>
                             </div>
-                            <button className="text-sm">Upload Profile Photo</button>
+                            <div>
+                                <button className="text-sm rounded-full bg-blue-100 hover:bg-blue-300 px-5 py-2.5 text-center my-4">Upload Profile Photo</button>
+                            </div>
                         </div>
                         
                         <label>Name</label>

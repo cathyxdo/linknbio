@@ -72,8 +72,31 @@ export default function LinkElement2({id, title: initialTitle, link: initialLink
                 console.log(response);
                 throw new Error(`Error: ${response.status}`);
             } else {
-                console.log('Social Media deleted successfully');
+                console.log('Link deleted successfully');
                 deleteLink(id);                
+            }
+        } catch (error) {
+            console.error('error during login', error);
+        }
+    }
+
+    async function handleImageDelete() {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/delete-image/links/" + id + "/", {
+                method: 'DELETE', // or 'PUT' if you are replacing the entire resource
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            if (!response.ok) {
+                console.log(response);
+                throw new Error(`Error: ${response.status}`);
+            } else {
+                console.log('Image deleted successfully');
+                const updatedLink : Link = await response.json();
+                updateLink(updatedLink);
+                setImageMenu(false);
+                setLinkData({...linkData, link_photo_url: ""})
             }
         } catch (error) {
             console.error('error during login', error);
@@ -132,7 +155,7 @@ export default function LinkElement2({id, title: initialTitle, link: initialLink
                                             </button>
                                             <button 
                                                 className="rounded-full bg-red-100 hover:bg-red-400 font-medium px-5 py-2.5 text-center my-4"
-                                                onClick={() => openImageModal("link", id)}
+                                                onClick={handleImageDelete}
                                             >
                                                 Delete Thumbnail
                                             </button>
