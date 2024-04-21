@@ -104,15 +104,17 @@ export default async function Page({ params }: any) {
         <div className="flex flex-col items-center h-screen" style={{ backgroundColor: list.background_color}}>
             <div className="flex flex-col gap-4 items-center text-center m-10 w-full max-w-2xl ">
                 <div className="flex flex-col gap-2 items-center">
-                    <div className="">
-                        <Image
-                            src={'/test_img.jpg'}
-                            width={100}
-                            height={100}
-                            style={imageStyle}
-                            alt="link picture"
-                            className=""/>
-                    </div>
+                    {list.profile_photo_url &&
+                        <div className="">
+                            <Image
+                                src={list.profile_photo_url}
+                                width={100}
+                                height={100}
+                                style={imageStyle}
+                                alt="profile-photo"
+                                className=""/>
+                        </div>
+                    }
                     <div 
                         style={{color: list.profile_font_color}}
                         className="text-xl font-bold" 

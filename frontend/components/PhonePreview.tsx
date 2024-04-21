@@ -62,15 +62,18 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
             <div style = {{backgroundColor: pageData.background_color }} 
                 className=" fixed top-1/4 m-4 h-[692px] w-[320px] p-4 mb-4 space-y-2  border-gray-900 border-8 rounded-3xl shadow-sm flex flex-col items-center text-center" >
                 <div className=" text-black flex flex-col gap-2 items-center">
+                {pageData.profile_photo_url && 
                     <div className="">
                         <Image
-                            src={'/test_img.jpg'}
+                            src={pageData.profile_photo_url}
                             width={50}
                             height={50}
                             style= {imageStyle}
                             alt="link picture"
                             className=""/>
+                        
                     </div>
+                }
                     <div 
                         style={{color: pageData.profile_font_color}}
                         className="text-sm font-bold" 

@@ -9,6 +9,8 @@ import LinkElement2 from "./LinkElement2";
 import PhonePreview from "./PhonePreview";
 import ImageModal from "./ImageModal";
 import { Phone } from "@mui/icons-material";
+import { EventLoopMonitorOptions } from "perf_hooks";
+
 interface DashboardProps {
     data: ListProfile,
 }
@@ -19,6 +21,7 @@ export default function Dashboard({ data }: DashboardProps) {
         name: data.name || "",
         bio: data.bio || "",
         photo: data.photo || "",
+        profile_photo_url: data.profile_photo_url || "",
         profile_font: data.profile_font || "",
         profile_font_color: data.profile_font_color || "",
         background_flag: data.background_color || "",
@@ -79,11 +82,20 @@ export default function Dashboard({ data }: DashboardProps) {
                 profile.id === updatedProfile.id ? updatedProfile : profile),
         }));
     }
-    function handleProfileUpdate(newName: string, newBio: string) {
+    function handleProfileUpdate(newName: string, newBio: string, newProfilePhotoUrl: string) {
         setPageData(prevData => ({
             ...prevData,
             name: newName,
-            bio: newBio
+            bio: newBio,
+            profile_photo_url: newProfilePhotoUrl
+        }));
+    }
+    function handleProfileUpdate2(updatedProfile: ListProfile) {
+        setPageData(prevPageData => ({
+            ...prevPageData,
+            name: updatedProfile.name,
+            bio: updatedProfile.bio,
+            profile_photo_url: updatedProfile.profile_photo_url
         }));
     }
     function closeImageModal() {
@@ -101,7 +113,7 @@ export default function Dashboard({ data }: DashboardProps) {
         <div className="px-8 py-8 ">
             <div className="py-10 flex min-h-screen gap-8">
                 <div className="basis-full lg:basis-3/4 px-16 ">
-                    <EditProfileForm id={pageData.id} user={pageData.user} name={pageData.name} bio={pageData.bio} photo={pageData.photo} updateProfile={handleProfileUpdate}/>
+                    <EditProfileForm id={pageData.id} user={pageData.user} name={pageData.name} bio={pageData.bio} profile_photo_url={pageData.profile_photo_url} photo={pageData.photo} updateProfile={handleProfileUpdate}/>
                     <AddSocialMediaForm2 id={pageData.id} addNewProfile={handleSocialMediaAdd}/>
                     <div className="p-4">
                         {pageData.social_media_profiles.map((profile) => (
@@ -119,9 +131,10 @@ export default function Dashboard({ data }: DashboardProps) {
                 <PhonePreview pageData={pageData}/>
 
             </div>
+
             {showImageModal && 
                 <ImageModal closeImageModal={closeImageModal} data={imageModalData}/>
-            }    
+            }   
         </div>
     )
 }

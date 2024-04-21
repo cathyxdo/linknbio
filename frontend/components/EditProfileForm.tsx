@@ -1,26 +1,39 @@
 import { useState } from "react";
 import Image from "next/image";
+import ProfileImageModal from "./ProfileImageModal";
 interface ProfileFormProps {
     id: number;
     user: number;
     name: string;
     bio: string;
     photo: string;
-    updateProfile: (newName: string, newBio: string) => void;
-
+    profile_photo_url: string;
+    updateProfile: (newName: string, newBio: string, newProfilePhotoUrl: string) => void;
 }
 
-export default function EditProfileForm({ id, user, name, bio, photo, updateProfile} : ProfileFormProps) {
+export default function EditProfileForm({ id, user, name, bio, profile_photo_url, photo, updateProfile} : ProfileFormProps) {
     const [formData, setFormData] = useState( {
         name : name ? name : "",
         bio: bio ? bio : "",
+        profile_photo_url: profile_photo_url ? profile_photo_url : "",
     });
+    const [showProfileImageModal, setShowProfileImageModal] = useState(false);
+    function closeProfileImageModal() {
+        setShowProfileImageModal(false);
+    }
 
     function handleChange(event : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         setFormData({
             ...formData,
             [event.target.name]:  event.target.value
         })
+    }
+
+    function handleProfileImageUpdate(newProfilePhotoUrl: string) {
+        setFormData({...formData,
+            profile_photo_url: newProfilePhotoUrl
+        })
+        updateProfile(formData.name, formData.bio, formData.profile_photo_url);
     }
 
     async function handleSubmit(event : React.FormEvent) {
@@ -38,7 +51,7 @@ export default function EditProfileForm({ id, user, name, bio, photo, updateProf
                 throw new Error(`Error: ${response.status}`);
             } else {
                 console.log('Profile updated successfully');
-                updateProfile(formData.name, formData.bio);
+                updateProfile(formData.name, formData.bio, formData.profile_photo_url);
             }
 
         } catch (error) {
@@ -47,6 +60,7 @@ export default function EditProfileForm({ id, user, name, bio, photo, updateProf
     }
 
     return (
+        <>
             <div className="p-4">
                 <div className="p-4 mb-4 space-y-6 bg-white border rounded-xl shadow ">
                     <h3 className="text-lg font-semibold">Edit Profile</h3>
@@ -64,8 +78,21 @@ export default function EditProfileForm({ id, user, name, bio, photo, updateProf
                                     </p>
                                 </div>
                             </div>
-                            <div>
-                                <button className="text-sm rounded-full bg-blue-100 hover:bg-blue-300 px-5 py-2.5 text-center my-4">Upload Profile Photo</button>
+                            <div className="basis-1/4 flex flex-col items-center">
+                                <Image 
+                                    src={profile_photo_url}
+                                    width={100}
+                                    height={100}
+                                    style= {{borderRadius: '50%'}}
+                                    alt={"profile-photo"}
+                                />
+
+                                <button 
+                                    className="text-sm rounded-full bg-blue-100 hover:bg-blue-300 px-5 py-2.5 text-center my-4"
+                                    onClick={() => setShowProfileImageModal(true)}
+                                >
+                                    Upload Profile Photo
+                                </button>
                             </div>
                         </div>
                         
@@ -80,5 +107,9 @@ export default function EditProfileForm({ id, user, name, bio, photo, updateProf
                     </form>
                 </div>
             </div>
+            {showProfileImageModal &&
+                <ProfileImageModal id={id} closeProfileImageModal={closeProfileImageModal} handleProfileImageUpdate={handleProfileImageUpdate} />
+            }
+        </>
     )
 }

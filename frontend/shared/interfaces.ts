@@ -4,6 +4,7 @@ export interface ListProfile {
     name: string;
     bio: string;
     photo: string;
+    profile_photo_url: string;
     profile_font: string;
     profile_font_color: string;
     background_flag: string;
