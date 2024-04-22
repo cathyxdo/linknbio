@@ -1,5 +1,5 @@
 from django.urls import path
-from linklists.views import LinkDetail, CreateLink, ListDetail, ListList, SocialMediaDetail, CreateSocialMedia, ImageUploadView, ImageDeleteView
+from linklists.views import LinkDetail, CreateLink, ListDetail, ListList, SocialMediaDetail, CreateSocialMedia, ImageUploadView, ImageDeleteView, ProfileImageDeleteView, ProfileImageUploadView
 
 urlpatterns = [
     path("api/lists/<int:pk>/", ListDetail.as_view(), name='list_modify'),
@@ -10,5 +10,6 @@ urlpatterns = [
     path("api/social-media-profiles/", CreateSocialMedia.as_view(), name='social_media_profile_create'),  
     path('api/upload-image/links/<int:pk>/', ImageUploadView.as_view(), name='image-upload'),
     path('api/delete-image/links/<int:pk>/', ImageDeleteView.as_view(), name='image-delete'),
-
+    path('api/upload-profile-image/lists/<int:pk>/', ProfileImageUploadView.as_view(), name='profile-image-upload'),
+    path('api/delete-profile-image/lists/<int:pk>/', ProfileImageDeleteView.as_view(), name='profile-image-delete'),
 ]
