@@ -4,6 +4,7 @@ import { ChromePicker } from "react-color";
 import PhonePreview from "./PhonePreview";
 import { ListProfile } from "@/shared/interfaces";
 import { useState, useRef, useEffect } from "react";
+import FontModal from "./FontModal";
 import ImageCropper from "./ImageCropper";
 import { fileURLToPath } from "url";
 
@@ -17,6 +18,7 @@ export default function Apperance({ data }: AppearanceProps) {
         name: data.name || "",
         bio: data.bio || "",
         photo: data.photo || "",
+        profile_photo_url: data.profile_photo_url || "",
         profile_font: data.profile_font || "",
         profile_font_color: data.profile_font_color || "",
         background_flag: data.background_color || "",
@@ -40,6 +42,7 @@ export default function Apperance({ data }: AppearanceProps) {
     const profileFontColorPickerRef = useRef<HTMLDivElement>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [showFontModal, setShowFontModal] = useState(false);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -60,6 +63,9 @@ export default function Apperance({ data }: AppearanceProps) {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    function closeFontModal() {
+        setShowFontModal(false);
+    }
     function handleFileChange (event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files && event.target.files.length > 0) {
           setSelectedFile(event.target.files[0]);
@@ -243,219 +249,234 @@ export default function Apperance({ data }: AppearanceProps) {
         }
     }
     return (
-        <div className="px-8 py-8 ">
-            <div className="py-10 flex min-h-screen gap-8">
-                <div className="basis-full lg:basis-3/4 mt-8 px-16 ">
-                    <h2 className="text-lg font-semibold">Background</h2>
-                    <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
-                        <div className="flex flex-col gap-2">
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                <button className="p-2 border-4 border-blue-400 rounded-lg" >
-                                    <div className="bg-black h-9 w-full"></div>
-                                    <p>Color</p>
-                                </button>
-                                {/* <button className="p-2">
-                                    <div className="bg-white h-9 rounded-xl border border-black border-dashed flex items-center justify-center">
-                                        <PhotoOutlined />
-                                    </div>
-                                    <p>Image</p>
-                                </button> */}
-                            </div>
-                            <div>
-                                <h3>Background Color</h3>
-                                <button 
-                                    className="mt-2 w-10 h-10 rounded-lg border-2"
-                                    style={{backgroundColor: pageData.background_color}}
-                                    onClick={() => setShowBgColorPicker(showBgColorPicker => !showBgColorPicker)}
-                                >
-                                </button>
-                                {showBgColorPicker && 
-                                <div ref={bgPickerRef} className="absolute z-10">
-                                    <ChromePicker 
-                                        color={pageData.background_color}
-                                        onChangeComplete={(newColor) => handleBgColorChange(newColor.hex)}
-                                    />
-                                </div>
-                                }
-                            </div>
-                            {/* <div>
-                                <h3>Background Image</h3>
-
-                                        <input
-                                    type="file"
-                                    id="fileInput"
-                                    onChange={handleFileChange}
-                                    />
-                                    <button onClick={handleUpload} disabled={!selectedFile}>
-                                    Upload
-                                    </button>
-                                    <p>{imageUrl}</p>
-                                    
-
-                            </div> */}
-                           
-                        </div>
-
-                    </div>
-
-                    <h2 className="mt-4 text-lg font-semibold">Buttons</h2>
-                    <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
-                        <div className="flex flex-col gap-2">
-                            <h3>Fill</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 ">
-                                <button onClick={() => handleLinkBubbleClick('bubble_filled')} className={`p-2 ${getLinkBubbleStyle('bubble_filled')} `} >
-                                    <div className="bg-black h-9 w-full"></div>
-                                </button>
-                                <button onClick={() => handleLinkBubbleClick('bubble_filled_rounded')} className={`p-2 ${getLinkBubbleStyle('bubble_filled_rounded')} `} >
-                                    <div className="bg-black h-9 rounded-xl"></div>
-                                </button>
-                                <button onClick={() => handleLinkBubbleClick('bubble_filled_circular')} className={`p-2 ${getLinkBubbleStyle('bubble_filled_circular')} `} >
-                                    <div className="bg-black h-9 rounded-full"></div>
-                                </button>
-                            </div>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                            <h3>Outline</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                <button onClick={() => handleLinkBubbleClick('bubble_outline')} className={`p-2 ${getLinkBubbleStyle('bubble_outline')} `} >
-                                    <div className="bg-white border-black border-2 h-9"></div>
-                                </button>
-                                <button onClick={() => handleLinkBubbleClick('bubble_outline_rounded')} className={`p-2 ${getLinkBubbleStyle('bubble_outline_rounded')} `} >
-                                    <div className="bg-white h-9 border-black border-2 rounded-xl"></div>
-
-                                </button>
-                                <button onClick={() => handleLinkBubbleClick('bubble_outline_circular')} className={`p-2 ${getLinkBubbleStyle('bubble_outline_circular')} `} >
-                                    <div className="bg-white h-9 border-black border-2 rounded-full"></div>
-                                </button>
-                            </div>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                            <h3>Shadow</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 ">
-                                <button onClick={() => handleLinkBubbleClick('bubble_shadow')} className={`p-2 ${getLinkBubbleStyle('bubble_shadow')} `} >
-                                    <div className="bg-white shadow-lg h-9"></div>
-                                </button>
-                                <button onClick={() => handleLinkBubbleClick('bubble_shadow_rounded')} className={`p-2 ${getLinkBubbleStyle('bubble_shadow_rounded')} `} >
-                                    <div className="bg-white h-9 shadow-lg rounded-xl"></div>
-                                </button>
-                                <button onClick={() => handleLinkBubbleClick('bubble_shadow_circular')} className={`p-2 ${getLinkBubbleStyle('bubble_shadow_circular')} `} >
-                                    <div className="bg-white h-9 shadow-lg rounded-full"></div>
-                                </button>
-                            </div>
-                        </div>
-                        <div>
-                            <h3>Button Color</h3>
-                            <button 
-                                className="mt-2 w-10 h-10 rounded-lg"
-                                style={{ backgroundColor: pageData.link_bubble_color }}    
-                                onClick={() => setShowButtonColorPicker(showButtonColorPicker => !showButtonColorPicker)}
-                            >
-                            </button>
-                            {showButtonColorPicker && 
-                                <div ref={buttonColorPickerRef} className="absolute z-10">
-                                    <ChromePicker 
-                                        color={pageData.link_bubble_color}
-                                        onChangeComplete={(newColor) => handleButtonColorChange(newColor.hex)}
-
-                                    />
-                                </div>
-                            }
-
-                        </div>
-                        <div>
-                            <h3>Button Font Color</h3>
-                            <button 
-                                className="mt-2 w-10 h-10 rounded-lg"
-                                style={{ backgroundColor: pageData.link_font_color }}
-                                onClick={() => setShowButtonFontColorPicker(showButtonFontColorPicker => !showButtonFontColorPicker)}
-                            >
-                            </button>
-                            {showButtonFontColorPicker && 
-                                <div ref={buttonFontColorPickerRef} className="absolute z-10">
-                                    <ChromePicker
-                                        color={pageData.link_font_color}
-                                        onChangeComplete={(newColor) => handleButtonFontColorChange(newColor.hex)}
-
-                                    />
-                                </div>
-                            }
-                        </div>
-
-                    </div>
-                    <h2 className="mt-4 text-lg font-semibold">Font</h2>
-                    <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
-
-                        <div>
-                            <h3>Profile Font</h3>
-                            <select>
-                                <option>Arial</option>
-                                <option>Times New Roman</option>
-                                <option>Calibri</option>
-                                <option>Cambria</option>
-
-                            </select>
-                        </div>
-                        <div>
-                            <h3>Profile Font Color</h3>
-                            <button 
-                                className="mt-2 w-10 h-10 rounded-lg"
-                                style={{ backgroundColor: pageData.profile_font_color }}
-                                onClick={() => setShowProfileFontColorPicker(showProfileFontColorPicker => !showProfileFontColorPicker)}
-                            >
-                            </button>
-                            {showProfileFontColorPicker && 
-                                <div ref={profileFontColorPickerRef} className="absolute z-10">
-                                    <ChromePicker
-                                        color={pageData.profile_font_color}
-                                        onChangeComplete={(newColor) => handleProfileFontColorChange(newColor.hex)}
-                                    />
-                                </div>
-                            }   
-                        </div>
-
-                    </div>
-                    <h2 className="mt-4 text-lg font-semibold">Social Media</h2>
-                    <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
-                        <div>
-                            <h3 className="mb-4">Social Media Icons Location</h3>
-                            <form>
-                            <fieldset>
-
+        <>
+            <div className="px-8 py-8 ">
+                <div className="py-10 flex min-h-screen gap-8">
+                    <div className="basis-full lg:basis-3/4 mt-8 px-16 ">
+                        <h2 className="text-lg font-semibold">Background</h2>
+                        <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
                             <div className="flex flex-col gap-2">
-                                <div className="">
-                                    <input 
-                                        type="radio" 
-                                        id="top" 
-                                        name="location" 
-                                        value="top" 
-                                        checked={pageData.social_media_icons_location === "top"} 
-                                        onChange={handleLocationChange}
-
-                                    />
-                                    <label htmlFor="top" className="ml-4">Top</label>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                    <button className="p-2 border-4 border-blue-400 rounded-lg" >
+                                        <div className="bg-black h-9 w-full"></div>
+                                        <p>Color</p>
+                                    </button>
+                                    {/* <button className="p-2">
+                                        <div className="bg-white h-9 rounded-xl border border-black border-dashed flex items-center justify-center">
+                                            <PhotoOutlined />
+                                        </div>
+                                        <p>Image</p>
+                                    </button> */}
                                 </div>
                                 <div>
-                                    <input 
-                                        type="radio" 
-                                        id="bottom" 
-                                        name="location" 
-                                        value="bottom" 
-                                        checked={pageData.social_media_icons_location === "bottom"}
-                                        onChange={handleLocationChange}
-                                    />
-                                    <label htmlFor="bottom" className="ml-4">Bottom</label>
+                                    <h3>Background Color</h3>
+                                    <button 
+                                        className="mt-2 w-10 h-10 rounded-lg border-2"
+                                        style={{backgroundColor: pageData.background_color}}
+                                        onClick={() => setShowBgColorPicker(showBgColorPicker => !showBgColorPicker)}
+                                    >
+                                    </button>
+                                    {showBgColorPicker && 
+                                    <div ref={bgPickerRef} className="absolute z-10">
+                                        <ChromePicker 
+                                            color={pageData.background_color}
+                                            onChangeComplete={(newColor) => handleBgColorChange(newColor.hex)}
+                                        />
+                                    </div>
+                                    }
+                                </div>
+                                {/* <div>
+                                    <h3>Background Image</h3>
+
+                                            <input
+                                        type="file"
+                                        id="fileInput"
+                                        onChange={handleFileChange}
+                                        />
+                                        <button onClick={handleUpload} disabled={!selectedFile}>
+                                        Upload
+                                        </button>
+                                        <p>{imageUrl}</p>
+                                        
+
+                                </div> */}
+                            
+                            </div>
+
+                        </div>
+
+                        <h2 className="mt-4 text-lg font-semibold">Buttons</h2>
+                        <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
+                            <div className="flex flex-col gap-2">
+                                <h3>Fill</h3>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 ">
+                                    <button onClick={() => handleLinkBubbleClick('bubble_filled')} className={`p-2 ${getLinkBubbleStyle('bubble_filled')} `} >
+                                        <div className="bg-black h-9 w-full"></div>
+                                    </button>
+                                    <button onClick={() => handleLinkBubbleClick('bubble_filled_rounded')} className={`p-2 ${getLinkBubbleStyle('bubble_filled_rounded')} `} >
+                                        <div className="bg-black h-9 rounded-xl"></div>
+                                    </button>
+                                    <button onClick={() => handleLinkBubbleClick('bubble_filled_circular')} className={`p-2 ${getLinkBubbleStyle('bubble_filled_circular')} `} >
+                                        <div className="bg-black h-9 rounded-full"></div>
+                                    </button>
                                 </div>
                             </div>
-                            </fieldset>
-                            </form>
+                            <div className="flex flex-col gap-2">
+                                <h3>Outline</h3>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                    <button onClick={() => handleLinkBubbleClick('bubble_outline')} className={`p-2 ${getLinkBubbleStyle('bubble_outline')} `} >
+                                        <div className="bg-white border-black border-2 h-9"></div>
+                                    </button>
+                                    <button onClick={() => handleLinkBubbleClick('bubble_outline_rounded')} className={`p-2 ${getLinkBubbleStyle('bubble_outline_rounded')} `} >
+                                        <div className="bg-white h-9 border-black border-2 rounded-xl"></div>
+
+                                    </button>
+                                    <button onClick={() => handleLinkBubbleClick('bubble_outline_circular')} className={`p-2 ${getLinkBubbleStyle('bubble_outline_circular')} `} >
+                                        <div className="bg-white h-9 border-black border-2 rounded-full"></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <h3>Shadow</h3>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 ">
+                                    <button onClick={() => handleLinkBubbleClick('bubble_shadow')} className={`p-2 ${getLinkBubbleStyle('bubble_shadow')} `} >
+                                        <div className="bg-white shadow-lg h-9"></div>
+                                    </button>
+                                    <button onClick={() => handleLinkBubbleClick('bubble_shadow_rounded')} className={`p-2 ${getLinkBubbleStyle('bubble_shadow_rounded')} `} >
+                                        <div className="bg-white h-9 shadow-lg rounded-xl"></div>
+                                    </button>
+                                    <button onClick={() => handleLinkBubbleClick('bubble_shadow_circular')} className={`p-2 ${getLinkBubbleStyle('bubble_shadow_circular')} `} >
+                                        <div className="bg-white h-9 shadow-lg rounded-full"></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>Button Color</h3>
+                                <button 
+                                    className="mt-2 w-10 h-10 rounded-lg"
+                                    style={{ backgroundColor: pageData.link_bubble_color }}    
+                                    onClick={() => setShowButtonColorPicker(showButtonColorPicker => !showButtonColorPicker)}
+                                >
+                                </button>
+                                {showButtonColorPicker && 
+                                    <div ref={buttonColorPickerRef} className="absolute z-10">
+                                        <ChromePicker 
+                                            color={pageData.link_bubble_color}
+                                            onChangeComplete={(newColor) => handleButtonColorChange(newColor.hex)}
+
+                                        />
+                                    </div>
+                                }
+
+                            </div>
+                            <div>
+                                <h3>Button Font Color</h3>
+                                <button 
+                                    className="mt-2 w-10 h-10 rounded-lg"
+                                    style={{ backgroundColor: pageData.link_font_color }}
+                                    onClick={() => setShowButtonFontColorPicker(showButtonFontColorPicker => !showButtonFontColorPicker)}
+                                >
+                                </button>
+                                {showButtonFontColorPicker && 
+                                    <div ref={buttonFontColorPickerRef} className="absolute z-10">
+                                        <ChromePicker
+                                            color={pageData.link_font_color}
+                                            onChangeComplete={(newColor) => handleButtonFontColorChange(newColor.hex)}
+
+                                        />
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                        <h2 className="mt-4 text-lg font-semibold">Font</h2>
+                        <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
+
+                            <div>
+                                <h3>Profile Font</h3>
+                                <button
+                                    className="flex gap-4 shadow rounded-md border  w-full md:w-1/2 p-4 justify-middle align-middle hover:bg-gray-100"
+                                    onClick={() => setShowFontModal(true)}
+                                >
+                                    <div>
+                                        <span className="p-2 bg-white rounded-lg font-serif text-lg">Aa</span>
+
+                                    </div>
+                                    <div>
+                                    <span className="text-lg">Montserrat</span> 
+                                    </div>
+                                </button>
+    {/*                             <select>
+                                    <option>Arial</option>
+                                    <option>Times New Roman</option>
+                                    <option>Calibri</option>
+                                    <option>Cambria</option>
+
+                                </select> */}
+                            </div>
+                            <div>
+                                <h3>Profile Font Color</h3>
+                                <button 
+                                    className="mt-2 w-10 h-10 rounded-lg"
+                                    style={{ backgroundColor: pageData.profile_font_color }}
+                                    onClick={() => setShowProfileFontColorPicker(showProfileFontColorPicker => !showProfileFontColorPicker)}
+                                >
+                                </button>
+                                {showProfileFontColorPicker && 
+                                    <div ref={profileFontColorPickerRef} className="absolute z-10">
+                                        <ChromePicker
+                                            color={pageData.profile_font_color}
+                                            onChangeComplete={(newColor) => handleProfileFontColorChange(newColor.hex)}
+                                        />
+                                    </div>
+                                }   
+                            </div>
+
+                        </div>
+                        <h2 className="mt-4 text-lg font-semibold">Social Media</h2>
+                        <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
+                            <div>
+                                <h3 className="mb-4">Social Media Icons Location</h3>
+                                <form>
+                                <fieldset>
+
+                                <div className="flex flex-col gap-2">
+                                    <div className="">
+                                        <input 
+                                            type="radio" 
+                                            id="top" 
+                                            name="location" 
+                                            value="top" 
+                                            checked={pageData.social_media_icons_location === "top"} 
+                                            onChange={handleLocationChange}
+
+                                        />
+                                        <label htmlFor="top" className="ml-4">Top</label>
+                                    </div>
+                                    <div>
+                                        <input 
+                                            type="radio" 
+                                            id="bottom" 
+                                            name="location" 
+                                            value="bottom" 
+                                            checked={pageData.social_media_icons_location === "bottom"}
+                                            onChange={handleLocationChange}
+                                        />
+                                        <label htmlFor="bottom" className="ml-4">Bottom</label>
+                                    </div>
+                                </div>
+                                </fieldset>
+                                </form>
+                            </div>
+
                         </div>
 
                     </div>
 
+                    <PhonePreview pageData={pageData} />
                 </div>
-
-                <PhonePreview pageData={pageData} />
             </div>
-        </div>
+            {showFontModal && <FontModal closeFontModal={closeFontModal} />}
+        </>
     )
 }
