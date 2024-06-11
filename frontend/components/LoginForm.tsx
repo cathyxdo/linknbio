@@ -26,7 +26,7 @@ export default function LoginForm() {
     const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:8000/login/', {
+            const response = await fetch('http://127.0.0.1:8000/dj-rest-auth/login/', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

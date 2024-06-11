@@ -44,7 +44,9 @@ export default function EditProfileForm({ id, user, name, bio, profile_photo_url
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData),
+                credentials: "include",
+            
             });
             if (!response.ok) {
                 console.log(response);
