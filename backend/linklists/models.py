@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
+
+#from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -19,7 +21,7 @@ class List(models.Model):
         # Add more choices as needed
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, unique=True) 
     bio = models.CharField(max_length=255, blank=True, null=True)
     #photo = models.ImageField(upload_to='profile_photos/')
