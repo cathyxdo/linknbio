@@ -9,13 +9,13 @@ from django.db import models
 
 class UserAdminConfig(UserAdmin):
     model = CustomUser
-    search_fields = ('email', 'first_name',)
-    list_filter = ('email', 'first_name', 'is_active', 'is_staff')
+    search_fields = ('email',)
+    list_filter = ('email', 'is_active', 'is_staff')
     ordering = ('-start_date',)
-    list_display = ('email', 'id', 'first_name',
+    list_display = ('email', 'id',
                     'is_active', 'is_staff')
     fieldsets = (
-        (None, {'fields': ('email', 'first_name',)}),
+        (None, {'fields': ('email', )}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     formfield_overrides = {
@@ -24,7 +24,7 @@ class UserAdminConfig(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'first_name', 'password1', 'password2', 'is_active', 'is_staff')}
+            'fields': ('email', 'password1', 'password2', 'is_active', 'is_staff')}
          ),
     )
 

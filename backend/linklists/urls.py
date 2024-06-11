@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from linklists.views import LinkDetail, CreateLink, ListDetail, ListList, SocialMediaDetail, CreateSocialMedia, ImageUploadView, ImageDeleteView, ProfileImageDeleteView, ProfileImageUploadView
 
 urlpatterns = [
@@ -12,4 +12,7 @@ urlpatterns = [
     path('api/delete-image/links/<int:pk>/', ImageDeleteView.as_view(), name='image-delete'),
     path('api/upload-profile-image/lists/<int:pk>/', ProfileImageUploadView.as_view(), name='profile-image-upload'),
     path('api/delete-profile-image/lists/<int:pk>/', ProfileImageDeleteView.as_view(), name='profile-image-delete'),
+
+    path('api/user/', include('users.urls', namespace='users')),
+
 ]
