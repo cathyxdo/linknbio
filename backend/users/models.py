@@ -43,6 +43,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     #about = models.TextField(_('about'), max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    firebase_uid = models.CharField(max_length=255, unique=True, null=True, blank=True)  # Firebase UID field
 
     objects = CustomAccountManager()
 
