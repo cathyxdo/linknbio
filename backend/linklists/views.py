@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.conf import settings
+from .permissions import IsOwnerOrReadOnly
 import boto3
 
 class ProfileImageUploadView(APIView):
@@ -157,7 +158,7 @@ class ListList(generics.ListCreateAPIView):
 class ListDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = List.objects.all()
     serializer_class = ListSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly]
 
 class CreateLink(generics.ListCreateAPIView):
     queryset = Link.objects.all()
@@ -166,6 +167,7 @@ class CreateLink(generics.ListCreateAPIView):
 class LinkDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Link.objects.all()
     serializer_class = LinkSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
 class CreateSocialMedia(generics.ListCreateAPIView):
     queryset = SocialMedia.objects.all()
