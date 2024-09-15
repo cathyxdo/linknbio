@@ -1,18 +1,64 @@
+"use client";
 
-import Appearance from "@/components/Appearance";
+import { useState, useEffect } from "react";
 import { ListProfile } from "@/shared/interfaces";
+import Appearance from "@/components/Appearance";
+import { auth } from "@/utils/firebase";
+import { getIdToken, onAuthStateChanged, User } from "firebase/auth";
 
-export default async function Page() {
-    const list = await getList();
+export default function Page() {
+  const [list, setList] = useState<ListProfile | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-    return (
-        <Appearance data={list} />
-    )
+  useEffect(() => {
+    const fetchList = async (user: User) => {
+      try {
+        const token = await getIdToken(user); // Get Firebase token
+        console.log("Token: ", token);
+
+        const res = await fetch("http://127.0.0.1:8000/api/lists/1", {
+          method: "GET",
+          cache: "no-store",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Include Firebase token here
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const list: ListProfile = await res.json();
+        setList(list);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Listen for authentication state changes
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        fetchList(user);
+      } else {
+        setError("User not authenticated");
+        setLoading(false);
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup listener on component unmount
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return list ? <Appearance data={list} /> : <div>No data available</div>;
 }
-
-async function getList(): Promise<ListProfile> {
-    const res = await fetch('http://127.0.0.1:8000/api/lists/1', {cache: "no-store"});
-    const list: ListProfile = await res.json();
-    console.log(list);
-    return list;
-}; 
