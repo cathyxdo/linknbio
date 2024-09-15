@@ -55,7 +55,7 @@ class SocialMedia(models.Model):
     list = models.ForeignKey(List, on_delete=models.CASCADE, related_name='social_media_profiles')
     type = models.CharField(max_length=20, choices=SOCIAL_MEDIA_CHOICES)
     link = models.URLField()
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.user}'s {self.type} profile"
@@ -67,6 +67,7 @@ class Link(models.Model):
    #photo = models.ImageField(upload_to='link_photos/', blank=True, null=True)
     link_photo_url = models.URLField(null=True)
     is_active = models.BooleanField(default=True)
-    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
     def __str__(self):
         return f"Link: {self.title}"
