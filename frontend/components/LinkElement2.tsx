@@ -5,6 +5,8 @@ import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import { Link } from "@/shared/interfaces";
 import Image from 'next/image';
 import ImageModal2 from './ImageModal2';
+import { auth } from "@/utils/firebase";
+import { getIdToken } from "firebase/auth";
 interface LinkProps {
     id: number,
     title: string,
@@ -46,11 +48,18 @@ export default function LinkElement2({id, title: initialTitle, link: initialLink
 
     async function handleBlur() {
         try {
+            const user = auth.currentUser; // Get current user
+            if (!user) {
+                throw new Error("User not authenticated");
+            }
 
+            const token = await getIdToken(user); // Get Firebase auth token
             const response = await fetch("http://127.0.0.1:8000/api/links/" + id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
+
                 },
                 body: JSON.stringify(linkData)
             });

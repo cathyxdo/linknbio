@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import ProfileImageModal from "./ProfileImageModal";
+import { auth } from "@/utils/firebase";
+import { getIdToken } from "firebase/auth";
+
 interface ProfileFormProps {
     id: number;
     user: number;
@@ -39,10 +42,18 @@ export default function EditProfileForm({ id, user, name, bio, profile_photo_url
     async function handleSubmit(event : React.FormEvent) {
         event.preventDefault();
         try {
+            const user = auth.currentUser; // Get current user
+            if (!user) {
+                throw new Error("User not authenticated");
+            }
+
+            const token = await getIdToken(user); // Get Firebase auth token
+
             const response = await fetch("http://127.0.0.1:8000/api/lists/" + id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
                 },
                 body: JSON.stringify(formData),
                 credentials: "include",

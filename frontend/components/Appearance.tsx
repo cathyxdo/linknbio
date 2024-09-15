@@ -7,6 +7,8 @@ import { useState, useRef, useEffect } from "react";
 import FontModal from "./FontModal";
 import ImageCropper from "./ImageCropper";
 import { fileURLToPath } from "url";
+import { auth } from "@/utils/firebase";
+import { getIdToken } from "firebase/auth";
 
 interface AppearanceProps {
     data: ListProfile,
@@ -96,10 +98,18 @@ export default function Apperance({ data }: AppearanceProps) {
     }
     async function handleBgColorChange(newColor: string) {
         try {
+            const user = auth.currentUser; // Get current user
+            if (!user) {
+                throw new Error("User not authenticated");
+            }
+
+            const token = await getIdToken(user); // Get Firebase auth token
             const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
+
                 },
                 body: JSON.stringify({background_color: newColor})
             });
@@ -120,10 +130,18 @@ export default function Apperance({ data }: AppearanceProps) {
     }
     async function handleButtonFontColorChange(newColor: string) {
         try {
+            const user = auth.currentUser; // Get current user
+            if (!user) {
+                throw new Error("User not authenticated");
+            }
+
+            const token = await getIdToken(user); // Get Firebase auth token
+
             const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
                 },
                 body: JSON.stringify({link_font_color: newColor})
             });
@@ -145,10 +163,18 @@ export default function Apperance({ data }: AppearanceProps) {
 
     async function handleButtonColorChange(newColor: string) {
         try {
+            const user = auth.currentUser; // Get current user
+            if (!user) {
+                throw new Error("User not authenticated");
+            }
+
+            const token = await getIdToken(user); // Get Firebase auth token
+
             const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
                 },
                 body: JSON.stringify({link_bubble_color: newColor})
             });
@@ -169,10 +195,18 @@ export default function Apperance({ data }: AppearanceProps) {
     }
     async function handleProfileFontColorChange(newColor: string) {
         try {
+            const user = auth.currentUser; // Get current user
+            if (!user) {
+                throw new Error("User not authenticated");
+            }
+
+            const token = await getIdToken(user); // Get Firebase auth token
+
             const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
                 },
                 body: JSON.stringify({profile_font_color: newColor})
             });
@@ -194,10 +228,18 @@ export default function Apperance({ data }: AppearanceProps) {
     async function handleLocationChange(e: React.ChangeEvent<HTMLInputElement> ) {
  
         try {
+            const user = auth.currentUser; // Get current user
+            if (!user) {
+                throw new Error("User not authenticated");
+            }
+
+            const token = await getIdToken(user); // Get Firebase auth token
+
             const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
                 },
                 body: JSON.stringify({social_media_icons_location: e.target.value})
             });
@@ -226,10 +268,19 @@ export default function Apperance({ data }: AppearanceProps) {
     }
     async function handleLinkBubbleClick(style: string) {
         try {
+            const user = auth.currentUser; // Get current user
+            if (!user) {
+                throw new Error("User not authenticated");
+            }
+
+            const token = await getIdToken(user); // Get Firebase auth token
+
             const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
+
                 },
                 body: JSON.stringify({link_bubble_style: style})
             });
