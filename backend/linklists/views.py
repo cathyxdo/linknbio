@@ -174,6 +174,14 @@ class ListDetail(generics.RetrieveUpdateDestroyAPIView):
 class CreateLink(generics.ListCreateAPIView):
     queryset = Link.objects.all()
     serializer_class = LinkSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        user = self.request.user
+        return Link.objects.filter(user=user)
 
 class LinkDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Link.objects.all()
@@ -183,8 +191,14 @@ class LinkDetail(generics.RetrieveUpdateDestroyAPIView):
 class CreateSocialMedia(generics.ListCreateAPIView):
     queryset = SocialMedia.objects.all()
     serializer_class = SocialMediaSerializer
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        user = self.request.user
+        return SocialMedia.objects.filter(user=user)
 class SocialMediaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = SocialMedia.objects.all()
     serializer_class = SocialMediaSerializer

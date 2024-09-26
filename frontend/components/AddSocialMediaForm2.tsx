@@ -3,6 +3,8 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AddIcon from '@mui/icons-material/Add';
 
 import { SocialMediaProfile } from "@/shared/interfaces";
+import { auth } from "@/utils/firebase";
+import { getIdToken } from "firebase/auth"; // Import Firebase auth
 
 interface SocialMediaProps {
     id: number,
@@ -29,10 +31,17 @@ export default function AddSocialMediaForm2({ id, addNewProfile } : SocialMediaP
     async function handleSubmit(event: FormEvent) {
         event.preventDefault();
         try {
+            const user = auth.currentUser; // Get current user
+            if (!user) {
+                throw new Error("User not authenticated");
+            }
+
+            const token = await getIdToken(user); // Get Firebase auth token
             const response = await fetch("http://127.0.0.1:8000/api/social-media-profiles/", {
                 method: 'POST', // or 'PUT' if you are replacing the entire resource
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,  // Add your auth token here if needed
                 },
                 body: JSON.stringify(socialMediaForm)
             });
