@@ -5,18 +5,20 @@ import { ListProfile } from "@/shared/interfaces";
 import Dashboard from "@/components/Dashboard";
 import { auth } from "@/utils/firebase";
 import { getIdToken, onAuthStateChanged, User } from "firebase/auth"; // Import Firebase auth
+import { useRouter} from "next/navigation";
 
 export default function Page() {
   const [list, setList] = useState<ListProfile | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchList = async (user: User) => {
       try {
         const token = await getIdToken(user);
         console.log("Token: ", token);
-        const res = await fetch("http://127.0.0.1:8000/api/lists/1", {
+        const res = await fetch("http://127.0.0.1:8000/api/lists/", {
           method: "GET",
           cache: "no-store",
           credentials: "include",
@@ -30,8 +32,12 @@ export default function Page() {
           throw new Error("Failed to fetch data");
         }
 
-        const list: ListProfile = await res.json();
-        setList(list);
+        const lists: ListProfile[] = await res.json();
+        if (lists.length > 0) {
+          setList(lists[0]);
+        } else {
+          router.push("/create-profile");
+        }
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);

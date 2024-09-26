@@ -67,6 +67,43 @@ export default function Page() {
       }, [listName]);
     
 
+    // The function to submit the list to the Django REST API
+    async function handleSubmit() {
+        try {
+            const user = auth.currentUser; // Get current user
+            if (!user) {
+                throw new Error("User not authenticated");
+            }
+
+            const token = await getIdToken(user); // Get Firebase auth token
+
+            const response = await fetch('http://127.0.0.1:8000/api/lists/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}` // Attach Firebase token for authentication
+                },
+                body: JSON.stringify({
+                    name: listName // Send the list name as payload
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('List created successfully:', data);
+
+                // Redirect to the newly created list's page (e.g., /share/newlist)
+                router.push("/dashboard");
+            } else {
+                const errorData = await response.json();
+                console.error('Error creating list:', errorData);
+                setError('Failed to create list. Please try again.');
+            }
+        } catch (err) {
+            console.error('Error during list creation:', err);
+            setError('An unexpected error occurred. Please try again.');
+        }
+    }
     return (
         <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
             <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
@@ -101,6 +138,7 @@ export default function Page() {
                         <button
                             className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                             type="submit"
+                            onClick={handleSubmit}
                             disabled={!isAvailable || loading} >
                             <span className="ml-3">
                                 Continue

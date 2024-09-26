@@ -188,3 +188,11 @@ class CreateSocialMedia(generics.ListCreateAPIView):
 class SocialMediaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = SocialMedia.objects.all()
     serializer_class = SocialMediaSerializer
+
+
+class ListByNameView(generics.RetrieveAPIView):
+    serializer_class = ListSerializer
+    lookup_field = 'name'
+
+    def get_queryset(self):
+        return List.objects.all()

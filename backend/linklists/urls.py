@@ -1,8 +1,9 @@
 from django.urls import path, include
-from linklists.views import LinkDetail, CreateLink, ListDetail, ListList, SocialMediaDetail, CreateSocialMedia, ImageUploadView, ImageDeleteView, ProfileImageDeleteView, ProfileImageUploadView, CheckListNameView
+from linklists.views import LinkDetail, CreateLink, ListDetail, ListList, SocialMediaDetail, CreateSocialMedia, ImageUploadView, ImageDeleteView, ProfileImageDeleteView, ProfileImageUploadView, CheckListNameView, ListByNameView
 
 urlpatterns = [
     path("api/lists/<int:pk>/", ListDetail.as_view(), name='list_modify'),
+    path('api/lists/view/<str:name>/', ListByNameView.as_view(), name='get_list_by_name'),
     path("api/lists/", ListList.as_view(), name='list_create'),
     path("api/check-list-name/", CheckListNameView.as_view(), name="check-list-name"),
     path("api/links/<int:pk>/", LinkDetail.as_view(), name='link_modify'),
