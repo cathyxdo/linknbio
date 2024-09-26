@@ -34,7 +34,7 @@ class List(models.Model):
     #background_image = models.ImageField(upload_to='profile_backgrounds/', blank=True, null=True)
     background_image_url = models.URLField(null=True, blank=True)
 
-    link_bubble_style = models.CharField(max_length=30, choices=BUBBLE_STYLE_CHOICES, default="bubble_style_1")
+    link_bubble_style = models.CharField(max_length=30, choices=BUBBLE_STYLE_CHOICES, default="bubble_outline")
     link_bubble_color = models.CharField(max_length=7, default='#000000')  # Hex code for color
     link_font = models.CharField(max_length=255, default='sans-serif')
     link_font_color = models.CharField(max_length=7, default='#000000')  # Hex code for color
@@ -55,7 +55,7 @@ class SocialMedia(models.Model):
 
     list = models.ForeignKey(List, on_delete=models.CASCADE, related_name='social_media_profiles')
     type = models.CharField(max_length=20, choices=SOCIAL_MEDIA_CHOICES)
-    link = models.URLField()
+    link = models.URLField(max_length=500)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -63,7 +63,7 @@ class SocialMedia(models.Model):
 
 class Link(models.Model):
     list = models.ForeignKey(List, on_delete=models.CASCADE, related_name='links')
-    link = models.URLField()
+    link = models.URLField(max_length=500)
     title = models.CharField(max_length=255)
    #photo = models.ImageField(upload_to='link_photos/', blank=True, null=True)
     link_photo_url = models.URLField(null=True)
