@@ -48,7 +48,7 @@ interface Link {
 }  */
 
 export default async function Page({ params }: any) {
-    const list = await getList(params.id);
+    const list = await getList(params.name);
     const imageStyle = {
         borderRadius: '50%',
         
@@ -176,8 +176,8 @@ export default async function Page({ params }: any) {
 }
 
 
-async function getList(id: string): Promise<ListProfile> {
-    const res = await fetch('http://127.0.0.1:8000/api/lists/' + id, { cache: 'no-store' });
+async function getList(name: string): Promise<ListProfile> {
+    const res = await fetch('http://127.0.0.1:8000/api/lists/view/' + name, { cache: 'no-store' });
     const list: ListProfile = await res.json();
 
     return list;
