@@ -22,19 +22,19 @@ class List(models.Model):
         # Add more choices as needed
     ]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True, related_name="lists")
     name = models.CharField(max_length=255, unique=True, validators=[validate_name]) 
     bio = models.CharField(max_length=255, blank=True, null=True)
     #photo = models.ImageField(upload_to='profile_photos/')
-    profile_photo_url = models.URLField(null=True)
+    profile_photo_url = models.URLField(null=True, blank=True)
     profile_font = models.CharField(max_length=255, default='sans-serif')
     profile_font_color = models.CharField(max_length=7, default='#000000')  # Hex code for color
-    background_flag = models.CharField(max_length=10, choices=[('color', 'Color'), ('image', 'Image')])
+    background_flag = models.CharField(max_length=10, choices=[('color', 'Color'), ('image', 'Image')], default="color")
     background_color = models.CharField(max_length=7, default='#FFFFFF')  # Hex code for color
     #background_image = models.ImageField(upload_to='profile_backgrounds/', blank=True, null=True)
-    background_image_url = models.URLField(null=True)
+    background_image_url = models.URLField(null=True, blank=True)
 
-    link_bubble_style = models.CharField(max_length=30, choices=BUBBLE_STYLE_CHOICES)
+    link_bubble_style = models.CharField(max_length=30, choices=BUBBLE_STYLE_CHOICES, default="bubble_style_1")
     link_bubble_color = models.CharField(max_length=7, default='#000000')  # Hex code for color
     link_font = models.CharField(max_length=255, default='sans-serif')
     link_font_color = models.CharField(max_length=7, default='#000000')  # Hex code for color

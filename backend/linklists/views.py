@@ -9,6 +9,7 @@ from django.conf import settings
 from .permissions import IsOwnerOrReadOnly
 import boto3
 
+
 class CheckListNameView(APIView):
     def get(self, request, *args, **kwargs):
         list_name = request.query_params.get('list_name', None)
@@ -154,14 +155,17 @@ class ImageDeleteView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class ListList(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = List.objects.all()
     serializer_class = ListSerializer
-    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
     def get_queryset(self):
         user = self.request.user
         return List.objects.filter(user=user)
-
+    
 class ListDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = List.objects.all()
     serializer_class = ListSerializer
