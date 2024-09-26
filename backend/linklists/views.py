@@ -202,7 +202,7 @@ class CreateSocialMedia(generics.ListCreateAPIView):
 class SocialMediaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = SocialMedia.objects.all()
     serializer_class = SocialMediaSerializer
-
+    permission_classes = [IsOwnerOrReadOnly]
 
 class ListByNameView(generics.RetrieveAPIView):
     serializer_class = ListSerializer
