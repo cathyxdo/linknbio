@@ -84,7 +84,7 @@ export default function EditProfileForm({ id, user, name, bio, profile_photo_url
                                 <label>Url</label>
                                 <div className="px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white">
                                     <p className="inline  mr-1">
-                                        <label className="font-bold">linknbio.com/share/{id}</label>
+                                        <label className="font-bold">linknbio.com/share/{name}</label>
                                     </p>
                                     <p className="inline">
                                         <input className="bg-transparent focus:outline-none"></input>
