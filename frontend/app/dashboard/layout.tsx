@@ -53,14 +53,16 @@ export default function DashboardLayout({
                   </div>
                 </Link>
               </li>
+{/*  COMMENTING OUT - FUTURE FEATURE
+
               <li>
                   <div className= {pathname === '/dashboard/analytics' ? 'text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center' : 'font-semibold text-slate-500 text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center'}>
                     <LeaderboardOutlinedIcon />
 
                     <p>Analytics</p>
                   </div>
-              </li>
-              <li>
+              </li> */}
+              <li className="ml-auto">
                   <div onClick={handleLogout} className= {pathname === '/dashboard/analytics' ? 'text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center' : 'font-semibold text-slate-500 text-sm hover:text-black hover:cursor-pointer rounded-xl p-3 flex gap-2 items-center'}>
                     <p>Sign out</p>
                   </div>
