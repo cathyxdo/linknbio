@@ -50,18 +50,27 @@ export default function Apperance({ data }: AppearanceProps) {
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
-                bgPickerRef.current && !bgPickerRef.current.contains(event.target as Node) &&
-                buttonColorPickerRef.current && !buttonColorPickerRef.current.contains(event.target as Node) /*&&
-                buttonFontColorPickerRef.current && !buttonFontColorPickerRef.current.contains(event.target as Node) &&
-                profileFontColorPickerRef.current && !profileFontColorPickerRef.current.contains(event.target as Node)*/
+                bgPickerRef.current && !bgPickerRef.current.contains(event.target as Node)
             ) {
                 setShowBgColorPicker(false);
+            }
+            if (
+                buttonColorPickerRef.current && !buttonColorPickerRef.current.contains(event.target as Node)
+            ) {
                 setShowButtonColorPicker(false);
-                /*setShowButtonFontColorPicker(false);
-                setShowProfileFontColorPicker(false); */
+            }
+            if (
+                buttonFontColorPickerRef.current && !buttonFontColorPickerRef.current.contains(event.target as Node)
+            ) {
+                setShowButtonFontColorPicker(false);
+            }
+            if (
+                profileFontColorPickerRef.current && !profileFontColorPickerRef.current.contains(event.target as Node)
+            ) {
+                setShowProfileFontColorPicker(false);
             }
         };
-
+        
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
