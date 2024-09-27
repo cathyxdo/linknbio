@@ -144,7 +144,7 @@ export default function LinkElement2({id, title: initialTitle, link: initialLink
                 ) : (
                     <>
                         <h3 className="p-1 font-semibold">{linkData.title}</h3>
-                        <p className="p-1">{linkData.link}</p>
+                        <p className="p-1 block max-w-xs truncate">{linkData.link}</p>
                     </>
                 )}
                     <button 
