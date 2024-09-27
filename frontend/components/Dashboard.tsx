@@ -40,6 +40,8 @@ export default function Dashboard({ data }: DashboardProps) {
         type: "",
         id: 0,
     })
+    const [isPhonePreviewVisible, setIsPhonePreviewVisible] = useState(false);
+
 
     function handleLinkAdd(newLink: Link) {
         setPageData(prevPageData => ({
@@ -128,8 +130,35 @@ export default function Dashboard({ data }: DashboardProps) {
                         ))}
                     </div>    
                 </div>
-                <PhonePreview pageData={pageData}/>
+                {/* Conditionally render PhonePreview or button based on screen size */}
+                <div className="hidden lg:block basis-1/4 justify-center ">
+                    <PhonePreview pageData={pageData} />
+                </div>
 
+                {/* Show Preview button for smaller screens */}
+                {!isPhonePreviewVisible && (
+                    <div className="lg:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2">
+                        <button
+                            className="bg-blue-500 text-white px-4 py-2 rounded-full"
+                            onClick={() => setIsPhonePreviewVisible(true)}
+                        >
+                            Show Preview
+                        </button>
+                    </div>
+                )}
+
+                {/* Fullscreen Phone Preview for small screens */}
+                {isPhonePreviewVisible && (
+                        <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
+                            <PhonePreview pageData={pageData} />
+                            <button
+                                className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white p-2 rounded-full"
+                                onClick={() => setIsPhonePreviewVisible(false)}
+                            >
+                                Close Preview
+                            </button>
+                        </div>
+                )}
             </div>
 
             {showImageModal && 

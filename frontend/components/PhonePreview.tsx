@@ -58,7 +58,6 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
     }
 
     return (
-        <div className="basis-1/4 justify-center hidden lg:flex">
             <div style = {{backgroundColor: pageData.background_color }} 
                 className=" fixed top-1/4 m-4 h-[692px] w-[320px] p-4 mb-4 space-y-2  border-gray-900 border-8 rounded-3xl shadow-sm flex flex-col items-center text-center" >
                 <div className=" text-black flex flex-col gap-2 items-center">
@@ -126,6 +125,5 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
                     </div>
                 }
             </div>
-        </div>
     )
 }
