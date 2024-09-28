@@ -1,15 +1,8 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import CustomUserSerializer, ChangePasswordSerializer
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import AllowAny, IsAuthenticated
-#from .models import NewUser
-from rest_framework import generics
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-#from .utils import send_reset_password_email
-from django.utils.encoding import force_bytes, force_str
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from .serializers import CustomUserSerializer
+from rest_framework.permissions import AllowAny
 
 class CustomUserCreate(APIView):
     permission_classes = [AllowAny]

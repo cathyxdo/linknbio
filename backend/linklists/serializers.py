@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from linklists.models import List, SocialMedia, Link
-from django.contrib.auth.models import User
 
 class SocialMediaSerializer(serializers.ModelSerializer):
     class Meta:
