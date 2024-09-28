@@ -11,7 +11,7 @@ interface SocialMediaProps {
     addNewProfile: (newProfile: SocialMediaProfile) => void;
 }
 
-export default function AddSocialMediaForm2({ id, addNewProfile } : SocialMediaProps) {
+export default function AddSocialMediaForm({ id, addNewProfile } : SocialMediaProps) {
     const [showSocialMediaForm, setShowSocialMediaForm] = useState(false);
 
     const emptySocialMediaForm = {

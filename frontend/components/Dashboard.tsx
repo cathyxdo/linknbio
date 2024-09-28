@@ -3,8 +3,8 @@ import { useState } from "react";
 import { ListProfile, SocialMediaProfile, Link } from "@/shared/interfaces";
 import EditProfileForm from "./EditProfileForm";
 import SocialMedia from "./SocialMedia";
-import AddSocialMediaForm2 from "./AddSocialMediaForm2";
-import AddLinkForm2 from "./AddLinkForm2";
+import AddSocialMediaForm from "./AddSocialMediaForm";
+import AddLinkForm from "./AddLinkForm";
 import LinkElement from "./LinkElement";
 import PhonePreview from "./PhonePreview";
 import ImageModal from "./ImageModal";
@@ -107,14 +107,14 @@ export default function Dashboard({ data }: DashboardProps) {
             <div className="py-10 flex min-h-screen ">
                 <div className="basis-full lg:basis-3/4 px-16 ">
                     <EditProfileForm id={pageData.id} user={pageData.user} name={pageData.name} bio={pageData.bio} profile_photo_url={pageData.profile_photo_url} photo={pageData.photo} updateProfile={handleProfileUpdate}/>
-                    <AddSocialMediaForm2 id={pageData.id} addNewProfile={handleSocialMediaAdd}/>
+                    <AddSocialMediaForm id={pageData.id} addNewProfile={handleSocialMediaAdd}/>
                     <div className="p-4">
                         {pageData.social_media_profiles.map((profile) => (
                             <SocialMedia key={profile.id} {...profile} deleteSocialMedia={handleSocialMediaDelete} updateSocialMedia={handleSocialMediaUpdate} />
                         ))}
                     </div>
 
-                    <AddLinkForm2 id={pageData.id} addNewLink={handleLinkAdd} />
+                    <AddLinkForm id={pageData.id} addNewLink={handleLinkAdd} />
                     <div className="p-4">
                         {pageData.links.map((link) => (
                             <LinkElement key={link.id} {...link} deleteLink={handleLinkDelete} updateLink={handleLinkUpdate} openImageModal={openImageModal}/>

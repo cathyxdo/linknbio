@@ -10,7 +10,7 @@ interface LinkProps {
     addNewLink: (newLink: Link) => void;
 }
 
-export default function AddLinkForm2({ id, addNewLink}: LinkProps) {
+export default function AddLinkForm({ id, addNewLink}: LinkProps) {
     const [showLinkForm, setShowLinkForm] = useState(false);
     const emptyLinkForm = {
         link: "",
