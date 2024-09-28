@@ -5,7 +5,7 @@ import EditProfileForm from "./EditProfileForm";
 import SocialMedia from "./SocialMedia";
 import AddSocialMediaForm2 from "./AddSocialMediaForm2";
 import AddLinkForm2 from "./AddLinkForm2";
-import LinkElement2 from "./LinkElement2";
+import LinkElement from "./LinkElement";
 import PhonePreview from "./PhonePreview";
 import ImageModal from "./ImageModal";
 
@@ -117,7 +117,7 @@ export default function Dashboard({ data }: DashboardProps) {
                     <AddLinkForm2 id={pageData.id} addNewLink={handleLinkAdd} />
                     <div className="p-4">
                         {pageData.links.map((link) => (
-                            <LinkElement2 key={link.id} {...link} deleteLink={handleLinkDelete} updateLink={handleLinkUpdate} openImageModal={openImageModal}/>
+                            <LinkElement key={link.id} {...link} deleteLink={handleLinkDelete} updateLink={handleLinkUpdate} openImageModal={openImageModal}/>
                         ))}
                     </div>    
                 </div>
