@@ -8,8 +8,6 @@ import AddLinkForm2 from "./AddLinkForm2";
 import LinkElement2 from "./LinkElement2";
 import PhonePreview from "./PhonePreview";
 import ImageModal from "./ImageModal";
-import { Phone } from "@mui/icons-material";
-import { EventLoopMonitorOptions } from "perf_hooks";
 
 interface DashboardProps {
     data: ListProfile,
@@ -92,14 +90,7 @@ export default function Dashboard({ data }: DashboardProps) {
             profile_photo_url: newProfilePhotoUrl
         }));
     }
-    function handleProfileUpdate2(updatedProfile: ListProfile) {
-        setPageData(prevPageData => ({
-            ...prevPageData,
-            name: updatedProfile.name,
-            bio: updatedProfile.bio,
-            profile_photo_url: updatedProfile.profile_photo_url
-        }));
-    }
+
     function closeImageModal() {
         setShowImageModal(false);
     }
