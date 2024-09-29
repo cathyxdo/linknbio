@@ -1,7 +1,9 @@
 interface FontModalProps {
     closeFontModal: () => void,
+    onFontSelect: (font: string) => void;
+
 }
-export default function FontModal({closeFontModal}: FontModalProps) {
+export default function FontModal({closeFontModal, onFontSelect}: FontModalProps) {
     return (
     <div className="fixed z-50 inset-0 overflow-y-auto">
         <div className="flex items-center justify-center min-h-screen p-4">
@@ -11,15 +13,56 @@ export default function FontModal({closeFontModal}: FontModalProps) {
             </div>
             <div className="relative bg-white rounded-lg p-8 md:max-h-[672px] md:max-w-[512px] h-[80vh] w-full">
                 <h3 className="font-semibold">Select Font</h3>
-                <ul className="flex flex-col mt-4">
+                <ul className="flex flex-col mt-4 overflow-auto max-h-[60vh]">
                     <li>
-                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-serif">Times New Roman</button>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-bebas-neue" onClick={() => onFontSelect("bebas-neue")}>Bebas Neue</button>
                     </li>
                     <li>
-                        <button className="hover:bg-stone-100 w-full p-2 rounded-full">Roboto</button>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-bitter" onClick={() => onFontSelect("bitter")}>Bitter</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-courier-new" onClick={() => onFontSelect("courier-new")}>Courier New</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-fredoka-one" onClick={() => onFontSelect("fredoka-one")}>Fredoka One</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-gothic-a1" onClick={() => onFontSelect("gothic-a1")}>Gothic A1</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-inter" onClick={() => onFontSelect("inter")}>Inter</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-libre-baskerville" onClick={() => onFontSelect("libre-baskerville")}>Libre Baskerville</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-merriweather" onClick={() => onFontSelect("merriweather")}>Merriweather</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-montserrat" onClick={() => onFontSelect("montserrat")}>Montserrat</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-oswald" onClick={() => onFontSelect("oswald")}>Oswald</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-open-sans" onClick={() => onFontSelect("open-sans")}>Open Sans</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-pacifico" onClick={() => onFontSelect("pacifico")}>Pacifico</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-poppins" onClick={() => onFontSelect("poppins")}>Poppins</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-quicksand" onClick={() => onFontSelect("quicksand")}>Quicksand</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-roboto" onClick={() => onFontSelect("roboto")}>Roboto</button>
+                    </li>
+                    <li>
+                        <button className="hover:bg-stone-100 w-full p-2 rounded-full font-times" onClick={() => onFontSelect("times")}>Times New Roman</button>
                     </li>
                 </ul>
-                <button className="text-md mt-4 rounded-full bg-blue-100 hover:bg-blue-300 px-5 py-2.5 text-center w-full">Save</button>
                 <button
                     className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700 hover:bg-stone-100 p-2 rounded-full "
                     onClick={closeFontModal}

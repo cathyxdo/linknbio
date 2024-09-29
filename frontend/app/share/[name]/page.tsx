@@ -101,7 +101,7 @@ export default async function Page({ params }: any) {
         }
     }
     return (
-        <div className="flex flex-col items-center h-screen" style={{ backgroundColor: list.background_color}}>
+        <div className={`flex flex-col items-center h-screen font-${list.profile_font}`} style={{ backgroundColor: list.background_color}}>
             <div className="flex flex-col gap-4 items-center text-center m-10 w-full max-w-2xl ">
                 <div className="flex flex-col gap-2 items-center">
                     {list.profile_photo_url &&

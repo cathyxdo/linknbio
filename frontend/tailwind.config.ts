@@ -24,6 +24,24 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        'times': ['Times New Roman', 'serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+        'open-sans': ['Open Sans', 'sans-serif'],
+        'merriweather': ['Merriweather', 'serif'],
+        'poppins': ['Poppins', 'sans-serif'],
+        'courier-new': ['Courier New', 'monospace'],
+        'bitter': ['Bitter', 'serif'],
+        'libre-baskerville': ['Libre Baskerville', 'serif'],
+        'inter': ['Inter', 'sans-serif'],
+        'gothic-a1': ['Gothic A1', 'sans-serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
+        'oswald': ['Oswald', 'sans-serif'],
+        'quicksand': ['Quicksand', 'sans-serif'],
+        'bebas-neue': ['Bebas Neue', 'sans-serif'],
+        'pacifico': ['Pacifico', 'sans-serif'],  // using 'cursive' for script fonts
+        'fredoka-one': ['Fredoka One', 'sans-serif'],
+      },
     },/* 
     colors: {
       'tiffany-blue': '#7ED8BEff',

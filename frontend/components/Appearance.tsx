@@ -46,7 +46,25 @@ export default function Apperance({ data }: AppearanceProps) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [showFontModal, setShowFontModal] = useState(false);
     const [isPhonePreviewVisible, setIsPhonePreviewVisible] = useState(false);
-
+    const fontMapping :{ [key: string]: string } = {
+        'times': 'Times New Roman',
+        'roboto': 'Roboto',
+        'open-sans': 'Open Sans',
+        'merriweather': 'Merriweather',
+        'poppins': 'Poppins',
+        'courier-new': 'Courier New',
+        'bitter': 'Bitter',
+        'libre-baskerville': 'Libre Baskerville',
+        'inter': 'Inter',
+        'gothic-a1': 'Gothic A1',
+        'montserrat': 'Montserrat',
+        'oswald': 'Oswald',
+        'quicksand': 'Quicksand',
+        'bebas-neue': 'Bebas Neue',
+        'pacifico': 'Pacifico',  // using 'cursive' for script fonts
+        'fredoka-one': 'Fredoka One',
+    };
+    
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
@@ -309,6 +327,38 @@ export default function Apperance({ data }: AppearanceProps) {
             console.error('Failed to update: ', error);
         }
     }
+    async function handleFontChange(newFont: string) {
+        try {
+            const user = auth.currentUser;
+            if (user) {
+                const token = await getIdToken(user);
+    
+                const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+                    method: 'PATCH', // or 'PUT' if you are replacing the entire resource
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` 
+    
+                    },
+                    body: JSON.stringify({ profile_font: newFont }),
+                });
+    
+                if (response.ok) {
+                    const updatedData = await response.json();
+                    setPageData((prevState) => ({
+                        ...prevState,
+                        profile_font: updatedData.profile_font,
+                    }));
+                    setShowFontModal(false); // Close modal after successful update
+                } else {
+                    console.error('Failed to update font');
+                }
+            }
+        } catch (error) {
+            console.error('Error updating font:', error);
+        }
+    }
+    
     return (
         <>
             <div className="px-8 py-8 ">
@@ -464,16 +514,9 @@ export default function Apperance({ data }: AppearanceProps) {
 
                                     </div>
                                     <div>
-                                    <span className="text-lg">Montserrat</span> 
+                                    <span className={`text-lg font-${pageData.profile_font}`}>{fontMapping[pageData.profile_font]}</span> 
                                     </div>
                                 </button>
-    {/*                             <select>
-                                    <option>Arial</option>
-                                    <option>Times New Roman</option>
-                                    <option>Calibri</option>
-                                    <option>Cambria</option>
-
-                                </select> */}
                             </div>
                             <div>
                                 <h3>Profile Font Color</h3>
@@ -565,7 +608,10 @@ export default function Apperance({ data }: AppearanceProps) {
                     )}
                 </div>
             </div>
-            {showFontModal && <FontModal closeFontModal={closeFontModal} />}
+            {showFontModal && <FontModal 
+                closeFontModal={closeFontModal} 
+                onFontSelect={handleFontChange} // Pass the handler to the modal
+                />}
         </>
     )
 }
