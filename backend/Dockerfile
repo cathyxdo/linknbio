@@ -1,11 +1,20 @@
-FROM python:3.8.2-slim
+# Use an official Python runtime as a parent image
+FROM python:3.8-slim
 
-WORKDIR /django_app
+# Set the working directory in the container
+WORKDIR /app
 
-COPY requirements.txt requirements.txt
+# Copy the requirements file into the container
+COPY requirements.txt .
 
-RUN pip3 install -r requirements.txt
+# Install any necessary dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the current directory contents into the container
 COPY . .
 
-CMD [ "python3", "manage.py", "runserver", "0.0.0.0:8000", "--noreload"]
+# Expose port 8000 for the Django dev server
+EXPOSE 8000
+
+# Run the Django development server
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

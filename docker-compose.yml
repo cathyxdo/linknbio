@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000" # Maps Django's dev server to localhost:8000
+    volumes:
+      - ./backend:/app # Sync code changes in backend to the container
+      - ./backend/db.sqlite3:/app/db.sqlite3 # Persist SQLite file on your machine
+    environment:
+      - DEBUG=True
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000" # Maps Next.js to localhost:3000
+    volumes:
+      - ./frontend:/app # Sync code changes in frontend to the container
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend # Ensure the backend is ready before starting
