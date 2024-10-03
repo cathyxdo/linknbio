@@ -8,9 +8,8 @@ services:
       - "8000:8000" # Maps Django's dev server to localhost:8000
     volumes:
       - ./backend:/app # Sync code changes in backend to the container
-      - ./backend/db.sqlite3:/app/db.sqlite3 # Persist SQLite file on your machine
-    environment:
-      - DEBUG=True
+    env_file:
+      - .env # Specifies the path to your .env file
 
   frontend:
     build:
