@@ -115,7 +115,7 @@ export default function ImageCropper({id, closeImageModal, updateLink, setNewLin
   
     // Send the FormData to the API endpoint using fetch
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/upload-image/links/${id}/`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/upload-image/links/${id}/`, {
         method: 'POST',
         body: formData,
       });

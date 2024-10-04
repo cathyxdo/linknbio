@@ -39,7 +39,7 @@ export default function Page() {
             }
 
             const token = await getIdToken(user); // Get Firebase auth token
-            const response = await fetch(`http://127.0.0.1:8000/api/check-list-name/?list_name=${name}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/check-list-name/?list_name=${name}`, {
                 method: 'GET',
                 headers: {
                 Authorization: `Bearer ${token}`,  // Add your auth token here if needed
@@ -77,7 +77,7 @@ export default function Page() {
 
             const token = await getIdToken(user); // Get Firebase auth token
 
-            const response = await fetch('http://127.0.0.1:8000/api/lists/', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lists/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

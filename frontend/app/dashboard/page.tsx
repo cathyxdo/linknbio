@@ -18,7 +18,7 @@ export default function Page() {
       try {
         const token = await getIdToken(user);
         console.log("Token: ", token);
-        const res = await fetch("http://127.0.0.1:8000/api/lists/", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lists/`, {
           method: "GET",
           cache: "no-store",
           credentials: "include",

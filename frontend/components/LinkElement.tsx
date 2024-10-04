@@ -54,7 +54,7 @@ export default function LinkElement({id, title: initialTitle, link: initialLink,
             }
 
             const token = await getIdToken(user); // Get Firebase auth token
-            const response = await fetch("http://127.0.0.1:8000/api/links/" + id + "/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/links/` + id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export default function LinkElement({id, title: initialTitle, link: initialLink,
             }
 
             const token = await getIdToken(user); // Get Firebase auth token
-            const response = await fetch("http://127.0.0.1:8000/api/links/" + id + "/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/links/` + id + "/", {
                 method: 'DELETE', // or 'PUT' if you are replacing the entire resource
                 headers: {
                     'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ export default function LinkElement({id, title: initialTitle, link: initialLink,
 
     async function handleImageDelete() {
         try {
-            const response = await fetch("http://127.0.0.1:8000/api/delete-image/links/" + id + "/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/delete-image/links/` + id + "/", {
                 method: 'DELETE', // or 'PUT' if you are replacing the entire resource
                 headers: {
                     'Content-Type': 'application/json'

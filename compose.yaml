@@ -20,3 +20,5 @@ services:
       - NODE_ENV=development
     depends_on:
       - backend # Ensure the backend is ready before starting
+    env_file:
+      - .env # Specifies the path to your .env file

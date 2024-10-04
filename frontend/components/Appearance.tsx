@@ -109,7 +109,7 @@ export default function Apperance({ data }: AppearanceProps) {
         try {
             const formData = new FormData();
             formData.append('file', selectedFile);
-            const response = await fetch("http://127.0.0.1:8000/upload/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload/`, {
                 method: 'POST',
                 body: formData,
             });
@@ -132,7 +132,7 @@ export default function Apperance({ data }: AppearanceProps) {
             }
 
             const token = await getIdToken(user); // Get Firebase auth token
-            const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lists/`+ pageData.id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
                     'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ export default function Apperance({ data }: AppearanceProps) {
 
             const token = await getIdToken(user); // Get Firebase auth token
 
-            const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lists/` + pageData.id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
                     'Content-Type': 'application/json',
@@ -198,7 +198,7 @@ export default function Apperance({ data }: AppearanceProps) {
 
             const token = await getIdToken(user); // Get Firebase auth token
 
-            const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lists/` + pageData.id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
                     'Content-Type': 'application/json',
@@ -230,7 +230,7 @@ export default function Apperance({ data }: AppearanceProps) {
 
             const token = await getIdToken(user); // Get Firebase auth token
 
-            const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lists/` + pageData.id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
                     'Content-Type': 'application/json',
@@ -263,7 +263,7 @@ export default function Apperance({ data }: AppearanceProps) {
 
             const token = await getIdToken(user); // Get Firebase auth token
 
-            const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lists/` + pageData.id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
                     'Content-Type': 'application/json',
@@ -303,7 +303,7 @@ export default function Apperance({ data }: AppearanceProps) {
 
             const token = await getIdToken(user); // Get Firebase auth token
 
-            const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lists/` + pageData.id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
                     'Content-Type': 'application/json',
@@ -333,7 +333,7 @@ export default function Apperance({ data }: AppearanceProps) {
             if (user) {
                 const token = await getIdToken(user);
     
-                const response = await fetch("http://127.0.0.1:8000/api/lists/" + pageData.id + "/", {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lists/` + pageData.id + "/", {
                     method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                     headers: {
                         'Content-Type': 'application/json',

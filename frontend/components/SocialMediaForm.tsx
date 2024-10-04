@@ -18,7 +18,7 @@ export default function SocialMediaForm({listid} : SCFormProps ) {
     async function handleSubmit(event: FormEvent) {
         event.preventDefault();
         try {
-            const response = await fetch("http://127.0.0.1:8000/api/social-media-profiles/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/social-media-profiles/`, {
                 method: 'POST', // or 'PUT' if you are replacing the entire resource
                 headers: {
                     'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ export default function SocialMediaForm({listid} : SCFormProps ) {
             list: listid,
         }
 
-        const res = await fetch('http://127.0.0.1:8000/api/social-media-profiles/', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/social-media-profiles/`, {
             method: "POST",
             body: JSON.stringify(rawFormData),
             headers: {"Content-type": "application/json; charset=UTF-8"},

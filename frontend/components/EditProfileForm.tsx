@@ -49,7 +49,7 @@ export default function EditProfileForm({ id, user, name, bio, profile_photo_url
 
             const token = await getIdToken(user); // Get Firebase auth token
 
-            const response = await fetch("http://127.0.0.1:8000/api/lists/" + id + "/", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lists/` + id + "/", {
                 method: 'PATCH', // or 'PUT' if you are replacing the entire resource
                 headers: {
                     'Content-Type': 'application/json',
