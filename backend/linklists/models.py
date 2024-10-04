@@ -27,7 +27,7 @@ class List(models.Model):
     bio = models.CharField(max_length=255, blank=True, null=True)
     #photo = models.ImageField(upload_to='profile_photos/')
     profile_photo_url = models.URLField(null=True, blank=True)
-    profile_font = models.CharField(max_length=255, default='sans-serif')
+    profile_font = models.CharField(max_length=255, default='roboto')
     profile_font_color = models.CharField(max_length=7, default='#000000')  # Hex code for color
     background_flag = models.CharField(max_length=10, choices=[('color', 'Color'), ('image', 'Image')], default="color")
     background_color = models.CharField(max_length=7, default='#FFFFFF')  # Hex code for color
