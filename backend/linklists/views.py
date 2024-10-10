@@ -10,10 +10,10 @@ from .permissions import IsOwnerOrReadOnly
 import boto3
 
 
-class CheckListNameView(APIView):
+class CheckListUsernameView(APIView):
     def get(self, request, *args, **kwargs):
-        list_name = request.query_params.get('list_name', None)
-        if list_name and List.objects.filter(name=list_name).exists():
+        list_username = request.query_params.get('list_username', None)
+        if list_username and List.objects.filter(username=list_username).exists():
             return Response({"exists": True}, status=status.HTTP_200_OK)
         return Response({"exists": False}, status=status.HTTP_200_OK)
     
