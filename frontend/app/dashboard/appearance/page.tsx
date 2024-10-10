@@ -7,6 +7,7 @@ import { auth } from "@/utils/firebase";
 import { getIdToken, onAuthStateChanged, User } from "firebase/auth";
 import { useRouter} from "next/navigation";
 import { CircularProgress } from "@mui/material";
+import Link from "next/link";
 
 export default function Page() {
   const [list, setList] = useState<ListProfile | null>(null);
@@ -71,7 +72,22 @@ export default function Page() {
       </div>
     );
   };
-  if (error) return <div>Error: {error}</div>;
+  if (error) {
+    return (
+      <div className="flex flex-col gap-6 items-center justify-center h-screen w-screen">
+        <div>Error: {error}</div>
+        <Link
+          key='Home'
+          href='/'
+          className=""
+          >
+          <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg'>
+          Go Home
+          </button>
+        </Link>
+      </div>
+    )
+  };
 
   return list ? <Appearance data={list} /> : <div>No data available</div>;
 }
