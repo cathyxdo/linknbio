@@ -9,14 +9,14 @@ import { getIdToken, onAuthStateChanged, User } from "firebase/auth"; // Import 
 
 export default function Page() {
 
-    const [listName, setListName] = useState('');
+    const [listUsername, setListUsername] = useState('');
     const [isAvailable, setIsAvailable] = useState(true);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
     const router = useRouter();
 
-    function handleListNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+    function handleListUsernameChange(e: React.ChangeEvent<HTMLInputElement>) {
         const invalidChars = /[^a-zA-Z0-9_]/g;
         const value = e.target.value;
         if (value !== value.trim()) {   
@@ -29,9 +29,9 @@ export default function Page() {
             setError('');
         }
       
-          setListName(value);
+          setListUsername(value);
     }
-    async function checkListName(name: string) {
+    async function checkListName(username: string) {
         try {
             const user = auth.currentUser; // Get current user
             if (!user) {
@@ -39,7 +39,7 @@ export default function Page() {
             }
 
             const token = await getIdToken(user); // Get Firebase auth token
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/check-list-name/?list_name=${name}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/check-list-username/?list_username=${username}`, {
                 method: 'GET',
                 headers: {
                 Authorization: `Bearer ${token}`,  // Add your auth token here if needed
@@ -56,15 +56,15 @@ export default function Page() {
         }
     }
     useEffect(() => {
-        if (listName) {
+        if (listUsername) {
           setLoading(true);
           const timeoutId = setTimeout(() => {
-            checkListName(listName);
+            checkListName(listUsername);
             setLoading(false);
           }, 500); // Debounce to avoid too many requests
           return () => clearTimeout(timeoutId);
         }
-      }, [listName]);
+      }, [listUsername]);
     
 
     // The function to submit the list to the Django REST API
@@ -84,7 +84,7 @@ export default function Page() {
                     Authorization: `Bearer ${token}` // Attach Firebase token for authentication
                 },
                 body: JSON.stringify({
-                    name: listName // Send the list name as payload
+                    username: listUsername // Send the list name as payload
                 })
             });
 
@@ -128,12 +128,12 @@ export default function Page() {
                                 className="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-5"
                                 type="text" 
                                 name="listname" 
-                                value={listName} 
-                                onChange={handleListNameChange}
+                                value={listUsername} 
+                                onChange={handleListUsernameChange}
                                 placeholder="your_url" />
                         </div>
-                        {loading && <p>Checking name...</p>}
-                        {!isAvailable && <p style={{ color: 'red' }}>Name is already taken!</p>}
+                        {loading && <p>Checking username...</p>}
+                        {!isAvailable && <p style={{ color: 'red' }}>Username is already taken!</p>}
                         {error && <p style={{ color: 'red' }}>{error}</p>}
                         <button
                             className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"

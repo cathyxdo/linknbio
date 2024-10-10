@@ -1,6 +1,7 @@
 export interface ListProfile {
     id: number;
     user: number;
+    username: string;
     name: string;
     bio: string;
     photo: string;

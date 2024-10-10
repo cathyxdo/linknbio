@@ -119,7 +119,7 @@ export default async function Page({ params }: any) {
                         style={{color: list.profile_font_color}}
                         className="text-xl font-bold" 
                     >        
-                        {list.name}
+                        {list}
                     </div>
                     <div 
                         style={{color: list.profile_font_color}}

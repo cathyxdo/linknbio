@@ -17,6 +17,7 @@ export default function Apperance({ data }: AppearanceProps) {
     const [pageData, setPageData] = useState<ListProfile>({
         id: data.id || 0,
         user: data.user || 0,
+        username: data.username || "",
         name: data.name || "",
         bio: data.bio || "",
         photo: data.photo || "",
