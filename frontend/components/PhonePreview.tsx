@@ -73,11 +73,12 @@ export default function PhonePreview({pageData}: PhonePreviewProps) {
                         
                     </div>
                 }
+
                     <div 
                         style={{color: pageData.profile_font_color}}
                         className="text-sm font-bold" 
                     >        
-                        {pageData.name}
+                        {pageData.name ? pageData.name : `@${pageData.username}`}
                     </div>
                     <div 
                         style={{color: pageData.profile_font_color}}

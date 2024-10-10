@@ -7,6 +7,7 @@ import { getIdToken } from "firebase/auth";
 interface ProfileFormProps {
     id: number;
     user: number;
+    username: string;
     name: string;
     bio: string;
     photo: string;
@@ -14,7 +15,7 @@ interface ProfileFormProps {
     updateProfile: (newName: string, newBio: string, newProfilePhotoUrl: string) => void;
 }
 
-export default function EditProfileForm({ id, user, name, bio, profile_photo_url, photo, updateProfile} : ProfileFormProps) {
+export default function EditProfileForm({ id, user, username, name, bio, profile_photo_url, photo, updateProfile} : ProfileFormProps) {
     const [formData, setFormData] = useState( {
         name : name ? name : "",
         bio: bio ? bio : "",
@@ -84,11 +85,11 @@ export default function EditProfileForm({ id, user, name, bio, profile_photo_url
                                 <label>Url</label>
                                 <div className="px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white">
                                     <p className="inline  mr-1">
-                                        <label className="font-bold">linknbio.com/share/{name}</label>
+                                        <label className="font-bold">http://localhost:3000/share/{username}</label>
                                     </p>
-                                    <p className="inline">
+{/*                                     <p className="inline">
                                         <input className="bg-transparent focus:outline-none"></input>
-                                    </p>
+                                    </p> */}
                                 </div>
                             </div>
                             <div className="basis-1/4 flex flex-col items-center">
@@ -108,7 +109,7 @@ export default function EditProfileForm({ id, user, name, bio, profile_photo_url
                                 </button>
                             </div>
                         </div>
-                        
+
                         <label>Name</label>
                         <input value={formData.name} onChange={handleChange} name="name" className="px-2 py-2 rounded-lg font-medium  border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white"></input>
 
