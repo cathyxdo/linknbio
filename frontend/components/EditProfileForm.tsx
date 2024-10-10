@@ -84,12 +84,7 @@ export default function EditProfileForm({ id, user, username, name, bio, profile
                             <div className="basis-3/4">
                                 <label>Url</label>
                                 <div className="px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white">
-                                    <p className="inline  mr-1">
-                                        <label className="font-bold">http://localhost:3000/share/{username}</label>
-                                    </p>
-{/*                                     <p className="inline">
-                                        <input className="bg-transparent focus:outline-none"></input>
-                                    </p> */}
+                                    <a className="underline" target="_blank" href={`${process.env.NEXT_PUBLIC_SHARE_URL}/share/${username}`}>{`${process.env.NEXT_PUBLIC_SHARE_URL}/share/${username}`}</a>
                                 </div>
                             </div>
                             <div className="basis-1/4 flex flex-col items-center">
