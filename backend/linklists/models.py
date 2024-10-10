@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from .validators import validate_name
+from .validators import validate_username
 
 #from django.contrib.auth.models import User
 
@@ -23,7 +23,8 @@ class List(models.Model):
     ]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True, related_name="lists")
-    name = models.CharField(max_length=255, unique=True, validators=[validate_name]) 
+    username = models.CharField(max_length=255, unique=True, validators=[validate_username]) 
+    name = models.CharField(max_length=255, blank=True, null=True)
     bio = models.CharField(max_length=255, blank=True, null=True)
     #photo = models.ImageField(upload_to='profile_photos/')
     profile_photo_url = models.URLField(null=True, blank=True)
@@ -42,6 +43,10 @@ class List(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        self.username = self.username.lower()
+        super().save(*args, **kwargs)
     
 class SocialMedia(models.Model):
     SOCIAL_MEDIA_CHOICES = [

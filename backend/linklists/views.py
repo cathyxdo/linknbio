@@ -204,9 +204,9 @@ class SocialMediaDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SocialMediaSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
-class ListByNameView(generics.RetrieveAPIView):
+class ListByUsernameView(generics.RetrieveAPIView):
     serializer_class = ListSerializer
-    lookup_field = 'name'
+    lookup_field = 'username'
 
     def get_queryset(self):
         return List.objects.all()

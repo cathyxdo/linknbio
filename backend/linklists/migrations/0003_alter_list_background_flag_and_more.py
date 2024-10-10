@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='list',
             name='name',
-            field=models.CharField(max_length=255, unique=True, validators=[linklists.validators.validate_name]),
+            field=models.CharField(max_length=255, unique=True, validators=[linklists.validators.validate_username]),
         ),
         migrations.AlterField(
             model_name='list',
