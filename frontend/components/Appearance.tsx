@@ -465,7 +465,7 @@ export default function Apperance({ data }: AppearanceProps) {
                             <div>
                                 <h3>Button Color</h3>
                                 <button 
-                                    className="mt-2 w-10 h-10 rounded-lg"
+                                    className="mt-2 w-10 h-10 rounded-lg border-2"
                                     style={{ backgroundColor: pageData.link_bubble_color }}    
                                     onClick={() => setShowButtonColorPicker(showButtonColorPicker => !showButtonColorPicker)}
                                 >
@@ -484,7 +484,7 @@ export default function Apperance({ data }: AppearanceProps) {
                             <div>
                                 <h3>Button Font Color</h3>
                                 <button 
-                                    className="mt-2 w-10 h-10 rounded-lg"
+                                    className="mt-2 w-10 h-10 rounded-lg border-2"
                                     style={{ backgroundColor: pageData.link_font_color }}
                                     onClick={() => setShowButtonFontColorPicker(showButtonFontColorPicker => !showButtonFontColorPicker)}
                                 >
@@ -522,7 +522,7 @@ export default function Apperance({ data }: AppearanceProps) {
                             <div>
                                 <h3>Profile Font Color</h3>
                                 <button 
-                                    className="mt-2 w-10 h-10 rounded-lg"
+                                    className="mt-2 w-10 h-10 rounded-lg border-2"
                                     style={{ backgroundColor: pageData.profile_font_color }}
                                     onClick={() => setShowProfileFontColorPicker(showProfileFontColorPicker => !showProfileFontColorPicker)}
                                 >
