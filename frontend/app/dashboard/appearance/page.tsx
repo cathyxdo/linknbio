@@ -6,6 +6,7 @@ import Appearance from "@/components/Appearance";
 import { auth } from "@/utils/firebase";
 import { getIdToken, onAuthStateChanged, User } from "firebase/auth";
 import { useRouter} from "next/navigation";
+import { CircularProgress } from "@mui/material";
 
 export default function Page() {
   const [list, setList] = useState<ListProfile | null>(null);
@@ -63,7 +64,13 @@ export default function Page() {
     return () => unsubscribe(); // Cleanup listener on component unmount
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen w-screen ">
+        <CircularProgress size="3em"/>
+      </div>
+    );
+  };
   if (error) return <div>Error: {error}</div>;
 
   return list ? <Appearance data={list} /> : <div>No data available</div>;
