@@ -5,8 +5,8 @@ import { ListProfile } from "@/shared/interfaces";
 import Dashboard from "@/components/Dashboard";
 import { auth } from "@/utils/firebase";
 import { getIdToken, onAuthStateChanged, User } from "firebase/auth"; // Import Firebase auth
-import { useRouter} from "next/navigation";
-import { CircularProgress } from '@mui/material';
+import { useRouter } from "next/navigation";
+import { CircularProgress } from "@mui/material";
 import Link from "next/link";
 
 export default function Page() {
@@ -20,15 +20,18 @@ export default function Page() {
       try {
         const token = await getIdToken(user);
         console.log("Token: ", token);
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/lists/`, {
-          method: "GET",
-          cache: "no-store",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Include Firebase token here
-          },
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/lists/`,
+          {
+            method: "GET",
+            cache: "no-store",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Include Firebase token here
+            },
+          }
+        );
 
         if (!res.ok) {
           throw new Error("Failed to fetch data");
@@ -69,7 +72,7 @@ export default function Page() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen w-screen">
-        <CircularProgress size="3em"/>
+        <CircularProgress size="3em" />
       </div>
     );
   }
@@ -77,18 +80,14 @@ export default function Page() {
     return (
       <div className="flex flex-col gap-6 items-center justify-center h-screen w-screen">
         <div>Error: {error}</div>
-        <Link
-          key='Home'
-          href='/'
-          className=""
-          >
-          <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg'>
-          Go Home
+        <Link key="Home" href="/" className="">
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+            Go Home
           </button>
         </Link>
       </div>
-    )
-  };
+    );
+  }
 
   return list ? <Dashboard data={list} /> : <div>No data available</div>;
 }

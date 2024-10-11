@@ -1,17 +1,17 @@
-'use client'
-import Link from 'next/link';
-import { usePathname } from 'next/navigation'; // Import usePathname from next/navigation
-import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined';
-import ViewDayOutlinedIcon from '@mui/icons-material/ViewDayOutlined';
-import AutoFixHighOutlinedIcon from '@mui/icons-material/AutoFixHighOutlined';
-import { signOut } from 'firebase/auth'; // Import signOut from Firebase Auth
-import { useRouter } from 'next/navigation'; // Import Next.js router for redirection
-import { auth } from '@/utils/firebase'; // Adjust the path to your Firebase config
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation"; // Import usePathname from next/navigation
+import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined";
+import ViewDayOutlinedIcon from "@mui/icons-material/ViewDayOutlined";
+import AutoFixHighOutlinedIcon from "@mui/icons-material/AutoFixHighOutlined";
+import { signOut } from "firebase/auth"; // Import signOut from Firebase Auth
+import { useRouter } from "next/navigation"; // Import Next.js router for redirection
+import { auth } from "@/utils/firebase"; // Adjust the path to your Firebase config
 
 export default function DashboardLayout({
   children, // will be a page or nested layout
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   const pathname = usePathname(); // Use usePathname to get the current path
   const router = useRouter(); // Initialize Next.js router
@@ -19,41 +19,46 @@ export default function DashboardLayout({
   const handleLogout = async () => {
     try {
       await signOut(auth); // Trigger Firebase signOut
-      router.push('/'); // Redirect the user to the login page
+      router.push("/"); // Redirect the user to the login page
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);
     }
   };
 
   return (
-    <section className="bg-stone-100" >
-      <nav className="flex justify-center sticky top-0 z-49" >            
-          <ul className="px-10 py-3 mt-4 mx-4 flex gap-6 w-full bg-white rounded-full shadow">
-              <li className="">
-                <Link 
-                  key='content'
-                  href='/dashboard'
-                  className=""
-                >
-                  <div className={pathname === '/dashboard' ? 'text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center' : 'font-semibold text-slate-500 text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center'}>
-                    <ViewDayOutlinedIcon />
-                    <p>Content</p>
-                  </div> {/* Apply blue color if path matches */}
-                
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  key='appearance'
-                  href='/dashboard/appearance'
-                >
-                  <div className= {pathname === '/dashboard/appearance' ? 'text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center' : 'font-semibold text-slate-500 text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center'}>
-                    <AutoFixHighOutlinedIcon />
-                    <p>Appearance</p> {/* Apply blue color if path matches */}
-                  </div>
-                </Link>
-              </li>
-{/*  COMMENTING OUT - FUTURE FEATURE
+    <section className="bg-stone-100">
+      <nav className="flex justify-center sticky top-0 z-49">
+        <ul className="px-10 py-3 mt-4 mx-4 flex gap-6 w-full bg-white rounded-full shadow">
+          <li className="">
+            <Link key="content" href="/dashboard" className="">
+              <div
+                className={
+                  pathname === "/dashboard"
+                    ? "text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
+                    : "font-semibold text-slate-500 text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
+                }
+              >
+                <ViewDayOutlinedIcon />
+                <p>Content</p>
+              </div>{" "}
+              {/* Apply blue color if path matches */}
+            </Link>
+          </li>
+          <li>
+            <Link key="appearance" href="/dashboard/appearance">
+              <div
+                className={
+                  pathname === "/dashboard/appearance"
+                    ? "text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
+                    : "font-semibold text-slate-500 text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
+                }
+              >
+                <AutoFixHighOutlinedIcon />
+                <p>Appearance</p> {/* Apply blue color if path matches */}
+              </div>
+            </Link>
+          </li>
+          {/*  COMMENTING OUT - FUTURE FEATURE
 
               <li>
                   <div className= {pathname === '/dashboard/analytics' ? 'text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center' : 'font-semibold text-slate-500 text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center'}>
@@ -62,15 +67,22 @@ export default function DashboardLayout({
                     <p>Analytics</p>
                   </div>
               </li> */}
-              <li className="ml-auto">
-                  <div onClick={handleLogout} className= {pathname === '/dashboard/analytics' ? 'text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center' : 'font-semibold text-slate-500 text-sm hover:text-black hover:cursor-pointer rounded-xl p-3 flex gap-2 items-center'}>
-                    <p>Sign out</p>
-                  </div>
-              </li>
-          </ul>
+          <li className="ml-auto">
+            <div
+              onClick={handleLogout}
+              className={
+                pathname === "/dashboard/analytics"
+                  ? "text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
+                  : "font-semibold text-slate-500 text-sm hover:text-black hover:cursor-pointer rounded-xl p-3 flex gap-2 items-center"
+              }
+            >
+              <p>Sign out</p>
+            </div>
+          </li>
+        </ul>
       </nav>
 
       {children}
     </section>
-  )
+  );
 }
