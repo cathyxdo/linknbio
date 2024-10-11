@@ -128,7 +128,7 @@ export default function SocialMedia({id, type: initialType, link: initialLink, d
                     <div className="flex flex-col gap-4 mt-8">
                         <h3>Delete this social media profile? You will not be able to undo this action.</h3>
                         <div className="flex">
-                            <button onClick={handleDelete} className="rounded-full bg-blue-100 hover:bg-blue-300 font-medium px-5 py-2.5 text-center mr-2">Delete</button>
+                            <button onClick={handleDelete} className="rounded-full bg-red-200 hover:bg-red-400 font-medium px-5 py-2.5 text-center mr-2">Delete</button>
                             <button onClick={() => setDeleteMenu(false)} className="rounded-full border font-medium px-5 py-2.5 text-center hover:bg-gray-100">Cancel</button>
                         </div>
                         
