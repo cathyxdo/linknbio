@@ -1,14 +1,18 @@
 // app/SignupPage.tsx
 "use client"; // Ensure this is a client component as it uses hooks
 
-import { useState } from 'react';
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from '@/utils/firebase'; // Adjust the path to your Firebase config
-import { useRouter } from 'next/navigation'; // useRouter is for navigation in Next.js
+import { useState } from "react";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import { auth } from "@/utils/firebase"; // Adjust the path to your Firebase config
+import { useRouter } from "next/navigation"; // useRouter is for navigation in Next.js
 
 export default function Login() {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -21,11 +25,15 @@ export default function Login() {
     setError(null);
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('User created:', userCredential.user);
-      router.push('/dashboard'); // Redirect to dashboard or any other protected page
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("User created:", userCredential.user);
+      router.push("/dashboard"); // Redirect to dashboard or any other protected page
     } catch (error: any) {
-      console.error('Error signing up:', error.message);
+      console.error("Error signing up:", error.message);
       setError(error.message);
     }
   };
@@ -33,24 +41,24 @@ export default function Login() {
   // Handle Google sign in
   const handleGoogleSignIn = async () => {
     setError(null);
-    
+
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      console.log('Google user signed in:', user);
-      router.push('/dashboard'); // Redirect to dashboard
+      console.log("Google user signed in:", user);
+      router.push("/dashboard"); // Redirect to dashboard
     } catch (error: any) {
-      console.error('Error with Google sign in:', error.message);
+      console.error("Error with Google sign in:", error.message);
       setError(error.message);
     }
   };
 
   return (
-    <div style={{ textAlign: 'center', margin: '50px' }}>
+    <div style={{ textAlign: "center", margin: "50px" }}>
       <h1>Log in</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <form onSubmit={handleSignIn} style={{ marginBottom: '20px' }}>
+      <form onSubmit={handleSignIn} style={{ marginBottom: "20px" }}>
         <div>
           <input
             type="email"
@@ -58,7 +66,7 @@ export default function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ padding: '10px', margin: '10px', width: '300px' }}
+            style={{ padding: "10px", margin: "10px", width: "300px" }}
           />
         </div>
         <div>
@@ -68,10 +76,13 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ padding: '10px', margin: '10px', width: '300px' }}
+            style={{ padding: "10px", margin: "10px", width: "300px" }}
           />
         </div>
-        <button type="submit" style={{ padding: '10px 20px', cursor: 'pointer' }}>
+        <button
+          type="submit"
+          style={{ padding: "10px 20px", cursor: "pointer" }}
+        >
           Log In with Email
         </button>
       </form>
@@ -80,7 +91,12 @@ export default function Login() {
         <p>Or continue with:</p>
         <button
           onClick={handleGoogleSignIn}
-          style={{ padding: '10px 20px', cursor: 'pointer', background: '#4285F4', color: 'white' }}
+          style={{
+            padding: "10px 20px",
+            cursor: "pointer",
+            background: "#4285F4",
+            color: "white",
+          }}
         >
           Continue with Google
         </button>
