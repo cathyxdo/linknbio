@@ -41,7 +41,7 @@ export default function Home() {
           <h1 className='text-5xl'>Centralize your online presence in one place using <span className='font-bold'>Linknbio</span></h1>
           <h3 className='mt-4'>Gather all your links, social media, music, videos, and more in one place. Create a page that matches your style and never worry about changing your bio link again.</h3>
           <button 
-            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4'
+            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-4'
             onClick={() => handleAuthButtonClick("signup")}
           >
             Get Started
