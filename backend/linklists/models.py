@@ -32,7 +32,6 @@ class List(models.Model):
     background_flag = models.CharField(max_length=10, choices=[('color', 'Color'), ('image', 'Image')], default="color")
     background_color = models.CharField(max_length=7, default='#FFFFFF') 
     background_image_url = models.URLField(null=True, blank=True)
-
     link_bubble_style = models.CharField(max_length=30, choices=BUBBLE_STYLE_CHOICES, default="bubble_outline")
     link_bubble_color = models.CharField(max_length=7, default='#000000')  
     link_font = models.CharField(max_length=255, default='sans-serif')
