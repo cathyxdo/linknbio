@@ -1,6 +1,4 @@
 // components/LoginModal.tsx
-"use client"; // Ensure this is a client component as it uses hooks
-
 import { useState } from 'react';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '@/utils/firebase';
