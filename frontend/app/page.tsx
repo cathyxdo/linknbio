@@ -31,9 +31,7 @@ export default function Home() {
               <button onClick={() => handleAuthButtonClick("signup")} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg'>
                 Signup
               </button>
-              {/* Mobile menu button... */}
             </div>
-            {/* Navigation items... */}
           </div>
         </nav>
       </header>
@@ -42,7 +40,12 @@ export default function Home() {
         <div className='w-full md:w-1/2 pr-8 mx-1 flex flex-col'>
           <h1 className='text-5xl'>Centralize your online presence in one place using <span className='font-bold'>Linknbio</span></h1>
           <h3 className='mt-4'>Gather all your links, social media, music, videos, and more in one place. Create a page that matches your style and never worry about changing your bio link again.</h3>
-          <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4'>Get Started</button>
+          <button 
+            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4'
+            onClick={() => handleAuthButtonClick("signup")}
+          >
+            Get Started
+          </button>
         </div>
         <div className='w-full md:w-1/2'>
           <Image
@@ -54,7 +57,6 @@ export default function Home() {
           />
         </div>
       </div>
-      {/* Include the LoginModal and pass down state and handler */}
       <AuthModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} authType={authType} setAuthType={setAuthType}/>
     </main>
   );
