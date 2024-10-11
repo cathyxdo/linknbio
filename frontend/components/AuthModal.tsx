@@ -1,4 +1,4 @@
-// components/LoginModal.tsx
+// components/AuthModal.tsx
 import { useState } from 'react';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '@/utils/firebase';
@@ -8,7 +8,7 @@ import { CloseRounded } from '@mui/icons-material';
 import SignUpModalSection from './SignUpModalSection';
 import LoginModalSection from './LoginModalSection';
 
-export default function LoginModal({ isOpen, onClose, authType, setAuthType }: { isOpen: boolean; onClose: () => void ; authType: string; setAuthType: React.Dispatch<React.SetStateAction<string>>;}) {
+export default function AuthModal({ isOpen, onClose, authType, setAuthType }: { isOpen: boolean; onClose: () => void ; authType: string; setAuthType: React.Dispatch<React.SetStateAction<string>>;}) {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 

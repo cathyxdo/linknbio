@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import NavBar from '@/components/NavBar';
 import Link from 'next/link';
-import LoginModal from '@/components/LoginModal'; // Import your new LoginModal component
+import AuthModal from '@/components/AuthModal'; // Import your new LoginModal component
 
 export default function Home() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -55,7 +55,7 @@ export default function Home() {
         </div>
       </div>
       {/* Include the LoginModal and pass down state and handler */}
-      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} authType={authType} setAuthType={setAuthType}/>
+      <AuthModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} authType={authType} setAuthType={setAuthType}/>
     </main>
   );
 }
