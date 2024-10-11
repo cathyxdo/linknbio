@@ -19,7 +19,7 @@ export default function DashboardLayout({
   const handleLogout = async () => {
     try {
       await signOut(auth); // Trigger Firebase signOut
-      router.push('/login'); // Redirect the user to the login page
+      router.push('/'); // Redirect the user to the login page
     } catch (error) {
       console.error('Error logging out:', error);
     }
