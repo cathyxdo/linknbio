@@ -1,12 +1,10 @@
 "use client";
-import { Phone, PhotoOutlined } from "@mui/icons-material";
+
 import { ChromePicker } from "react-color";
 import PhonePreview from "./PhonePreview";
 import { ListProfile } from "@/shared/interfaces";
 import { useState, useRef, useEffect } from "react";
 import FontModal from "./FontModal";
-import ImageCropper from "./ImageCropper";
-import { fileURLToPath } from "url";
 import { auth } from "@/utils/firebase";
 import { getIdToken } from "firebase/auth";
 
