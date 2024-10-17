@@ -52,7 +52,7 @@ export default function LoginModalSection() {
         />
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
+          className="bg-blue-500 font-semibold hover:bg-blue-700 text-white py-2 px-4 rounded"
         >
           Log In with Email
         </button>
