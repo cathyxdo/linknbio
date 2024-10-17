@@ -77,6 +77,14 @@ export default function Home() {
         authType={authType}
         setAuthType={setAuthType}
       />
+      {/* Footer */}
+      <footer className="fixed bottom-0 left-0 w-full bg-white text-center py-2 border-t border-gray-200">
+          <div className="text-xs flex gap-1 justify-center">
+            <p>Made by Cathy Do.</p>
+            <a target="_blank" href={"https://github.com/cathyxdo/linknbio"} className="text-blue-700 hover:underline">Github</a>
+          </div>
+
+      </footer>
     </main>
   );
 }
