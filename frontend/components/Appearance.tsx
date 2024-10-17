@@ -582,7 +582,7 @@ export default function Apperance({ data }: AppearanceProps) {
               <div>
                 <h3>Profile Font</h3>
                 <button
-                  className="flex gap-4 shadow rounded-md border  w-full md:w-1/2 p-4 justify-middle align-middle hover:bg-gray-100"
+                  className="flex gap-4 shadow rounded-md border border-gray-200  w-full md:w-1/2 p-4 justify-middle align-middle hover:bg-gray-200"
                   onClick={() => setShowFontModal(true)}
                 >
                   <div>
