@@ -43,8 +43,8 @@ export default function Home() {
         </nav>
       </header>
 
-      <div className="container mx-auto flex flex-col md:flex-row items-center text-left min-h-screen">
-        <div className="w-full md:w-1/2 pr-8 mx-1 flex flex-col">
+      <div className="container flex flex-col md:flex-row justify-center gap-12 items-center text-left min-h-screen p-4">
+        <div className="w-full md:w-1/2 flex flex-col">
           <h1 className="text-5xl">
             Centralize your online presence in one place using{" "}
             <span className="font-bold">Linknbio</span>
@@ -55,7 +55,7 @@ export default function Home() {
             changing your bio link again.
           </h3>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-4"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded-lg mt-4"
             onClick={() => handleAuthButtonClick("signup")}
           >
             Get Started
