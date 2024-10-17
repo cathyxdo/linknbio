@@ -89,7 +89,7 @@ export default function EditProfileForm({
 
   return (
     <>
-      <div className="p-4">
+      <div className="">
         <div className="px-4 py-8 mb-4 space-y-6 bg-white border rounded-xl shadow ">
           <h3 className=" text-lg font-semibold">Edit Profile</h3>
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">

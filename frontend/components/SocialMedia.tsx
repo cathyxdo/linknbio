@@ -109,7 +109,7 @@ export default function SocialMedia({
     }
   }
   return (
-    <div className="shadow bg-white rounded-xl px-6 py-8 mb-4 relative">
+    <div className="shadow bg-white rounded-xl px-6 py-8 mt-4 mb-4 relative">
       <button
         onClick={toggleEditMode}
         className="absolute top-2 right-2 hover:bg-stone-100 rounded-lg p-1"

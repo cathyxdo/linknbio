@@ -379,9 +379,9 @@ export default function Apperance({ data }: AppearanceProps) {
 
   return (
     <>
-      <div className="px-8 py-8 ">
+      <div className="md:px-8 md:py-8 ">
         <div className="py-10 flex min-h-screen ">
-          <div className="basis-full lg:basis-3/4 px-16 ">
+          <div className="basis-full lg:basis-3/4 px-8 ">
             <h2 className="text-lg font-semibold">Background</h2>
             <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
               <div className="flex flex-col gap-2">

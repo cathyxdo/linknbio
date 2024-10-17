@@ -67,7 +67,7 @@ export default function AddSocialMediaForm({
   }
 
   return (
-    <div className="p-4">
+    <div className="mt-12">
       {!showSocialMediaForm ? (
         <button
           onClick={() => setShowSocialMediaForm(true)}

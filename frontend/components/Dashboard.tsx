@@ -113,9 +113,9 @@ export default function Dashboard({ data }: DashboardProps) {
   }
 
   return (
-    <div className="px-8 py-8 ">
+    <div className="md:px-8 md:py-8 ">
       <div className="py-10 flex min-h-screen ">
-        <div className="basis-full lg:basis-3/4 px-16 ">
+        <div className="basis-full lg:basis-3/4 px-8">
           <EditProfileForm
             id={pageData.id}
             user={pageData.user}
@@ -130,7 +130,7 @@ export default function Dashboard({ data }: DashboardProps) {
             id={pageData.id}
             addNewProfile={handleSocialMediaAdd}
           />
-          <div className="p-4">
+          <div className="mb-4">
             {pageData.social_media_profiles.map((profile) => (
               <SocialMedia
                 key={profile.id}
@@ -142,7 +142,7 @@ export default function Dashboard({ data }: DashboardProps) {
           </div>
 
           <AddLinkForm id={pageData.id} addNewLink={handleLinkAdd} />
-          <div className="p-4">
+          <div className="mt-4">
             {pageData.links.map((link) => (
               <LinkElement
                 key={link.id}

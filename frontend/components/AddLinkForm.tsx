@@ -61,7 +61,7 @@ export default function AddLinkForm({ id, addNewLink }: LinkProps) {
   }
 
   return (
-    <div className="p-4">
+    <div className="mt-12">
       {!showLinkForm ? (
         <button
           onClick={() => setShowLinkForm(true)}
