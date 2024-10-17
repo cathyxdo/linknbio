@@ -113,7 +113,7 @@ export default function Dashboard({ data }: DashboardProps) {
   }
 
   return (
-    <div className="md:px-8 md:py-8 ">
+    <div className="md:mt-0 mt-8 md:px-8 md:py-8 ">
       <div className="py-10 flex min-h-screen ">
         <div className="basis-full lg:basis-3/4 px-8">
           <EditProfileForm
