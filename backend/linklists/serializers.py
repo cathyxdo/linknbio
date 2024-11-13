@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from linklists.models import List, SocialMedia, Link
+from linklists.models import List, SocialMedia, Link, PageView, LinkClick, SocialMediaClick
 
 class SocialMediaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,3 +18,18 @@ class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = List
         fields = ['id', 'user', 'username', 'name', 'bio', 'profile_photo_url', 'profile_font', 'profile_font_color', 'background_flag', 'background_color', 'background_image_url', 'link_bubble_style', 'link_bubble_color', 'link_font', 'link_font_color', 'social_media_icons_location', 'social_media_profiles', 'links']
+
+class PageViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PageView
+        fields = ['list_id', 'date', 'ip_address']
+
+class LinkClickSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LinkClick
+        fields = ['link_id', 'date', 'ip_address']
+
+class SocialMediaClickSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialMediaClick
+        fields = ['social_media_profile_id', 'date', 'ip_address']
