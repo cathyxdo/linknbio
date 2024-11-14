@@ -1,5 +1,5 @@
 from django.urls import path, include
-from linklists.views import LinkDetail, CreateLink, ListDetail, ListList, SocialMediaDetail, CreateSocialMedia, ImageUploadView, ImageDeleteView, ProfileImageDeleteView, ProfileImageUploadView, CheckListUsernameView, ListByUsernameView, PageViewLogger, LinkClickLogger, SocialMediaClickLogger
+from linklists.views import LinkDetail, CreateLink, ListDetail, ListList, SocialMediaDetail, CreateSocialMedia, ImageUploadView, ImageDeleteView, ProfileImageDeleteView, ProfileImageUploadView, CheckListUsernameView, ListByUsernameView, LogListViewView, LogLinkClickView, LogSocialMediaClickView
 
 urlpatterns = [
     path("api/lists/<int:pk>/", ListDetail.as_view(), name='list_modify'),
@@ -14,9 +14,9 @@ urlpatterns = [
     path('api/delete-image/links/<int:pk>/', ImageDeleteView.as_view(), name='image-delete'),
     path('api/upload-profile-image/lists/<int:pk>/', ProfileImageUploadView.as_view(), name='profile-image-upload'),
     path('api/delete-profile-image/lists/<int:pk>/', ProfileImageDeleteView.as_view(), name='profile-image-delete'),
-    path('api/log/page_view/', PageViewLogger.as_view(), name='page_view'),
-    path('api/log/link_click/', LinkClickLogger.as_view(), name='log_link_click'),
-    path('api/log/social_media_click/', SocialMediaClickLogger.as_view(), name='log_social_media_click'),
+    path('api/log/page_view/', LogListViewView.as_view(), name='list_view'),
+    path('api/log/link_click/', LogLinkClickView.as_view(), name='log_link_click'),
+    path('api/log/social_media_click/', LogSocialMediaClickView.as_view(), name='log_social_media_click'),
 
 
     path('api/user/', include('users.urls', namespace='users')),

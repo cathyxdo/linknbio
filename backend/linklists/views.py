@@ -1,5 +1,5 @@
-from linklists.models import Link, SocialMedia, List, PageView, LinkClick, SocialMediaClick
-from linklists.serializers import LinkSerializer, SocialMediaSerializer, ListSerializer, PageViewSerializer, LinkClickSerializer, SocialMediaClickSerializer
+from linklists.models import Link, SocialMedia, List, LogListView, LogLinkClick, LogSocialMediaClick
+from linklists.serializers import LinkSerializer, SocialMediaSerializer, ListSerializer, ListViewSerializer, LinkClickSerializer, SocialMediaClickSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
@@ -213,39 +213,36 @@ class ListByUsernameView(generics.RetrieveAPIView):
     def get_queryset(self):
         return List.objects.all()
 
-class PageViewLogger(APIView):
+class LogListViewView(APIView):
     def post(self, request):
         list_id = request.data.get('list_id')
-        ip_address = request.META.get('REMOTE_ADDR')
         list_instance = get_object_or_404(List, id=list_id)
 
         # Create a PageView instance without device type
-        page_view = PageView(list_id=list_instance, ip_address=ip_address)
+        page_view = LogListView(list=list_instance)
         page_view.save()
         
         return Response({'message': 'Page view logged successfully'}, status=status.HTTP_201_CREATED)
     
-class LinkClickLogger(APIView):
+class LogLinkClickView(APIView):
     def post(self, request):
         link_id = request.data.get('link_id')
-        ip_address = request.META.get('REMOTE_ADDR')
         link_instance = get_object_or_404(Link, id=link_id)
 
         # Create a LinkClick instance
-        link_click = LinkClick(link_id=link_instance, ip_address=ip_address)
+        link_click = LogLinkClick(link=link_instance)
         link_click.save()
         
         return Response({'message': 'Link click logged successfully'}, status=status.HTTP_201_CREATED)
 
 
-class SocialMediaClickLogger(APIView):
+class LogSocialMediaClickView(APIView):
     def post(self, request):
         social_media_profile_id = request.data.get('social_media_profile_id')
-        ip_address = request.META.get('REMOTE_ADDR')
         social_media_instance = get_object_or_404(SocialMedia, id=social_media_profile_id)
 
         # Create a SocialMediaClick instance
-        social_media_click = SocialMediaClick(social_media_profile_id=social_media_instance, ip_address=ip_address)
+        social_media_click = LogSocialMediaClick(social_media_profile=social_media_instance)
         social_media_click.save()
         
         return Response({'message': 'Social media click logged successfully'}, status=status.HTTP_201_CREATED)

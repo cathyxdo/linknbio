@@ -74,26 +74,23 @@ class Link(models.Model):
     def __str__(self):
         return f"Link: {self.title}"
     
-class PageView(models.Model):
-    list_id = models.ForeignKey(List, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
-    ip_address = models.GenericIPAddressField()
+class LogListView(models.Model):
+    list = models.ForeignKey(List, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True, db_index=True)
     
     def __str__(self):
         return f'PageView for {self.list_id} on {self.date}'
 
-class LinkClick(models.Model):
-    link_id = models.ForeignKey(Link, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
-    ip_address = models.GenericIPAddressField()
+class LogLinkClick(models.Model):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True, db_index=True)
     
     def __str__(self):
         return f'LinkClick for {self.link_id} on {self.date}'
     
-class SocialMediaClick(models.Model):
-    social_media_profile_id = models.ForeignKey(SocialMedia, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
-    ip_address = models.GenericIPAddressField()
+class LogSocialMediaClick(models.Model):
+    social_media_profile = models.ForeignKey(SocialMedia, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True, db_index=True)
     
     def __str__(self):
         return f'SocialMediaClick for {self.social_media_profile_id} on {self.date}'
