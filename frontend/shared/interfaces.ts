@@ -35,3 +35,30 @@ export interface Link {
   list: number;
   link_photo_url: string;
 }
+
+export interface PageView {
+  date: string;
+  count: number;
+}
+
+export interface SocialMediaClick {
+  date: string;
+  social_media_profile_type: string;
+  social_media_profile_url: string;
+  count: number;
+}
+
+export interface LinkClick {
+  date: string;
+  link_title: string;
+  link_url: string;
+  count: number;
+}
+
+export interface AnalyticsData {
+  list_id: string;
+  list_username: string;
+  page_views: PageView[];
+  link_clicks: LinkClick[];
+  social_media_clicks: SocialMediaClick[];
+}
