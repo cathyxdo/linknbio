@@ -1,5 +1,5 @@
 from linklists.models import Link, SocialMedia, List, LogListView, LogLinkClick, LogSocialMediaClick
-from linklists.serializers import LinkSerializer, SocialMediaSerializer, ListSerializer, ListViewSerializer, LinkClickSerializer, SocialMediaClickSerializer
+from linklists.serializers import LinkSerializer, SocialMediaSerializer, ListSerializer, ListViewSerializer, LinkClickSerializer, SocialMediaClickSerializer, ListViewCountSerializer, LinkClickCountSerializer, SocialMediaClickCountSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.views import APIView
@@ -9,8 +9,9 @@ from django.conf import settings
 from .permissions import IsOwnerOrReadOnly
 import boto3
 from django.shortcuts import get_object_or_404
-
-
+from datetime import datetime, timedelta
+from django.db.models import Count, F
+from django.db.models.functions import TruncDate
 
 class CheckListUsernameView(APIView):
     def get(self, request, *args, **kwargs):
@@ -246,3 +247,69 @@ class LogSocialMediaClickView(APIView):
         social_media_click.save()
         
         return Response({'message': 'Social media click logged successfully'}, status=status.HTTP_201_CREATED)
+
+class AnalyticsView(APIView):
+    def get(self, request):
+        list_id = request.query_params.get('list_id')
+        start_date = request.query_params.get('start_date')
+        end_date = request.query_params.get('end_date')
+        
+        if not list_id:
+            return Response({"detail": "Missing required parameter: list_id."}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            list_obj = List.objects.get(id=list_id)
+        except List.DoesNotExist:
+            return Response({"detail": "List not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+        # Default to the last 30 days if start_date or end_date are not provided
+        if not start_date or not end_date:
+            end_date = datetime.today()
+            start_date = end_date - timedelta(days=30)
+        else:
+            try:
+                start_date = datetime.strptime(start_date, '%Y-%m-%d')
+                end_date = datetime.strptime(end_date, '%Y-%m-%d')
+            except ValueError:
+                return Response({"detail": "Invalid date format. Use YYYY-MM-DD."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Aggregate LogListView (Page Views per day)
+        page_views = LogListView.objects.filter(
+            list=list_obj,
+            date__range=[start_date, end_date]
+        ).annotate(
+            truncated_date=TruncDate('date')
+        ).values('truncated_date').annotate(
+            count=Count('id')
+        ).order_by('truncated_date')
+
+        # Aggregate LogLinkClick (Link Clicks per day)
+        link_clicks = LogLinkClick.objects.filter(
+            link__list=list_obj,
+            date__range=[start_date, end_date]
+        ).annotate(
+            truncated_date=TruncDate('date')
+        ).values('truncated_date', 'link__title', 'link__link').annotate(
+            count=Count('id')
+        ).order_by('truncated_date')
+
+        # Aggregate LogSocialMediaClick (Social Media Clicks per day)
+        social_media_clicks = LogSocialMediaClick.objects.filter(
+            social_media_profile__list=list_obj,
+            date__range=[start_date, end_date]
+        ).annotate(
+            truncated_date=TruncDate('date')
+        ).values('truncated_date', 'social_media_profile__type', 'social_media_profile__link').annotate(
+            count=Count('id')
+        ).order_by('truncated_date')
+
+        # Serialize results
+        page_views_data = ListViewCountSerializer(page_views, many=True).data
+        link_clicks_data = LinkClickCountSerializer(link_clicks, many=True).data
+        social_media_clicks_data = SocialMediaClickCountSerializer(social_media_clicks, many=True).data
+        
+        # Return aggregated data
+        return Response({
+            'page_views': page_views_data,
+            'link_clicks': link_clicks_data,
+            'social_media_clicks': social_media_clicks_data
+        })
