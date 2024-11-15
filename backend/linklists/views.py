@@ -10,6 +10,7 @@ from .permissions import IsOwnerOrReadOnly
 import boto3
 from django.shortcuts import get_object_or_404
 from datetime import datetime, timedelta
+from django.utils import timezone
 from django.db.models import Count, F
 from django.db.models.functions import TruncDate
 
@@ -250,28 +251,35 @@ class LogSocialMediaClickView(APIView):
 
 class AnalyticsView(APIView):
     def get(self, request):
-        list_id = request.query_params.get('list_id')
+        user = request.user
+
         start_date = request.query_params.get('start_date')
         end_date = request.query_params.get('end_date')
-        
-        if not list_id:
-            return Response({"detail": "Missing required parameter: list_id."}, status=status.HTTP_400_BAD_REQUEST)
+
         try:
-            list_obj = List.objects.get(id=list_id)
+            list_obj = List.objects.filter(user=user).first()
+            if not list_obj:
+                return Response({"detail": "No list found for the authenticated user."}, status=status.HTTP_404_NOT_FOUND)
         except List.DoesNotExist:
             return Response({"detail": "List not found."}, status=status.HTTP_404_NOT_FOUND)
-        
+
         # Default to the last 30 days if start_date or end_date are not provided
         if not start_date or not end_date:
-            end_date = datetime.today()
+            end_date = timezone.now()  # Use timezone-aware current time
             start_date = end_date - timedelta(days=30)
         else:
             try:
+                # Convert the string to a naive datetime object first
                 start_date = datetime.strptime(start_date, '%Y-%m-%d')
                 end_date = datetime.strptime(end_date, '%Y-%m-%d')
+                
+                # Make both datetime objects timezone-aware
+                start_date = timezone.make_aware(start_date, timezone.get_current_timezone())
+                end_date = timezone.make_aware(end_date, timezone.get_current_timezone())
+                
             except ValueError:
                 return Response({"detail": "Invalid date format. Use YYYY-MM-DD."}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         # Aggregate LogListView (Page Views per day)
         page_views = LogListView.objects.filter(
             list=list_obj,
@@ -309,7 +317,7 @@ class AnalyticsView(APIView):
         
         # Return aggregated data
         return Response({
-            'list_id': list_id,
+            'list_id': list_obj.id,
             'list_username':list_obj.username,
             'page_views': page_views_data,
             'link_clicks': link_clicks_data,

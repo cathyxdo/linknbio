@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from .validators import validate_username
+from django.utils import timezone
 
 #from django.contrib.auth.models import User
 
@@ -76,21 +77,21 @@ class Link(models.Model):
     
 class LogListView(models.Model):
     list = models.ForeignKey(List, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True, db_index=True)
+    date = models.DateTimeField(default=timezone.now, db_index=True)
     
     def __str__(self):
         return f'PageView for {self.list_id} on {self.date}'
 
 class LogLinkClick(models.Model):
     link = models.ForeignKey(Link, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True, db_index=True)
+    date = models.DateTimeField(default=timezone.now, db_index=True)
     
     def __str__(self):
         return f'LinkClick for {self.link_id} on {self.date}'
     
 class LogSocialMediaClick(models.Model):
     social_media_profile = models.ForeignKey(SocialMedia, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True, db_index=True)
+    date = models.DateTimeField(default=timezone.now, db_index=True)
     
     def __str__(self):
         return f'SocialMediaClick for {self.social_media_profile_id} on {self.date}'
