@@ -309,6 +309,8 @@ class AnalyticsView(APIView):
         
         # Return aggregated data
         return Response({
+            'list_id': list_id,
+            'list_username':list_obj.username,
             'page_views': page_views_data,
             'link_clicks': link_clicks_data,
             'social_media_clicks': social_media_clicks_data
