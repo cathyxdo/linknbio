@@ -37,19 +37,19 @@ export interface Link {
 }
 
 export interface PageView {
-  date: string;
+  date: Date;
   count: number;
 }
 
 export interface SocialMediaClick {
-  date: string;
+  date: Date;
   social_media_profile_type: string;
   social_media_profile_url: string;
   count: number;
 }
 
 export interface LinkClick {
-  date: string;
+  date: Date;
   link_title: string;
   link_url: string;
   count: number;
