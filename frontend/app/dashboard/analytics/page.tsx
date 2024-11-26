@@ -1,11 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { AnalyticsData, PageView, LinkClick, SocialMediaClick } from "@/shared/interfaces";
 import { auth } from "@/utils/firebase";
 import { getIdToken, onAuthStateChanged, User } from "firebase/auth";
 import Link from "next/link";
 import { CircularProgress } from "@mui/material";
-
+import GraphPageViews from "@/components/GraphPageViews";
 export default function Page() {
     const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -59,6 +59,10 @@ export default function Page() {
     
         return () => unsubscribe(); // Cleanup listener on component unmount
       }, []);
+      // Memoize the page_views data to ensure it's stable between renders
+      const memoizedPageViews = useMemo(() => {
+        return analyticsData ? analyticsData.page_views : [];
+      }, [analyticsData]); // Recompute only if analyticsData changes
 
       if (loading) {
         return (
@@ -80,9 +84,12 @@ export default function Page() {
         );
       }
     return (
-        <div className="md:mt-0 mt-8 md:px-8 md:py-8 ">
-            <div className="py-10 min-h-screen ">
-                <div className="bg-white">Analytics Page</div>
+        <div className="md:mt-0 mt-8 md:px-8 md:py-8  ">
+            <div className="p-10 min-h-screen bg-white rounded-xl">
+                <div className="bg-white flex justify-center">Page Views per Day</div>
+                {analyticsData && <GraphPageViews data={analyticsData.page_views} />
+                }
+
             </div>
         </div>
     )
