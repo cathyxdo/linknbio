@@ -14,7 +14,7 @@ export default function GraphPageViews({ data }: GraphPageViewsProps) {
 
         // Set up chart dimensions and margins
         const width = 928;
-        const height = 500;
+        const height = 300;
         const marginTop = 20;
         const marginRight = 30;
         const marginBottom = 30;
@@ -77,7 +77,7 @@ export default function GraphPageViews({ data }: GraphPageViewsProps) {
             .attr("transform", `translate(0,${height - marginBottom})`)
             .attr("class", "x-axis")
             .call(d3.axisBottom(x)
-            .tickValues(mergedData.map(d => d.date)) // Use exact dates from mergedData
+            .tickValues(mergedData.map((d: { date: Date }) => d.date)) // Use exact dates from mergedData
             .tickFormat(d3.timeFormat("%m/%d")) // Format the ticks as MM/DD
                 .tickSizeOuter(0));
 
@@ -104,48 +104,66 @@ export default function GraphPageViews({ data }: GraphPageViewsProps) {
         svg.append("path")
             .attr("class", "line")
             .attr("fill", "none")
-            .attr("stroke", "steelblue")
+            .attr("stroke", "blue")
             .attr("stroke-width", 1.5)
             .attr("d", line(mergedData)); // Use the merged data with zeros for missing dates
         // Add circles for each data point (scatter plot)
    // Add circles for each data point (scatter plot)
+
+   let tooltip = d3.select(".tooltip");
+   if (tooltip.empty()) {
+       tooltip = d3.select("body")
+           .append("div")
+           .attr("class", "tooltip_pv")
+           .style("position", "absolute")
+           .style("visibility", "hidden")
+           .style("background-color", "#fff")
+           .style("border", "1px solid #ccc")
+           .style("border-radius", "4px")
+           .style("padding", "8px")
+           .style("box-shadow", "0 0 10px rgba(0, 0, 0, 0.2)");
+   }
+
+
    const circles = svg.selectAll(".data-point")
-   .data(mergedData)
-   .enter()
-   .append("circle")
-   .attr("class", "data-point")
-   .attr("cx", (d: { date: Date }) => x(d.date))
-   .attr("cy", (d: { count: number }) => y(d.count))
-   .attr("r", 6) // Radius of the circle
-   .attr("fill", "steelblue")
-   .attr("stroke", "white")
-   .attr("stroke-width", 1);
+    .data(mergedData)
+    .enter()
+    .append("circle")
+    .attr("class", "data-point")
+    .attr("cx", (d: { date: Date }) => x(d.date))
+    .attr("cy", (d: { count: number }) => y(d.count))
+    .attr("r", 5) // Radius of the circle
+    .attr("fill", "blue")
+    .attr("stroke", "white")
+    .attr("stroke-width", 1)
+    .on("mouseover", function(this: SVGCircleElement, event: MouseEvent, d: PageView) {
+        tooltip.style("visibility", "visible")
+            .html(`Date: ${d3.timeFormat("%m/%d")(d.date)}<br>Page Views: ${d.count}`);
+        d3.select(this)
+            .attr("stroke", "orange") // Change stroke to fuchsia on hover
+            .attr("stroke-width", 4); // Optionally, increase the stroke width
+        })
+        .on("mousemove", function(this: SVGCircleElement, event: MouseEvent) {
+            tooltip.style("top", (event.pageY + 5) + "px")
+                .style("left", (event.pageX + 5) + "px");
+        })
+        .on("mouseout", function(this: SVGCircleElement) {
+            tooltip.style("visibility", "hidden");
+            d3.select(this)
+                .attr("stroke", "white") // Revert stroke color
+                .attr("stroke-width", 1); // Revert stroke width
+        });
 
-    // Create the tooltip div
-    const tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("position", "absolute")
-    .style("visibility", "hidden")
-    .style("background-color", "#fff")
-    .style("border", "1px solid #ccc")
-    .style("border-radius", "4px")
-    .style("padding", "8px")
-    .style("box-shadow", "0 0 10px rgba(0, 0, 0, 0.2)");
 
-    // Show the tooltip on hover
-    circles.on("mouseover", function(event, d) {
-    tooltip.style("visibility", "visible")
-        .html(`Date: ${d3.timeFormat("%m/%d")(d.date)}<br>Page Views: ${d.count}`);
-    })
-    .on("mousemove", function(event) {
-    tooltip.style("top", (event.pageY + 5) + "px")
-        .style("left", (event.pageX + 5) + "px");
-    })
-    .on("mouseout", function() {
-    tooltip.style("visibility", "hidden");
-    });
+    svg.selectAll(".x-axis, .y-axis")
+    .call(g => g.lower()); // Push axes to the back
 
     }, [data]); // Re-run the effect when data changes
 
-    return <svg ref={svgRef} />;
+    return (
+        <div className="p-10 shadow bg-white rounded-xl">
+            <h2 className="text-lg font-bold mb-4">Page Views</h2>
+            <svg ref={svgRef} className="w-full h-auto" />
+        </div>
+    )
 }
