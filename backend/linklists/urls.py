@@ -1,5 +1,5 @@
 from django.urls import path, include
-from linklists.views import LinkDetail, CreateLink, ListDetail, ListList, SocialMediaDetail, CreateSocialMedia, ImageUploadView, ImageDeleteView, ProfileImageDeleteView, ProfileImageUploadView, CheckListUsernameView, ListByUsernameView, LogListViewView, LogLinkClickView, LogSocialMediaClickView, AnalyticsView
+from linklists.views import LinkDetail, CreateLink, ListDetail, ListList, SocialMediaDetail, CreateSocialMedia, ImageUploadView, ImageDeleteView, ProfileImageDeleteView, ProfileImageUploadView, CheckListUsernameView, ListByUsernameView, LogListViewView, LogLinkClickView, LogSocialMediaClickView, AnalyticsView, AnalyticsView2
 
 urlpatterns = [
     path("api/lists/<int:pk>/", ListDetail.as_view(), name='list_modify'),
@@ -18,6 +18,7 @@ urlpatterns = [
     path('api/log/link_click/', LogLinkClickView.as_view(), name='log_link_click'),
     path('api/log/social_media_click/', LogSocialMediaClickView.as_view(), name='log_social_media_click'),
     path('api/analytics/', AnalyticsView.as_view(), name='analytics'),
+    path('api/analytics2/', AnalyticsView2.as_view(), name='analytics'),
 
 
     path('api/user/', include('users.urls', namespace='users')),

@@ -323,3 +323,108 @@ class AnalyticsView(APIView):
             'link_clicks': link_clicks_data,
             'social_media_clicks': social_media_clicks_data
         })
+
+class AnalyticsView2(APIView):
+    def get(self, request):
+        user = request.user
+
+        # Get query parameters for date range
+        start_date = request.query_params.get('start_date')
+        end_date = request.query_params.get('end_date')
+
+        try:
+            list_obj = List.objects.filter(user=user).first()
+            if not list_obj:
+                return Response({"detail": "No list found for the authenticated user."}, status=status.HTTP_404_NOT_FOUND)
+        except List.DoesNotExist:
+            return Response({"detail": "List not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Default date range to the last 30 days if not provided
+        if not start_date or not end_date:
+            end_date = timezone.now()
+            start_date = end_date - timedelta(days=30)
+        else:
+            try:
+                start_date = timezone.make_aware(datetime.strptime(start_date, '%Y-%m-%d'), timezone.get_current_timezone())
+                end_date = timezone.make_aware(datetime.strptime(end_date, '%Y-%m-%d'), timezone.get_current_timezone())
+            except ValueError:
+                return Response({"detail": "Invalid date format. Use YYYY-MM-DD."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Aggregate page views
+        page_views = LogListView.objects.filter(
+            list=list_obj,
+            date__range=[start_date, end_date]
+        ).annotate(
+            truncated_date=TruncDate('date')
+        ).values('truncated_date').annotate(
+            count=Count('id')
+        ).order_by('truncated_date')
+
+        # Aggregate link clicks
+        link_clicks = LogLinkClick.objects.filter(
+            link__list=list_obj,
+            date__range=[start_date, end_date]
+        ).annotate(
+            truncated_date=TruncDate('date')
+        ).values('truncated_date', 'link__id', 'link__title', 'link__link').annotate(
+            count=Count('id')
+        ).order_by('truncated_date')
+
+        # Aggregate social media clicks
+        social_media_clicks = LogSocialMediaClick.objects.filter(
+            social_media_profile__list=list_obj,
+            date__range=[start_date, end_date]
+        ).annotate(
+            truncated_date=TruncDate('date')
+        ).values('truncated_date', 'social_media_profile__id', 'social_media_profile__type', 'social_media_profile__link').annotate(
+            count=Count('id')
+        ).order_by('truncated_date')
+
+        # Restructure page views data
+        page_views_data = [
+            {"date": view['truncated_date'], "count": view['count']}
+            for view in page_views
+        ]
+
+        # Restructure link clicks data
+        links_data = {}
+        for click in link_clicks:
+            key = click['link__id']
+            if key not in links_data:
+                links_data[key] = {
+                    "link_id": key,
+                    "link_title": click['link__title'],
+                    "link_url": click['link__link'],
+                    "clicks": []
+                }
+            links_data[key]["clicks"].append({
+                "date": click['truncated_date'],
+                "count": click['count']
+            })
+        links_data = list(links_data.values())
+
+        # Restructure social media clicks data
+        social_media_data = {}
+        for click in social_media_clicks:
+            key = click['social_media_profile__id']
+            if key not in social_media_data:
+                social_media_data[key] = {
+                    "social_media_profile_id": key,
+                    "social_media_profile_type": click['social_media_profile__type'],
+                    "social_media_profile_url": click['social_media_profile__link'],
+                    "clicks": []
+                }
+            social_media_data[key]["clicks"].append({
+                "date": click['truncated_date'],
+                "count": click['count']
+            })
+        social_media_data = list(social_media_data.values())
+
+        # Return the aggregated data
+        return Response({
+            'list_id': list_obj.id,
+            'list_username': list_obj.username,
+            'page_views': page_views_data,
+            'links': links_data,
+            'social_media': social_media_data
+        })
