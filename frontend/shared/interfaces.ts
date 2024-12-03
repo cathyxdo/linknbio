@@ -40,25 +40,34 @@ export interface PageView {
   date: Date;
   count: number;
 }
-
 export interface SocialMediaClick {
   date: Date;
+  count: number;
+}
+
+export interface SocialMediaProfileClicks {
+  social_media_profile_id: number;
   social_media_profile_type: string;
   social_media_profile_url: string;
-  count: number;
+  clicks: SocialMediaClick[];
 }
 
 export interface LinkClick {
   date: Date;
-  link_title: string;
-  link_url: string;
   count: number;
 }
 
+export interface LinkClicks {
+  link_id: number;
+  link_title: string;
+  link_url: string;
+  clicks: LinkClick[];
+}
+
 export interface AnalyticsData {
-  list_id: string;
+  list_id: number;
   list_username: string;
   page_views: PageView[];
-  link_clicks: LinkClick[];
-  social_media_clicks: SocialMediaClick[];
+  links: LinkClicks[];
+  social_media: SocialMediaProfileClicks[];
 }
