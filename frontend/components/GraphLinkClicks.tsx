@@ -68,8 +68,17 @@ export default function GraphLinkClicks({ data }: LinkClicksProps) {
         svg.append("g")
             .attr("class", "x-axis")
             .attr("transform", `translate(0,${height - marginBottom})`)
-            .call(d3.axisBottom(x).ticks(d3.timeDay.every(1)).tickFormat(d3.timeFormat("%m/%d")));
-
+            .call(d3.axisBottom(x)
+            .ticks(d3.timeDay.every(1))
+            .tickFormat((domainValue) => {
+                // Check if domainValue is a Date object
+                if (domainValue instanceof Date) {
+                    return d3.timeFormat("%m/%d")(domainValue);
+                } else {
+                    return ''; // Return an empty string or default value if not a Date
+                }
+            })
+        );        
         // Add Y-axis
         svg.selectAll(".y-axis").remove();
         svg.append("g")
@@ -82,7 +91,8 @@ export default function GraphLinkClicks({ data }: LinkClicksProps) {
         svg.selectAll(".bar").remove();
 
         // Tooltip creation
-        let tooltip = d3.select(".tooltip");
+        let tooltip = d3.select(".tooltip") as d3.Selection<HTMLDivElement, unknown, HTMLElement, any>;
+
         if (tooltip.empty()) {
             tooltip = d3.select("body")
                 .append("div")
@@ -93,7 +103,7 @@ export default function GraphLinkClicks({ data }: LinkClicksProps) {
                 .style("border", "1px solid #ccc")
                 .style("border-radius", "4px")
                 .style("padding", "8px")
-                .style("box-shadow", "0 0 10px rgba(0, 0, 0, 0.2)");
+                .style("box-shadow", "0 0 10px rgba(0, 0, 0, 0.2)") as d3.Selection<HTMLDivElement, unknown, HTMLElement, any>;
         }
         
         // Add bars
