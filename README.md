@@ -1,6 +1,6 @@
 # Linknbio App
 
-Linknbio is a full-stack application built with Django REST Framework for the backend and Next.js for the frontend. It is containerized using Docker and orchestrated with Docker Compose.
+Linknbio is a web app used to create a personalized page to share as a single link on social media accounts. Similar to apps like Linktree. It is a full-stack application built with Django REST Framework for the backend and Next.js for the frontend. It is containerized using Docker and orchestrated with Docker Compose.
 - [Website](https://weigh-my-pack-react.onrender.com/)
 - [Example Linknbio](https://weigh-my-pack-react.onrender.com/#/73vGDoxAvHST5jEdvjvmS5)
 
