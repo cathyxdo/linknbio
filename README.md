@@ -76,17 +76,20 @@ uploads)
     ```bash
     docker compose build
     ```
-4. Apply database migrations 
-
-5. Start up app
+4. Start up app
     ```bash
-    docker compose up
+    # run containers in background (-d flag)
+    docker compose up -d
+    ```
+
+    Run command to apply database migrations
+    ```bash
+    docker compose exec backend python manage.py migrate
     ```
     ### Access the Application
-
 - Visit http://localhost:3000 for the frontend.
 - API endpoints will be available at http://localhost:8000/api.
-6. To stop the app 
+5. To stop the app 
     ```bash
     docker compose down
     ```
