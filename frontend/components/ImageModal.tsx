@@ -9,7 +9,7 @@ interface ImageModalProps {
     setNewLinkImageData: (newPhotoUrl: string) => void,
 
 }
-export default function ImageModal2({id, closeImageModal, updateLink, setNewLinkImageData}: ImageModalProps) {
+export default function ImageModal({id, closeImageModal, updateLink, setNewLinkImageData}: ImageModalProps) {
     return (
         <div className="fixed z-50 inset-0 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen p-4">
