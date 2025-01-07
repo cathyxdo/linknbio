@@ -19,16 +19,16 @@ export default function Home() {
     <main className="flex min-h-screen flex-col w-full items-center">
       <header className="fixed w-full">
         <nav className="bg-white border-b border-gray-200 py-2.5">
-          <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
+          <div className="flex flex-wrap items-center justify-between px-4 ">
             <Link href="/" className="flex items-center">
               <span className="self-center text-2xl font-semibold whitespace-nowrap">
                 Linknbio
               </span>
             </Link>
-            <div className="flex items-center lg:order-2">
+            <div className="flex items-center lg:order-2 gap-2">
               <button
                 onClick={() => handleAuthButtonClick("login")}
-                className="border border-black text-black bg-white hover:bg-black hover:text-white font-bold py-2 px-4 rounded-lg mr-4"
+                className="border border-black text-black bg-white hover:bg-black hover:text-white font-bold py-2 px-4 rounded-lg "
               >
                 Login
               </button>
