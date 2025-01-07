@@ -4,7 +4,7 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import { Link } from "@/shared/interfaces";
 import Image from "next/image";
-import ImageModal2 from "./ImageModal2";
+import ImageModal from "./ImageModal";
 import { auth } from "@/utils/firebase";
 import { getIdToken } from "firebase/auth";
 interface LinkProps {
@@ -14,7 +14,6 @@ interface LinkProps {
   link_photo_url: string;
   deleteLink: (id: number) => void;
   updateLink: (link: Link) => void;
-  //openImageModal: (type: string, id: number) => void;
 }
 export default function LinkElement({
   id,
@@ -23,7 +22,6 @@ export default function LinkElement({
   link_photo_url: initialPhotoUrl,
   deleteLink,
   updateLink,
-  //openImageModal,
 }: LinkProps) {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [deleteMenu, setDeleteMenu] = useState<boolean>(false);
@@ -252,7 +250,7 @@ export default function LinkElement({
         )}
       </div>
       {imageModal && (
-        <ImageModal2
+        <ImageModal
           id={id}
           updateLink={updateLink}
           closeImageModal={closeImageModal}
