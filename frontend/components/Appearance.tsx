@@ -677,8 +677,8 @@ export default function Apperance({ data }: AppearanceProps) {
           {!isPhonePreviewVisible && (
             <div className="lg:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2">
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-full"
-                onClick={() => setIsPhonePreviewVisible(true)}
+              className="bg-white text-black border-2 border-black hover:bg-black hover:text-white px-6 py-4 font-semibold rounded-full"
+              onClick={() => setIsPhonePreviewVisible(true)}
               >
                 Show Preview
               </button>
@@ -690,7 +690,7 @@ export default function Apperance({ data }: AppearanceProps) {
             <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
               <PhonePreview pageData={pageData} />
               <button
-                className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white p-2 rounded-full"
+                className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-4 font-semibold rounded-full"
                 onClick={() => setIsPhonePreviewVisible(false)}
               >
                 Close Preview
