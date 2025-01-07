@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 import FontModal from "./FontModal";
 import { auth } from "@/utils/firebase";
 import { getIdToken } from "firebase/auth";
-
+import { PhotoOutlined } from "@mui/icons-material";
 interface AppearanceProps {
   data: ListProfile;
 }
@@ -390,12 +390,12 @@ export default function Apperance({ data }: AppearanceProps) {
                     <div className="bg-black h-9 w-full"></div>
                     <p>Color</p>
                   </button>
-                  {/* <button className="p-2">
-                                        <div className="bg-white h-9 rounded-xl border border-black border-dashed flex items-center justify-center">
-                                            <PhotoOutlined />
-                                        </div>
-                                        <p>Image</p>
-                                    </button> */}
+                   <button className="p-2 cursor-not-allowed text-gray-500">
+                    <div className="bg-white h-9  border border-black border-dashed flex items-center justify-center">
+                        <PhotoOutlined />
+                    </div>
+                    <p>Image - Future Feature</p>
+                  </button> 
                 </div>
                 <div>
                   <h3>Background Color</h3>
