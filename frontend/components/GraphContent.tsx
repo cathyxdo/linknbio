@@ -28,16 +28,24 @@ export default function GraphContent({ linkClicks, socialMediaClicks }: GraphCon
             </div>
             {contentMode === "sm" && (
                 <div className="flex flex-col gap-4 mt-8">
-                    {socialMediaClicks.map((social_media) => (
+                {socialMediaClicks.length > 0 ? (
+                    socialMediaClicks.map((social_media) => (
                         <GraphSocialMediaClicks key={social_media.social_media_profile_id} data={social_media} />
-                    ))}
-                </div>
+                    ))
+                ) : (
+                    <p>No data available</p>
+                )}
+            </div>
             )}
             {contentMode === "link" && (
                 <div className="flex flex-col gap-4 mt-8">
-                    {linkClicks.map((link) => (
-                        <GraphLinkClicks key={link.link_id} data={link} />
-                    ))}
+                    {linkClicks.length > 0 ? (
+                        linkClicks.map((link) => (
+                            <GraphLinkClicks key={link.link_id} data={link} />
+                        ))
+                    ) : (
+                        <p>No data available</p>
+                    )}
                 </div>
             )}
 
