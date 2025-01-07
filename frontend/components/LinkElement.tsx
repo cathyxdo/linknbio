@@ -14,7 +14,7 @@ interface LinkProps {
   link_photo_url: string;
   deleteLink: (id: number) => void;
   updateLink: (link: Link) => void;
-  openImageModal: (type: string, id: number) => void;
+  //openImageModal: (type: string, id: number) => void;
 }
 export default function LinkElement({
   id,
@@ -23,7 +23,7 @@ export default function LinkElement({
   link_photo_url: initialPhotoUrl,
   deleteLink,
   updateLink,
-  openImageModal,
+  //openImageModal,
 }: LinkProps) {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [deleteMenu, setDeleteMenu] = useState<boolean>(false);

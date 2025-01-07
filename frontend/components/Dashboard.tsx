@@ -7,7 +7,6 @@ import AddSocialMediaForm from "./AddSocialMediaForm";
 import AddLinkForm from "./AddLinkForm";
 import LinkElement from "./LinkElement";
 import PhonePreview from "./PhonePreview";
-import ImageModal from "./ImageModal";
 
 interface DashboardProps {
   data: ListProfile;
@@ -34,11 +33,7 @@ export default function Dashboard({ data }: DashboardProps) {
     social_media_profiles: data.social_media_profiles || [],
     links: data.links || [],
   });
-  const [showImageModal, setShowImageModal] = useState(false);
-  const [imageModalData, setImageModalData] = useState({
-    type: "",
-    id: 0,
-  });
+
   const [isPhonePreviewVisible, setIsPhonePreviewVisible] = useState(false);
 
   function handleLinkAdd(newLink: Link) {
@@ -101,17 +96,6 @@ export default function Dashboard({ data }: DashboardProps) {
     }));
   }
 
-  function closeImageModal() {
-    setShowImageModal(false);
-  }
-  function openImageModal(type: string, id: number) {
-    setShowImageModal(true);
-    setImageModalData({
-      type: type,
-      id: id,
-    });
-  }
-
   return (
     <div className="md:mt-0 mt-8 md:px-8 md:py-8 ">
       <div className="py-10 flex min-h-screen ">
@@ -149,7 +133,7 @@ export default function Dashboard({ data }: DashboardProps) {
                 {...link}
                 deleteLink={handleLinkDelete}
                 updateLink={handleLinkUpdate}
-                openImageModal={openImageModal}
+                //openImageModal={openImageModal}
               />
             ))}
           </div>
@@ -184,10 +168,6 @@ export default function Dashboard({ data }: DashboardProps) {
           </div>
         )}
       </div>
-
-      {showImageModal && (
-        <ImageModal closeImageModal={closeImageModal} data={imageModalData} />
-      )}
     </div>
   );
 }
