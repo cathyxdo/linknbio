@@ -14,7 +14,7 @@ Linknbio is a web app used to create a personalized page to share as a single li
 
 ## Tech Stack
 - **Backend API**: Django REST Framework
-- **Frontend**: Next.js, d3.js (graphs)
+- **Frontend**: Next.js, Tailwind.css, d3.js (graphs)
 - **Database**: PostgreSQL 
 - **Storage**: AWS S3 for photo uploads
 - **Authentication**: Firebase
