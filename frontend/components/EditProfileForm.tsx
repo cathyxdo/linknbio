@@ -118,7 +118,7 @@ export default function EditProfileForm({
         <div className="px-4 py-8 mb-4 space-y-6 bg-white border rounded-xl shadow ">
           <h3 className=" text-lg font-semibold">Edit Profile</h3>
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-            <div className="flex ">
+            <div className="flex flex-col-reverse md:flex-row">
               <div className="basis-3/4">
                 <label>Url</label>
                 <div className="mt-2 px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white">
