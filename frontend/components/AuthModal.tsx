@@ -56,7 +56,7 @@ export default function AuthModal({
       >
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 hover:bg-stone-100 rounded-full w-10 h-10 p-2"
+          className="absolute top-2 right-2 hover:bg-stone-200 rounded-full w-10 h-10 p-2"
         >
           <CloseRounded />
         </button>
