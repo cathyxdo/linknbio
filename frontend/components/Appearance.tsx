@@ -390,8 +390,8 @@ export default function Apperance({ data }: AppearanceProps) {
                     <div className="bg-black h-9 w-full"></div>
                     <p>Color</p>
                   </button>
-                   <button className="p-2 cursor-not-allowed text-gray-500">
-                    <div className="bg-white h-9  border border-black border-dashed flex items-center justify-center">
+                  <button className="p-2 cursor-not-allowed text-gray-400">
+                    <div className="bg-white h-9  border-2 border-gray-400 border-dashed flex items-center justify-center">
                         <PhotoOutlined />
                     </div>
                     <p>Image - Future Feature</p>
