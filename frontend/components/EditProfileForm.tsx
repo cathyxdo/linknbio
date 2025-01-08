@@ -3,6 +3,7 @@ import Image from "next/image";
 import ProfileImageModal from "./ProfileImageModal";
 import { auth } from "@/utils/firebase";
 import { getIdToken } from "firebase/auth";
+import { responsiveFontSizes } from "@mui/material";
 
 interface ProfileFormProps {
   id: number;
@@ -52,6 +53,30 @@ export default function EditProfileForm({
     setFormData({ ...formData, profile_photo_url: newProfilePhotoUrl });
     updateProfile(formData.name, formData.bio, formData.profile_photo_url);
   }
+
+  async function handleProfileImageDelete() {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/delete-profile-image/lists/` + id + "/",
+        {
+          method: "DELETE", // or 'PUT' if you are replacing the entire resource
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        console.log(response);
+        throw new Error(`Error: ${response.status}`);
+      } else {
+        console.log("Image deleted successfully");
+        setFormData({ ...formData, profile_photo_url: '' });
+        updateProfile(formData.name, formData.bio, '');
+      }
+    } catch (error) {
+      console.error("error during delete", error);
+    }
+  }    
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -156,6 +181,7 @@ export default function EditProfileForm({
           id={id}
           closeProfileImageModal={closeProfileImageModal}
           handleProfileImageUpdate={handleProfileImageUpdate}
+          handleProfileImageDelete={handleProfileImageDelete}
         />
       )}
     </>

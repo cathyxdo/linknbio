@@ -3,12 +3,15 @@ interface ProfileImageProps {
   id: number;
   closeProfileImageModal: () => void;
   handleProfileImageUpdate: (newProfilePhotoUrl: string) => void;
+  handleProfileImageDelete: () => void;
+
 }
 
 export default function ProfileImageModal({
   id,
   closeProfileImageModal,
   handleProfileImageUpdate,
+  handleProfileImageDelete,
 }: ProfileImageProps) {
   return (
     <div className="fixed z-50 inset-0 overflow-y-auto">
@@ -22,8 +25,8 @@ export default function ProfileImageModal({
             id={id}
             closeProfileImageModal={closeProfileImageModal}
             handleProfileImageUpdate={handleProfileImageUpdate}
+            handleProfileImageDelete={handleProfileImageDelete}
           />
-          <button className="mt-6 text-sm bg-red-400 rounded-lg hover:bg-red-600 px-4 py-2 font-semibold text-white">Delete Profile Picture</button>
           <button
             className="absolute top-0 right-0 m-4 text-gray-500 hover:text-gray-700 hover:bg-stone-200 p-2 rounded-full"
             onClick={closeProfileImageModal}

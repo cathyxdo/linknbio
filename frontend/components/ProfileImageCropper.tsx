@@ -16,6 +16,7 @@ interface ProfileImageCropperProps {
   id: number;
   closeProfileImageModal: () => void;
   handleProfileImageUpdate: (newProfilePhotoUrl: string) => void;
+  handleProfileImageDelete: () => void;
 }
 // This is to demonstate how to make and center a % aspect crop
 // which is a bit trickier so we use some helper functions.
@@ -42,6 +43,7 @@ export default function ProfileImageCropper({
   id,
   closeProfileImageModal,
   handleProfileImageUpdate,
+  handleProfileImageDelete,
 }: ProfileImageCropperProps) {
   const [imgSrc, setImgSrc] = useState("");
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -61,7 +63,10 @@ export default function ProfileImageCropper({
       reader.readAsDataURL(e.target.files[0]);
     }
   }
-
+  function onImageDelete() {
+    handleProfileImageDelete();
+    closeProfileImageModal();
+  }
   function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
     const { width, height } = e.currentTarget;
     setCrop(centerAspectCrop(width, height, 1));
@@ -125,8 +130,8 @@ export default function ProfileImageCropper({
         throw new Error(`Error: ${response.status}`);
       } else {
         const updatedLink: ListProfile = await response.json();
-        closeProfileImageModal();
         handleProfileImageUpdate(updatedLink.profile_photo_url);
+        closeProfileImageModal();
       }
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -158,6 +163,9 @@ export default function ProfileImageCropper({
       <div className="Crop-Controls">
         <input type="file" accept="image/*" onChange={onSelectFile} />
       </div>
+      {!imgSrc && (
+        <button onClick={onImageDelete} className="mt-6 text-sm bg-red-400 rounded-lg hover:bg-red-600 px-4 py-2 font-semibold text-white">Delete Profile Picture</button>
+      )}
       {!!imgSrc && (
         <>
           <div>
