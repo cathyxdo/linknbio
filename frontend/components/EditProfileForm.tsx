@@ -51,7 +51,7 @@ export default function EditProfileForm({
 
   function handleProfileImageUpdate(newProfilePhotoUrl: string) {
     setFormData({ ...formData, profile_photo_url: newProfilePhotoUrl });
-    updateProfile(formData.name, formData.bio, formData.profile_photo_url);
+    updateProfile(formData.name, formData.bio,newProfilePhotoUrl);
   }
 
   async function handleProfileImageDelete() {
