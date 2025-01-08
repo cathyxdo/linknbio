@@ -224,7 +224,8 @@ export default function ProfileImageCropper({
             />
           </div>
           <div>
-            <button onClick={onUploadCropClick}>Upload Image</button>
+            <button onClick={onUploadCropClick} className="text-sm rounded-full bg-blue-100 hover:bg-blue-300 px-5 py-2.5 my-4"
+            >Upload Image</button>
           </div>
         </>
       )}
