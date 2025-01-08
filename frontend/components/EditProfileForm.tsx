@@ -123,7 +123,7 @@ export default function EditProfileForm({
                   className="text-sm rounded-full bg-blue-100 hover:bg-blue-300 px-5 py-2.5 text-center my-4"
                   onClick={() => setShowProfileImageModal(true)}
                 >
-                  Upload Profile Photo
+                  Edit Profile Photo
                 </button>
               </div>
             </div>
