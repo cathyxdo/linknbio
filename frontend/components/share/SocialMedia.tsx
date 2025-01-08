@@ -18,28 +18,28 @@ export default function SocialMedia({profileFontColor, profileLink, profileType,
           case "instagram":
             return (
               <InstagramIcon
-                className="ease-in transform hover:scale-110 transition duration-150"
+                className="ease-in transform hover:scale-110 text-4xl transition duration-150"
                 style={{ color: profileFontColor }}
               />
             );
           case "facebook":
             return (
               <FacebookIcon
-                className="ease-in transform hover:scale-110 transition duration-150"
+                className="ease-in transform hover:scale-110 text-4xl transition duration-150"
                 style={{ color: profileFontColor }}
               />
             );
           case "youtube":
             return (
               <YouTubeIcon
-                className="ease-in transform hover:scale-110 transition duration-150"
+                className="ease-in transform hover:scale-110 text-4xl transition duration-150"
                 style={{ color: profileFontColor }}
               />
             );
           case "twitter":
             return (
               <TwitterIcon
-                className="ease-in transform hover:scale-110 transition duration-150"
+                className="ease-in transform hover:scale-110 text-4xl transition duration-150"
                 style={{ color: profileFontColor }}
               />
             );
