@@ -89,7 +89,7 @@ class ProfileImageDeleteView(APIView):
             s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=file_name)
 
             # Update the link_photo_url field of the Link object
-            list.link_photo_url = ''
+            list.profile_photo_url = ''
             list.save()
             serializer = ListSerializer(list)
 
