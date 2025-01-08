@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.db.models import Count, F
 from django.db.models.functions import TruncDate
+import uuid
 
 class CheckListUsernameView(APIView):
     def get(self, request, *args, **kwargs):
@@ -41,11 +42,15 @@ class ProfileImageUploadView(APIView):
                           aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
 
         try:
-            # Upload file to S3 bucket
-            s3.upload_fileobj(file_obj, settings.AWS_STORAGE_BUCKET_NAME, file_obj.name)
+            # If photo already exists - delete it
+            if list.profile_photo_url:
+                existing_file_name = list.profile_photo_url.split('/')[-1]
+                s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=existing_file_name)
 
-            # Get the URL of the uploaded file
-            file_url = f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{file_obj.name}"
+            random_file_name = f"{uuid.uuid4()}{file_obj.name[file_obj.name.rfind('.'):]}"
+            s3.upload_fileobj(file_obj, settings.AWS_STORAGE_BUCKET_NAME, random_file_name)
+
+            file_url = f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{random_file_name}"
 
             # Update the link_photo_url field of the Link object
             list.profile_photo_url = file_url
@@ -63,10 +68,13 @@ class ProfileImageDeleteView(APIView):
         try:
             list = List.objects.get(id=pk)
         except List.DoesNotExist:
-            return Response({'error': 'Link not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'List not found'}, status=status.HTTP_404_NOT_FOUND)
         
         # Get the current image URL
         file_url = list.profile_photo_url
+
+        if not file_url:
+            return Response({'error': 'No image to delete'}, status=status.HTTP_400_BAD_REQUEST)
 
         # Connect to S3 bucket
         s3 = boto3.client('s3',
@@ -110,11 +118,15 @@ class ImageUploadView(APIView):
                           aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
 
         try:
-            # Upload file to S3 bucket
-            s3.upload_fileobj(file_obj, settings.AWS_STORAGE_BUCKET_NAME, file_obj.name)
+            # If photo already exists - delete it
+            if link.link_photo_url:
+                existing_file_name = link.link_photo_url.split('/')[-1]
+                s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=existing_file_name)
 
-            # Get the URL of the uploaded file
-            file_url = f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{file_obj.name}"
+            random_file_name = f"{uuid.uuid4()}{file_obj.name[file_obj.name.rfind('.'):]}"
+            s3.upload_fileobj(file_obj, settings.AWS_STORAGE_BUCKET_NAME, random_file_name)
+
+            file_url = f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{random_file_name}"
 
             # Update the link_photo_url field of the Link object
             link.link_photo_url = file_url
@@ -135,6 +147,9 @@ class ImageDeleteView(APIView):
         
         # Get the current image URL
         file_url = link.link_photo_url
+
+        if not file_url:
+            return Response({'error': 'No image to delete'}, status=status.HTTP_400_BAD_REQUEST)
 
         # Connect to S3 bucket
         s3 = boto3.client('s3',
