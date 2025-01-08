@@ -69,17 +69,17 @@ export default function Link({linkBubbleColor, linkFontColor, linkBubbleStyle, l
             key={linkId}
             href={linkLink}
             style={getLinkBubbleColorStyle()}
-            className={`${getLinkBubbleStyle()} px-4 py-4  ease-in transform hover:scale-105 transition duration-150`}
+            className={`${getLinkBubbleStyle()} px-4 py-4 h-16 ease-in flex items-center justify-center transform hover:scale-105 transition duration-150`}
             onClick={() => logLinkClick(linkId)}
             >
             {linkPhotoUrl && (
                 <Image
                 src={linkPhotoUrl} // Fallback to a default image if photo is not available
-                width={45}
-                height={45}
+                width={46}
+                height={46}
                 style={{borderRadius: "50%"}}
                 alt={linkTitle}
-                className="absolute left-1 top-1"
+                className="absolute left-2 "
                 />
             )}
             <p className="text-sm">{linkTitle}</p>

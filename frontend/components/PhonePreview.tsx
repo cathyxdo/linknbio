@@ -87,7 +87,7 @@ export default function PhonePreview({ pageData }: PhonePreviewProps) {
   return (
     <div
       style={{ backgroundColor: pageData.background_color }}
-      className={`fixed  h-[692px] w-[320px] p-4 mb-4 space-y-2  border-gray-900 border-8 rounded-3xl shadow-sm flex flex-col items-center text-center font-${pageData.profile_font}`}
+      className={`fixed  h-[692px] w-[320px] px-2 py-4 mb-4 space-y-2  border-gray-900 border-8 rounded-3xl shadow-sm flex flex-col items-center text-center font-${pageData.profile_font}`}
     >
       <div className=" text-black flex flex-col gap-2 items-center">
         {pageData.profile_photo_url && (
@@ -135,16 +135,16 @@ export default function PhonePreview({ pageData }: PhonePreviewProps) {
               key={link.id}
               href={link.link}
               style={getLinkBubbleColorStyle()}
-              className={`${getLinkBubbleStyle()} relative  text-xs px-3 py-3  `}
+              className={`${getLinkBubbleStyle()} relative flex items-center justify-center text-xs px-3 py-3 h-12`}
             >
               {link.link_photo_url && (
                 <Image
                   src={link.link_photo_url}
-                  width={33}
-                  height={33}
+                  width={36}
+                  height={36}
                   style={imageStyle}
                   alt={link.title}
-                  className="absolute left-1 top-1"
+                  className="absolute left-1.5 top-1.5"
                 />
               )}
               <p className="text-center text-xs">{link.title}</p>
