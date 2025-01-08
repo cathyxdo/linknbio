@@ -12,7 +12,7 @@ export default function TotalCounts({ pageViews, linkClicks, socialMediaClicks }
 
             <div className="bg-white p-10 rounded-xl shadow">
                 <h3 className="text-lg font-bold mb-4">Totals</h3>
-                <div className="flex w-full justify-between">
+                <div className="flex gap-2 flex-col md:flex-row w-full md:justify-between">
                     <div className="flex items-center gap-2">
                         <div className="p-2 bg-slate-200 rounded-lg">
                             <VisibilityIcon className="text-black" />
