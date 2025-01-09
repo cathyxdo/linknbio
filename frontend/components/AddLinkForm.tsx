@@ -71,15 +71,14 @@ export default function AddLinkForm({ id, addNewLink }: LinkProps) {
           <p>Add Link</p>
         </button>
       ) : (
-        <div className="p-6 mb-4 space-y-6 bg-white rounded-xl shadow-xl ">
-          <div className="relative">
+        <div className="relative p-6 mb-4 space-y-6 bg-white rounded-xl shadow-xl ">
             <button
               onClick={() => setShowLinkForm(false)}
-              className="absolute top-0 right-0 hover:bg-stone-100  rounded-full w-10 h-10"
+              className="absolute top-2 right-2 hover:bg-stone-100 flex items-center justify-center rounded-full w-10 h-10"
             >
               <CloseRoundedIcon className="" />
             </button>
-          </div>
+          
           <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             <label>Title</label>
             <input

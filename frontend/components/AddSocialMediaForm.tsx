@@ -77,15 +77,13 @@ export default function AddSocialMediaForm({
           <p>Add Socials</p>
         </button>
       ) : (
-        <div className="p-6 mb-4 space-y-6 bg-white rounded-xl shadow-xl ">
-          <div className="relative">
-            <button
-              onClick={() => setShowSocialMediaForm(false)}
-              className="absolute top-0 right-0 hover:bg-stone-100  rounded-full w-10 h-10"
-            >
-              <CloseRoundedIcon className="" />
-            </button>
-          </div>
+        <div className="relative p-6 mb-4 space-y-6 bg-white rounded-xl shadow-xl ">
+          <button
+            onClick={() => setShowSocialMediaForm(false)}
+            className="absolute top-2 right-2 flex justify-center items-center hover:bg-stone-100  rounded-full w-10 h-10"
+          >
+            <CloseRoundedIcon className="" />
+          </button>
           <form onSubmit={handleSubmit} className="flex flex-col gap-2 ">
             <label>Social Media App</label>
             <select
