@@ -43,7 +43,7 @@ export default function Home() {
         </nav>
       </header>
       <div className="w-full flex flex-col items-center">
-        <div className="container flex flex-col md:flex-row gap-12 items-center pt-20 md:py-48 pb-10 md:px-20 px-4">
+        <div className="container flex flex-col md:flex-row gap-12 items-center pt-20 md:py-48 pb-10 lg:px-20 px-4">
           <div className=" flex flex-col flex-1">
             <h1 className="text-5xl font-extrabold tracking-tight">
                 Centralize your online presence in one place using Linknbio
@@ -69,7 +69,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="bg-indigo-200 py-20 md:py-40 px-4 md:px-24 w-full flex flex-col md:flex-row-reverse items-center gap-12">
+        <div className="bg-indigo-200 py-20 md:py-40 px-4 lg:px-24 w-full flex flex-col md:flex-row-reverse items-center gap-12">
           <div className="flex flex-col flex-1">
             <h1 className="text-5xl font-extrabold text-blue-900 tracking-tight">
               Your page up and running in minutes, customized to your personal brand
@@ -96,7 +96,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="bg-fuchsia-200 py-20 md:py-40 px-4 md:px-24 w-full flex flex-col md:flex-row items-center gap-12">
+        <div className="bg-fuchsia-100 py-20 md:py-40 px-4 lg:px-24 w-full flex flex-col md:flex-row items-center gap-12">
           <div className="flex flex-col flex-1">
             <h1 className="text-5xl font-extrabold text-rose-900 tracking-tight">
             Share your Linknbio on your Instagram, Youtube, TikTok, Twitter and other platforms
@@ -116,37 +116,37 @@ export default function Home() {
           </div>
           <div className="flex-1">
             <Image
-              src="/hero-graphic.png"
-              width={1178}
-              height={1276}
+              src="/SocialsLanding.svg"
+              width={938}
+              height={599}
               alt="hero-image"
               className="w-full h-auto"
             />
           </div>
         </div>
-        <div className="bg-rose-100 py-20 md:py-40 px-4 md:px-24 w-full flex flex-col md:flex-row-reverse items-center gap-12">
+        <div className="bg-rose-300 py-20 md:py-40 px-4 lg:px-24 w-full flex flex-col md:flex-row-reverse items-center gap-12">
           <div className="flex flex-col flex-1">
-            <h1 className="text-5xl font-extrabold text-indigo-600 tracking-tight">
+            <h1 className="text-5xl font-extrabold text-indigo-700 tracking-tight">
               Analyze the performance of your Linknbio
 
             </h1>
-            <h3 className="mt-4 text-indigo-600 font-semibold">
+            <h3 className="mt-4 text-indigo-700 font-semibold">
               See what's working and what's not. Track your page performance over time and keep your audience engaged.
             </h3>
             <div>
               <button
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-8 rounded-full mt-6"
+                className="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-4 px-8 rounded-full mt-6"
                 onClick={() => handleAuthButtonClick("signup")}
               >
                 Get Started
               </button>
               </div>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 px-8">
             <Image
-              src="/hero-graphic.png"
-              width={1178}
-              height={1276}
+              src="/AnalyticsLanding.svg"
+              width={572}
+              height={497}
               alt="hero-image"
               className="w-full h-auto"
             />
