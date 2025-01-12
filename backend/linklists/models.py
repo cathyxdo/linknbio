@@ -45,7 +45,12 @@ class List(models.Model):
     def save(self, *args, **kwargs):
         self.username = self.username.lower()
         super().save(*args, **kwargs)
-    
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['user']),      
+            models.Index(fields=['username']),  
+        ]
 class SocialMedia(models.Model):
     SOCIAL_MEDIA_CHOICES = [
         ('instagram', 'Instagram'),
