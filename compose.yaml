@@ -12,6 +12,7 @@ services:
   frontend:
     build:
       context: ./frontend
+      dockerfile: Dockerfile.dev # Specify the development Dockerfile for the frontend
     ports:
       - "3000:3000" # Maps Next.js to localhost:3000
     volumes:
