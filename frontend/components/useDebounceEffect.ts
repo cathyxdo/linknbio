@@ -3,15 +3,15 @@ import { useEffect, DependencyList } from "react";
 export function useDebounceEffect(
   fn: () => void,
   waitTime: number,
-  deps?: DependencyList
+  deps: DependencyList = [] // Ensure deps defaults to an empty array
 ) {
   useEffect(() => {
     const t = setTimeout(() => {
-      fn.apply(undefined, deps);
+      fn(); // Call the function directly, not with `apply`
     }, waitTime);
 
     return () => {
       clearTimeout(t);
     };
-  }, deps);
+  }, [fn, waitTime, ...deps]); // Ensure all dependencies are included
 }
