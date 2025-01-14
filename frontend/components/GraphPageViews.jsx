@@ -2,12 +2,8 @@ import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { PageView } from "@/shared/interfaces";
 
-interface GraphPageViewsProps {
-    data: PageView[];
-}
-
-export default function GraphPageViews({ data }: GraphPageViewsProps) {
-    const svgRef = useRef<SVGSVGElement | null>(null);
+export default function GraphPageViews({ data }) {
+    const svgRef = useRef(null);
 
     useEffect(() => {
         if (!data || data.length === 0) return;
@@ -54,14 +50,14 @@ export default function GraphPageViews({ data }: GraphPageViewsProps) {
             .range([marginLeft, width - marginRight]);
 
         const y = d3.scaleLinear()
-            .domain([0, d3.max(mergedData, (d: { count: number }) => d.count) || 0])
+            .domain([0, d3.max(mergedData, d => d.count) || 0])
             .nice()
             .range([height - marginBottom, marginTop]);
 
         // Set up the line generator
-        const line = d3.line<PageView>()
-            .x((d: { date: Date }) => x(d.date))
-            .y((d: { count: number }) => y(d.count));
+        const line = d3.line()
+            .x(d => x(d.date))
+            .y(d => y(d.count));
 
         // Create or update the SVG container
         const svg = d3.select(svgRef.current)
@@ -77,7 +73,7 @@ export default function GraphPageViews({ data }: GraphPageViewsProps) {
             .attr("transform", `translate(0,${height - marginBottom})`)
             .attr("class", "x-axis")
             .call(d3.axisBottom(x)
-            .tickValues(mergedData.map((d: { date: Date }) => d.date)) // Use exact dates from mergedData
+            .tickValues(mergedData.map(d => d.date)) // Use exact dates from mergedData
             .tickFormat(d3.timeFormat("%m/%d")) // Format the ticks as MM/DD
                 .tickSizeOuter(0));
 
@@ -130,24 +126,24 @@ export default function GraphPageViews({ data }: GraphPageViewsProps) {
     .enter()
     .append("circle")
     .attr("class", "data-point")
-    .attr("cx", (d: { date: Date }) => x(d.date))
-    .attr("cy", (d: { count: number }) => y(d.count))
+    .attr("cx", d => x(d.date))
+    .attr("cy", d => y(d.count))
     .attr("r", 5) // Radius of the circle
     .attr("fill", "blue")
     .attr("stroke", "white")
     .attr("stroke-width", 1)
-    .on("mouseover", function(this: SVGCircleElement, event: MouseEvent, d: PageView) {
+    .on("mouseover", function(event,d) {
         tooltip.style("visibility", "visible")
             .html(`Date: ${d3.timeFormat("%m/%d")(d.date)}<br>Page Views: ${d.count}`);
         d3.select(this)
             .attr("stroke", "orange") // Change stroke to fuchsia on hover
             .attr("stroke-width", 4); // Optionally, increase the stroke width
         })
-        .on("mousemove", function(this: SVGCircleElement, event: MouseEvent) {
+        .on("mousemove", function(event) {
             tooltip.style("top", (event.pageY + 5) + "px")
                 .style("left", (event.pageX + 5) + "px");
         })
-        .on("mouseout", function(this: SVGCircleElement) {
+        .on("mouseout", function() {
             tooltip.style("visibility", "hidden");
             d3.select(this)
                 .attr("stroke", "white") // Revert stroke color
