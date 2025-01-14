@@ -131,7 +131,7 @@ export default function Home() {
 
             </h1>
             <h3 className="mt-4 text-indigo-700 font-semibold">
-              See what's working and what's not. Track your page performance over time and keep your audience engaged.
+              See what&apos;s working and what&apos;s not. Track your page performance over time and keep your audience engaged.
             </h3>
             <div>
               <button
