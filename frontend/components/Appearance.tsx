@@ -379,7 +379,7 @@ export default function Apperance({ data }: AppearanceProps) {
 
   return (
     <>
-      <div className="md:mt-0 mt-8 md:px-8 md:py-8 ">
+      <div className="pt-16 md:px-8 ">
         <div className="py-10 flex min-h-screen ">
           <div className="basis-full lg:basis-3/4 px-8 ">
             <h2 className="text-lg font-semibold">Background</h2>
