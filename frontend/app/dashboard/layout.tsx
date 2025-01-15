@@ -29,8 +29,8 @@ export default function DashboardLayout({
   };
 
   return (
-    <section className="bg-stone-100">
-      <nav className="flex justify-center top-0 z-50 ">
+    <section className="bg-stone-100 min-h-screen">
+      <nav className="flex fixed w-full justify-center top-0 left-0 z-50 ">
         <div
           className="block fixed md:hidden p-4 cursor-pointer bg-white w-full border-b"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
