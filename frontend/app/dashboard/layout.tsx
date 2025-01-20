@@ -45,7 +45,7 @@ export default function DashboardLayout({
                       className={
                         pathname === "/dashboard"
                           ? "text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
-                          : "font-semibold text-slate-500 text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
+                          : "font-semibold text-slate-500 text-sm hover:bg-stone-100 hover:text-black rounded-xl p-2 flex gap-2 items-center"
                       }
                     >
                       <ViewDayOutlinedIcon />
@@ -60,7 +60,7 @@ export default function DashboardLayout({
                       className={
                         pathname === "/dashboard/appearance"
                           ? "text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
-                          : "font-semibold text-slate-500 text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
+                          : "font-semibold text-slate-500 text-sm hover:bg-stone-100 hover:text-black rounded-xl p-2 flex gap-2 items-center"
                       }
                     >
                       <AutoFixHighOutlinedIcon />
@@ -71,7 +71,7 @@ export default function DashboardLayout({
                 <li>
                   <Link key="analytics" href="/dashboard/analytics">
 
-                    <div className= {pathname === '/dashboard/analytics' ? 'text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center' : 'font-semibold text-slate-500 text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center'}>
+                    <div className= {pathname === '/dashboard/analytics' ? 'text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center' : 'font-semibold text-slate-500 text-sm hover:bg-stone-100 hover:text-black rounded-xl p-2 flex gap-2 items-center'}>
                       <LeaderboardOutlinedIcon />
                       <p>Analytics</p>
                     </div>
@@ -102,7 +102,7 @@ export default function DashboardLayout({
                 className={
                   pathname === "/dashboard"
                     ? "text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
-                    : "font-semibold text-slate-500 text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
+                    : "font-semibold text-slate-500 text-sm hover:bg-stone-100 hover:text-black rounded-xl p-2 flex gap-2 items-center"
                 }
               >
                 <ViewDayOutlinedIcon />
@@ -117,7 +117,7 @@ export default function DashboardLayout({
                 className={
                   pathname === "/dashboard/appearance"
                     ? "text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
-                    : "font-semibold text-slate-500 text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center"
+                    : "font-semibold text-slate-500 text-sm hover:bg-stone-100 hover:text-black rounded-xl p-2 flex gap-2 items-center"
                 }
               >
                 <AutoFixHighOutlinedIcon />
@@ -128,7 +128,7 @@ export default function DashboardLayout({
           <li>
             <Link key="analytics" href="/dashboard/analytics">
 
-              <div className= {pathname === '/dashboard/analytics' ? 'text-black font-semibold text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center' : 'font-semibold text-slate-500 text-sm hover:bg-stone-100 rounded-xl p-2 flex gap-2 items-center'}>
+              <div className= {pathname === '/dashboard/analytics' ? 'text-black font-semibold text-sm hover:bg-stone-100  rounded-xl p-2 flex gap-2 items-center' : 'font-semibold text-slate-500 text-sm hover:bg-stone-100 hover:text-black rounded-xl p-2 flex gap-2 items-center'}>
                 <LeaderboardOutlinedIcon />
                 <p>Analytics</p>
               </div>
