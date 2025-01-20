@@ -45,15 +45,15 @@ export default function Home() {
       <div className="w-full flex flex-col items-center">
         <div className="container flex flex-col md:flex-row gap-12 items-center pt-20 md:py-48 pb-10 lg:px-20 px-4">
           <div className=" flex flex-col flex-1">
-            <h1 className="text-5xl font-extrabold tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
                 Centralize your online presence in one place using Linknbio
             </h1>
-            <h3 className="mt-6 text-xl">
+            <h3 className="mt-6 text-m md:text-xl">
             Gather all your links, social media, music, videos, and more in one
               place. Create a page that matches your style and never worry about
               changing your bio link again.            </h3>
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded-full mt-8"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 w-max md:w-full rounded-full mt-8"
               onClick={() => handleAuthButtonClick("signup")}
             >
               Get Started
@@ -71,10 +71,10 @@ export default function Home() {
         </div>
         <div className="bg-indigo-200 py-20 md:py-40 px-4 lg:px-24 w-full flex flex-col md:flex-row-reverse items-center gap-12">
           <div className="flex flex-col flex-1">
-            <h1 className="text-5xl font-extrabold text-blue-900 tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-blue-900 tracking-tight">
               Your page up and running in minutes, customized to your personal brand
             </h1>
-            <h3 className="mt-4 font-semibold text-blue-900">
+            <h3 className="text-m md:text-xl mt-4 font-semibold text-blue-900">
               No need to download anything. Easily add all your links and personalize the page to your style.
             </h3>
             <div>
@@ -98,10 +98,10 @@ export default function Home() {
         </div>
         <div className="bg-fuchsia-100 py-20 md:py-40 px-4 lg:px-24 w-full flex flex-col md:flex-row items-center gap-12">
           <div className="flex flex-col flex-1">
-            <h1 className="text-5xl font-extrabold text-rose-900 tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-rose-900 tracking-tight">
             Share your Linknbio on your Instagram, Youtube, TikTok, Twitter and other platforms
             </h1>
-            <h3 className="mt-4 font-semibold text-rose-900">
+            <h3 className="text-m md:text-xl mt-4 font-semibold text-rose-900">
             Add your Linknbio URL wherever your audience is. Direct all your following to one location.
 
             </h3>
@@ -126,11 +126,11 @@ export default function Home() {
         </div>
         <div className="bg-rose-300 py-20 md:py-40 px-4 lg:px-24 w-full flex flex-col md:flex-row-reverse items-center gap-12">
           <div className="flex flex-col flex-1">
-            <h1 className="text-5xl font-extrabold text-indigo-700 tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-indigo-700 tracking-tight">
               Analyze the performance of your Linknbio
 
             </h1>
-            <h3 className="mt-4 text-indigo-700 font-semibold">
+            <h3 className="text-m md:text-xl mt-4 text-indigo-700 font-semibold">
               See what&apos;s working and what&apos;s not. Track your page performance over time and keep your audience engaged.
             </h3>
             <div>
