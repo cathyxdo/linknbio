@@ -126,7 +126,7 @@ export default function AddLinkForm({ id, addNewLink }: LinkProps) {
               <button
                 type="submit"
                 disabled={!isUrlValid || !linkForm.title}
-                className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-1/4 py-4 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:bg-gray-200 disabled:text-gray-400"
+                className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 py-2.5 px-16 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:bg-gray-200 disabled:text-gray-400"
               >
                 Add
               </button>
