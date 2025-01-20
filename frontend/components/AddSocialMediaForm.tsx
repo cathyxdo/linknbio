@@ -5,6 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { SocialMediaProfile } from "@/shared/interfaces";
 import { auth } from "@/utils/firebase";
 import { getIdToken } from "firebase/auth"; // Import Firebase auth
+import { isValidUrl } from "@/utils/validation";
 
 interface SocialMediaProps {
   id: number;
@@ -23,6 +24,14 @@ export default function AddSocialMediaForm({
     list: id,
   };
   const [socialMediaForm, setSocialMediaForm] = useState(emptySocialMediaForm);
+  const isUrlValid = isValidUrl(socialMediaForm.link);
+  const [errorStatus, setErrorStatus] = useState(false);
+
+  function closeSocialMediaForm() {
+    setSocialMediaForm(emptySocialMediaForm);
+    setShowSocialMediaForm(false);
+    setErrorStatus(false);
+  }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setSocialMediaForm({
@@ -38,7 +47,18 @@ export default function AddSocialMediaForm({
       if (!user) {
         throw new Error("User not authenticated");
       }
-
+      let updatedLink = socialMediaForm.link;
+      if (!/^https?:\/\//i.test(updatedLink)) {
+        updatedLink = `http://${updatedLink}`;
+      }
+  
+      // Log the updated link before making the fetch request
+      console.log(updatedLink);
+  
+      // Update the form state with the new link before making the request
+      const updatedForm = { ...socialMediaForm, link: updatedLink };
+  
+      console.log(socialMediaForm);
       const token = await getIdToken(user); // Get Firebase auth token
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/social-media-profiles/`,
@@ -48,21 +68,24 @@ export default function AddSocialMediaForm({
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`, // Add your auth token here if needed
           },
-          body: JSON.stringify(socialMediaForm),
+          body: JSON.stringify(updatedForm),
         }
       );
       if (!response.ok) {
         console.log(response);
-        throw new Error("Error: ${response.status}");
+        setErrorStatus(true);
+        throw new Error(`Error: ${response.status}`);
       } else {
         console.log("Social Media added successfully");
 
         const newSocialMedia: SocialMediaProfile = await response.json();
         addNewProfile(newSocialMedia);
         setSocialMediaForm(emptySocialMediaForm);
+        setShowSocialMediaForm(false);
       }
     } catch (error) {
       console.error("Failed to add social media: ", error);
+      setErrorStatus(true);
     }
   }
 
@@ -79,7 +102,7 @@ export default function AddSocialMediaForm({
       ) : (
         <div className="relative p-6 mb-4 space-y-6 bg-white rounded-xl shadow-xl ">
           <button
-            onClick={() => setShowSocialMediaForm(false)}
+            onClick={closeSocialMediaForm}
             className="absolute top-2 right-2 flex justify-center items-center hover:bg-stone-100  rounded-full w-10 h-10"
           >
             <CloseRoundedIcon className="" />
@@ -92,7 +115,7 @@ export default function AddSocialMediaForm({
               onChange={(e) =>
                 setSocialMediaForm({ ...socialMediaForm, type: e.target.value })
               }
-              className="w-1/4 py-2 px-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white"
+              className="w-min py-2 px-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white"
             >
               <option value="instagram">Instagram</option>
               <option value="facebook">Facebook</option>
@@ -106,10 +129,14 @@ export default function AddSocialMediaForm({
               onChange={handleChange}
               className="px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white"
             ></input>
+            {errorStatus && 
+              <div className="text-red-500">Error: There was a problem adding Social Media</div>
+            }
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-1/4 py-4 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                disabled={!isUrlValid}
+                className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 py-2.5 px-16 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:bg-gray-200 disabled:text-gray-400"
               >
                 Add
               </button>
