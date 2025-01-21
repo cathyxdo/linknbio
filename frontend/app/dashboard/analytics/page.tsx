@@ -119,7 +119,7 @@ export default function Page() {
       );
     }
     return (
-        <div className="pt-24 md:px-8 md:pr-8 min-h-screen px-10 flex flex-col gap-6">
+        <div className="pt-24 py-10 md:px-8 min-h-screen px-4 flex flex-col gap-6">
         {/* Date Range Heading */}
           <div className="flex items-center justify-end">
             <h2>Last 30 days: {getDateRange()}</h2>
