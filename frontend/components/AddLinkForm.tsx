@@ -120,7 +120,7 @@ export default function AddLinkForm({ id, addNewLink }: LinkProps) {
               className="px-2 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-black focus:bg-white"
             ></input>
             {errorStatus && 
-              <div className="text-red-500">Error: There was a problem adding Social Media</div>
+              <div className="text-red-500">Error: There was a problem adding Link</div>
             }
             <div className="flex justify-end">
               <button
