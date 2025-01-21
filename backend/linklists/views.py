@@ -1,7 +1,8 @@
 from linklists.models import Link, SocialMedia, List, LogListView, LogLinkClick, LogSocialMediaClick
 from linklists.serializers import LinkSerializer, SocialMediaSerializer, ListSerializer, ListViewSerializer, LinkClickSerializer, SocialMediaClickSerializer, ListViewCountSerializer, LinkClickCountSerializer, SocialMediaClickCountSerializer
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -196,6 +197,17 @@ class CreateLink(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
+        # Ensure the user is the owner of the list they are associating with
+        list_id = self.request.data.get('list')  # Assuming the list ID is passed in the request body
+        try:
+            user_list = List.objects.get(id=list_id)
+        except List.DoesNotExist:
+            raise PermissionDenied("List does not exist.")
+
+        if user_list.user != self.request.user:
+            raise PermissionDenied("You do not own this list.")
+
+        # If the user owns the list, save the Link object
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
@@ -213,8 +225,18 @@ class CreateSocialMedia(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        # Ensure the user is the owner of the list they are associating with
+        list_id = self.request.data.get('list')  # Assuming the list ID is passed in the request body
+        try:
+            user_list = List.objects.get(id=list_id)
+        except List.DoesNotExist:
+            raise PermissionDenied("List does not exist.")
 
+        if user_list.user != self.request.user:
+            raise PermissionDenied("You do not own this list.")
+
+        # If the user owns the list, save the Link object
+        serializer.save(user=self.request.user)
     def get_queryset(self):
         user = self.request.user
         return SocialMedia.objects.filter(user=user)
