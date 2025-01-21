@@ -16,7 +16,7 @@ export default async function Page({ params }: any) {
       className={`flex flex-col items-center h-screen font-${list.profile_font}`}
       style={{ backgroundColor: list.background_color }}
     >
-      <div className="px-4 flex flex-col gap-4 items-center text-center m-10 w-full max-w-2xl ">
+      <div className="px-4 flex flex-col gap-2 items-center text-center m-10 w-full max-w-2xl ">
         <div className="flex flex-col gap-2 items-center">
           {list.profile_photo_url && (
             <div className="">
@@ -36,13 +36,13 @@ export default async function Page({ params }: any) {
           >
             {list.name ? list.name : `@${list.username}`}
           </div>
-          <div style={{ color: list.profile_font_color }} className="text-l">
+          <div style={{ color: list.profile_font_color }} className="">
             {list.bio}
           </div>
         </div>
         {list.social_media_icons_location === "top" && (
           <div>
-            <div className="flex gap-4 mt-4 mb-4">
+            <div className="flex gap-4 mt-2 mb-2">
               {list.social_media_profiles &&
                 list.social_media_profiles.map((profile) => (
                   <SocialMedia 
