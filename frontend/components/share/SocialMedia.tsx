@@ -49,7 +49,7 @@ export default function SocialMedia({profileFontColor, profileLink, profileType,
       };
     
     async function logSocialMediaClick(socialMediaProfileId: number) {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/log/social_media_click/`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/analytics/social_media_clicks/`, {
             method: "POST",
             headers: {
             "Content-Type": "application/json",

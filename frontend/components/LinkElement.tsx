@@ -116,7 +116,7 @@ export default function LinkElement({
   async function handleImageDelete() {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/delete-image/links/` + id + "/",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/links/` + id + "/image/delete/",
         {
           method: "DELETE", // or 'PUT' if you are replacing the entire resource
           headers: {

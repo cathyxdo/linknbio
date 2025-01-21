@@ -51,7 +51,7 @@ export default function Link({linkBubbleColor, linkFontColor, linkBubbleStyle, l
         }
     }
     async function logLinkClick(linkId: number) {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/log/link_click/`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/analytics/link_clicks/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

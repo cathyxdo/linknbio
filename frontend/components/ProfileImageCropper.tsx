@@ -119,7 +119,7 @@ export default function ProfileImageCropper({
     // Send the FormData to the API endpoint using fetch
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/upload-profile-image/lists/${id}/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/lists/${id}/profile-image/upload/`,
         {
           method: "POST",
           body: formData,

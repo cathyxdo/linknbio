@@ -40,7 +40,7 @@ export default function Page() {
 
       const token = await getIdToken(user); // Get Firebase auth token
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/check-list-username/?list_username=${username}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/lists/check-username/?list_username=${username}`,
         {
           method: "GET",
           headers: {

@@ -57,7 +57,7 @@ export default function EditProfileForm({
   async function handleProfileImageDelete() {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/delete-profile-image/lists/` + id + "/",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/lists/` + id + "/profile-image/delete/",
         {
           method: "DELETE", // or 'PUT' if you are replacing the entire resource
           headers: {

@@ -109,7 +109,7 @@ async function getList(name: string): Promise<ListProfile | null> {
 }
 
 async function logPageView(listId: number) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_SERVER}/api/log/page_view/`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_SERVER}/api/analytics/page_views/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
