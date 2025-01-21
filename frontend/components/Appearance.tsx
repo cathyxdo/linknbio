@@ -381,7 +381,7 @@ export default function Apperance({ data }: AppearanceProps) {
     <>
       <div className="pt-16 md:px-8 ">
         <div className="py-10 flex min-h-screen ">
-          <div className="basis-full lg:basis-3/4 px-8 ">
+          <div className="basis-full md:basis-2/3 md:p-0 px-4">
             <h2 className="text-lg font-semibold">Background</h2>
             <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
               <div className="flex flex-col gap-2">
@@ -669,13 +669,13 @@ export default function Apperance({ data }: AppearanceProps) {
           </div>
 
           {/* Conditionally render PhonePreview or button based on screen size */}
-          <div className="hidden lg:block basis-1/4  ">
+          <div className="hidden md:basis-1/3 md:block pl-4">
             <PhonePreview pageData={pageData} />
           </div>
 
           {/* Show Preview button for smaller screens */}
           {!isPhonePreviewVisible && (
-            <div className="lg:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2">
+            <div className="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2">
               <button
               className="bg-white text-black border-2 border-black hover:bg-black hover:text-white px-6 py-4 font-semibold rounded-full"
               onClick={() => setIsPhonePreviewVisible(true)}
