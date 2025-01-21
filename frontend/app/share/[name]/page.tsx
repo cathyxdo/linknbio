@@ -104,7 +104,6 @@ async function getList(name: string): Promise<ListProfile | null> {
   }
 
   const list: ListProfile = await res.json();
-  console.log(res.ok)
   return list;
 }
 
