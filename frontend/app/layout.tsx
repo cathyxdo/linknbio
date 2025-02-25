@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/utils/AuthContext";
-import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "Linknbio: Share your links in one place",
@@ -15,10 +14,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap"
+          rel="stylesheet"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
-      <body className="">
+      </head>
+      <body className="font-sans">
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
