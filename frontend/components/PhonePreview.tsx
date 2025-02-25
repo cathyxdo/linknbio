@@ -87,7 +87,7 @@ export default function PhonePreview({ pageData }: PhonePreviewProps) {
   return (
     <div
       style={{ backgroundColor: pageData.background_color }}
-      className={`fixed overflow-auto scrollbar-hidden h-full w-full md:h-[692px] md:w-[320px] px-4 md:px-2 py-4 mb-4 space-y-2  md:border-gray-900 md:border-8 md:rounded-3xl shadow-sm flex flex-col items-center text-center font-${pageData.profile_font}`}
+      className={`fixed overflow-auto scrollbar-hidden h-full w-full md:h-[620px] md:w-[320px] px-4 md:px-2 py-4 mb-4 space-y-2  md:border-gray-900 md:border-8 md:rounded-3xl shadow-sm flex flex-col items-center text-center font-${pageData.profile_font}`}
     >
       <div className="mt-10 md:mt-0 text-black flex flex-col gap-2 items-center">
         {pageData.profile_photo_url && (
