@@ -1,15 +1,4 @@
 import type { Config } from 'tailwindcss'
-/* 
---black: #000000ff;
---tiffany-blue: #7ED8BEff;
---coral: #F38D68ff;
---bright-pink-crayola: #F76F8Eff;
---burnt-sienna: #EE6C4Dff;
---aquamarine: #A1FCDFff;
---orchid-pink: #F1BAC8ff;
---amber: #FABD2Aff;
---apricot: #FFCAB1ff;
---sea-green: #529872ff; */
 
 const config: Config = {
   content: [
@@ -41,19 +30,43 @@ const config: Config = {
         'bebas-neue': ['Bebas Neue', 'sans-serif'],
         'pacifico': ['Pacifico', 'sans-serif'],  // using 'cursive' for script fonts
         'fredoka-one': ['Fredoka One', 'sans-serif'],
+        sans: ['Manrope', 'Inter', 'DM Sans', 'sans-serif'],
       },
-    },/* 
-    colors: {
-      'tiffany-blue': '#7ED8BEff',
-      'coral': '#F38D68ff',
-      'bright-pink': '#F76F8Eff',
-      'burnt-sienna': '#EE6C4Dff',
-      'aquamarine': '#A1FCDFff',
-      'orchid-pink': '#F1BAC8ff',
-      'amber': '#FABD2Aff',
-      'apricot': '#FFCAB1ff',
-      'sea-green': '#529872ff',
-    }, */
+      colors: {
+        'custom-red-50': "#ffeff0",
+        'custom-red-200': "#fdbfc3",
+        'custom-red-400': "#fc8086",
+        'custom-red-500': "#fb6068",
+        'custom-red-600': "#d3434a",
+  
+        'custom-green-100': "#daf6e2",
+        'custom-green-200': "#b9e9c5",
+        'custom-green-500': "#65dc8d",
+        'custom-green-800': "#157033",
+  
+      
+        'custom-yellow-50': "#fdf8f1",
+        'custom-yellow-200': "#f7e3c6",
+        'custom-yellow-500': "#ecb871",  
+      
+        'custom-orange-100': "#ffe7d6",
+        'custom-orange-200': "#ffd0ad",
+        'custom-orange-500': "#ff7647",
+        'custom-orange-800': "#82450d",
+  
+        'custom-blue-200': "#a2d1f1",
+        'custom-blue-500': "#44b1ff",
+        'custom-blue-800': "#144264",
+
+        'custom-purple-100': "#f3e4f8",
+        'custom-purple-200': "#e7c9f1",
+        'custom-purple-500': "#e4acff",
+        'custom-purple-800': "#4a265a",
+  
+      },
+    },
+    
+    
   },
   plugins: [],
 }
