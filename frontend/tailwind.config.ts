@@ -61,6 +61,7 @@ const config: Config = {
         'custom-purple-100': "#f3e4f8",
         'custom-purple-200': "#e7c9f1",
         'custom-purple-500': "#e4acff",
+        'custom-purple-600': "#844b94",
         'custom-purple-800': "#4a265a",
   
       },
