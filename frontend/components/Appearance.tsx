@@ -304,7 +304,7 @@ export default function Apperance({ data }: AppearanceProps) {
 
   function getLinkBubbleStyle(style: string) {
     if (style === pageData.link_bubble_style) {
-      return "border-4 border-indigo-500 rounded-lg";
+      return "border-4 border-custom-purple-500 rounded-lg";
     } else {
       return "border-4 border-transparent";
     }
@@ -386,7 +386,7 @@ export default function Apperance({ data }: AppearanceProps) {
             <div className="mt-2 px-4 py-6 mb-4 border rounded-xl shadow flex flex-col gap-8 bg-white ">
               <div className="flex flex-col gap-2">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <button className="p-2 border-4 border-indigo-500 rounded-lg">
+                  <button className="p-2 border-4 border-custom-purple-500 rounded-lg">
                     <div className="bg-black h-9 w-full"></div>
                     <p>Color</p>
                   </button>

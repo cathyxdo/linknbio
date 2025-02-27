@@ -9,6 +9,8 @@ import {
 } from "firebase/auth";
 import { auth } from "@/utils/firebase"; // Adjust the path to your Firebase config
 import { useRouter } from "next/navigation"; // useRouter is for navigation in Next.js
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
@@ -54,52 +56,57 @@ export default function Login() {
   };
 
   return (
-    <div style={{ textAlign: "center", margin: "50px" }}>
-      <h1>Log in</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className="bg-white min-h-screen md:bg-stone-50 pt-10 ">
+      <Link href="/" >
+        <span className="flex flex-col items-center text-2xl font-semibold whitespace-nowrap">
+          Linknbio
+        </span>
+      </Link>
+      <div className="flex flex-col bg-white shadow-none md:shadow rounded-lg items-center p-10  md:mx-auto mt-12 w-full md:w-1/2">
 
-      <form onSubmit={handleSignIn} style={{ marginBottom: "20px" }}>
-        <div>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ padding: "10px", margin: "10px", width: "300px" }}
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ padding: "10px", margin: "10px", width: "300px" }}
-          />
-        </div>
-        <button
-          type="submit"
-          style={{ padding: "10px 20px", cursor: "pointer" }}
-        >
-          Log In with Email
-        </button>
-      </form>
+        <h2 className="text-xl font-bold">Log in</h2>
+        {error && <p className="text-red-500">{error}</p>}
+        <form onSubmit={handleSignIn} className="my-4 flex flex-col w-full gap-4 items-center">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="border p-4 w-full"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="border p-4 w-full"
+            />
+          <button
+            type="submit"
+            className="bg-custom-blue-500 font-semibold hover:bg-custom-blue-200 text-black py-3 px-4 rounded-lg"        >
+            Log In with Email
+          </button>
+        </form>
 
-      <div>
-        <p>Or continue with:</p>
-        <button
-          onClick={handleGoogleSignIn}
-          style={{
-            padding: "10px 20px",
-            cursor: "pointer",
-            background: "#4285F4",
-            color: "white",
-          }}
-        >
-          Continue with Google
-        </button>
+        <div className="flex flex-col items-center">
+          <p>Or continue with:</p>
+          <button
+            onClick={handleGoogleSignIn}
+            className="my-4 bg-white border border-black text-black py-3 px-4 rounded-lg"
+
+          >
+            <div className="flex items-center gap-4">
+              <Image
+                src="/google-logo.png" // Update the path to your Google logo
+                alt="google-logo"
+                width={24}
+                height={24}
+              />
+              <span>Continue with Google</span>
+            </div>        </button>
+        </div>
       </div>
     </div>
   );

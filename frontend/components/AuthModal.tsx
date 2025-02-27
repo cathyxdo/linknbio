@@ -67,7 +67,7 @@ export default function AuthModal({
         <p>or</p>
         <button
           onClick={handleGoogleSignIn}
-          className="my-2 bg-white border border-black text-black py-4 px-4 rounded-lg"
+          className="my-4 bg-white border border-black text-black py-3 px-4 rounded-lg"
         >
           <div className="flex items-center gap-4">
             <Image

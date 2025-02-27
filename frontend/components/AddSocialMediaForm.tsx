@@ -94,7 +94,7 @@ export default function AddSocialMediaForm({
       {!showSocialMediaForm ? (
         <button
           onClick={() => setShowSocialMediaForm(true)}
-          className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex gap-2 items-center justify-center focus:shadow-outline focus:outline-none"
+          className="mt-5 tracking-wide font-semibold bg-custom-purple-800 text-gray-100 w-full py-4 rounded-full hover:bg-custom-purple-600 transition-all duration-300 ease-in-out flex gap-2 items-center justify-center focus:shadow-outline focus:outline-none"
         >
           <AddIcon />
           <p>Add Socials</p>

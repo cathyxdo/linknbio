@@ -30,11 +30,11 @@ export default function SignUpModalSection() {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <h1 className="text-xl font-bold ">Sign Up</h1>
       {error && <p className="text-red-500">{error}</p>}
 
-      <form onSubmit={handleSignup} className="my-8 flex flex-col">
+      <form onSubmit={handleSignup} className="my-4 flex flex-col">
         <input
           type="email"
           placeholder="Email"
@@ -53,7 +53,7 @@ export default function SignUpModalSection() {
         />
         <button
           type="submit"
-          className="bg-blue-500 font-semibold hover:bg-blue-700 text-white py-2 px-4 rounded"
+          className="bg-custom-blue-500 font-semibold hover:bg-custom-blue-200 text-black py-3 px-4 rounded-lg"
         >
           Sign Up with Email
         </button>

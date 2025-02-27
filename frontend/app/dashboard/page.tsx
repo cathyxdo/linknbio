@@ -81,8 +81,8 @@ export default function Page() {
       <div className="flex flex-col gap-6 items-center justify-center h-screen w-screen">
         <div>Error: {error}</div>
         <Link key="Home" href="/" className="">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
-            Go Home
+          <button className="bg-custom-blue-500 hover:bg-custom-blue-200 text-black font-semibold py-2 px-4 rounded-lg">
+           Go Home
           </button>
         </Link>
       </div>
