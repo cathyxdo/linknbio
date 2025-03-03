@@ -14,7 +14,7 @@ export default function FontModal({
         </div>
         <div className="relative bg-white rounded-lg p-8 md:max-h-[672px] md:max-w-[512px] h-[80vh] w-full">
           <h3 className="font-semibold">Select Font</h3>
-          <ul className="flex flex-col mt-4 overflow-auto max-h-[60vh]">
+          <ul className="flex flex-col mt-8 overflow-y-auto h-5/6">
             <li>
               <button
                 className="hover:bg-stone-100 w-full p-2 rounded-full font-bebas-neue"
