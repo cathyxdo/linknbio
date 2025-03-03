@@ -141,7 +141,7 @@ export default function Page() {
             )}
             {error && <p style={{ color: "red" }}>{error}</p>}
             <button
-              className="mt-8 bg-custom-blue-500 hover:bg-custom-blue-200 py-3 px-8 rounded-lg flex items-center justify-center disabled:cursor-not-allowed "
+              className="mt-8 font-bold bg-custom-blue-500 hover:bg-custom-blue-200 py-3 px-8 rounded-lg flex items-center justify-center disabled:cursor-not-allowed "
               type="submit"
               onClick={handleSubmit}
               disabled={!isAvailable || loading}
