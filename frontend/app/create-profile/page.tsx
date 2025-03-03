@@ -110,8 +110,8 @@ export default function Page() {
     }
   }
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
-      <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+    <div className="min-h-screen bg-stone-100 text-gray-900 flex justify-center">
+      <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow-lg flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
           <div className="flex flex-col items-center">
             <Link key="Home" href="/" className="">
@@ -122,13 +122,12 @@ export default function Page() {
           </div>
           <div className="mt-12 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold">
-              Create new Link N Bio
+              Create new Linknbio
             </h1>
-            <h2>Choose a Link n bio URL. You can always change it later.</h2>
-            <div className="flex justify-center">
-              <p>linknbio.com/</p>
+            <div className="flex mt-8 items-center gap-2">
+              <p>linknbio.com/share/</p>
               <input
-                className="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-5"
+                className="w-full px-4 py-4 rounded font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
                 type="text"
                 name="listname"
                 value={listUsername}
@@ -136,25 +135,25 @@ export default function Page() {
                 placeholder="your_url"
               />
             </div>
-            {loading && <p>Checking username...</p>}
+            {loading && <p className="font-semibold">Checking username...</p>}
             {!isAvailable && (
-              <p style={{ color: "red" }}>Username is already taken!</p>
+              <p  className="text-red-600">Username is already taken!</p>
             )}
             {error && <p style={{ color: "red" }}>{error}</p>}
             <button
-              className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+              className="mt-8 bg-custom-blue-500 hover:bg-custom-blue-200 py-3 px-8 rounded-lg flex items-center justify-center disabled:cursor-not-allowed "
               type="submit"
               onClick={handleSubmit}
               disabled={!isAvailable || loading}
             >
-              <span className="ml-3">Continue</span>
+              <span>Continue</span>
             </button>
           </div>
         </div>
-        <div className="flex-1 bg-indigo-100 text-center hidden lg:flex">
-          <div className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat">
+        <div className="flex-1 bg-white text-center md:flex hidden ">
+          <div className="m-12 xl:m-16 w-full flex items-center">
             <Image
-              src="/hero-graphic.png"
+              src="/LandingPage4.png"
               width={1178}
               height={1276}
               alt="hero-image"
