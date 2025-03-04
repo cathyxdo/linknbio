@@ -111,8 +111,8 @@ export default function Page() {
   }
   return (
     <div className="min-h-screen bg-stone-100 text-gray-900 flex justify-center">
-      <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow-lg flex justify-center flex-1">
-        <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+      <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow-lg flex flex-col sm:flex-row rounded-lg justify-center items-center">
+        <div className="flex-1 my-4">
           <div className="flex flex-col items-center">
             <Link key="Home" href="/" className="">
               <span className="self-center text-2xl font-semibold whitespace-nowrap">
@@ -124,7 +124,7 @@ export default function Page() {
             <h1 className="text-2xl xl:text-3xl font-extrabold">
               Create new Linknbio
             </h1>
-            <div className="flex mt-8 items-center gap-2">
+            <div className="flex mt-8 items-center gap-1">
               <p>linknbio.com/share/</p>
               <input
                 className="w-full px-4 py-4 rounded font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
@@ -150,8 +150,8 @@ export default function Page() {
             </button>
           </div>
         </div>
-        <div className="flex-1 bg-white text-center md:flex hidden ">
-          <div className="m-12 xl:m-16 w-full flex items-center">
+        <div className="bg-white text-center md:flex flex-1 p-6">
+          <div className="w-full flex items-center">
             <Image
               src="/LandingPage4.png"
               width={1178}
