@@ -86,20 +86,20 @@ export default function SignupPage() {
             />
           <button
             type="submit"
-            className="bg-custom-blue-500 font-semibold hover:bg-custom-blue-200 text-black py-3 px-4 rounded-lg"        >
+            className="bg-custom-blue-600 font-semibold hover:bg-custom-blue-700 text-white py-3 px-4 rounded-full tracking-wide text-sm w-full"        >
           
-            Sign Up with Email
+            Sign up with email
           </button>
         </form>
 
-        <div className="flex flex-col items-center">
-          <p>Or continue with:</p>
+        <div className="flex flex-col w-full items-center">
+          <p>or</p>
           <button
             onClick={handleGoogleSignIn}
-            className="my-4 bg-white border border-black text-black py-3 px-4 rounded-lg"
+            className="my-4 bg-white border border-black text-black py-3 px-4 rounded-full text-sm w-full"
           >
-            <div className="flex items-center gap-4">
-              <Image
+            <div className="flex items-center justify-center gap-4">
+            <Image
                 src="/google-logo.png" // Update the path to your Google logo
                 alt="google-logo"
                 width={24}
