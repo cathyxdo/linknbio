@@ -64,7 +64,7 @@ export default function Login() {
       </Link>
       <div className="flex flex-col bg-white shadow-none md:shadow rounded-lg items-center p-10  md:mx-auto mt-12 w-full md:w-1/2">
 
-        <h2 className="text-xl font-bold">Log in</h2>
+        <h2 className="text-xl font-bold">Login</h2>
         {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleSignIn} className="my-4 flex flex-col w-full gap-4 items-center">
             <input
@@ -85,19 +85,19 @@ export default function Login() {
             />
           <button
             type="submit"
-            className="bg-custom-blue-500 font-semibold hover:bg-custom-blue-200 text-black py-3 px-4 rounded-lg"        >
-            Log In with Email
+            className="bg-custom-blue-600 font-semibold hover:bg-custom-blue-700 text-white py-3 px-4 rounded-full tracking-wide text-sm w-full"        >
+            Log in with email
           </button>
         </form>
 
-        <div className="flex flex-col items-center">
-          <p>Or continue with:</p>
+        <div className="flex flex-col w-full items-center">
+          <p>or</p>
           <button
             onClick={handleGoogleSignIn}
-            className="my-4 bg-white border border-black text-black py-3 px-4 rounded-lg"
+            className="my-4 bg-white border border-black text-black py-3 px-4 rounded-full text-sm w-full"
 
           >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center gap-4">
               <Image
                 src="/google-logo.png" // Update the path to your Google logo
                 alt="google-logo"
