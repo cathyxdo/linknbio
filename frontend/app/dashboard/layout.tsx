@@ -80,7 +80,7 @@ export default function DashboardLayout({
                 <li className="">
                   <div
                     onClick={handleLogout}
-                    className="font-semibold text-slate-500 text-sm hover:cursor-pointer hover:underline hover:text-black rounded-xl p-2 "
+                    className="font-semibold text-slate-500 text-sm hover:cursor-pointer hover:text-black rounded-xl p-2 "
                   >
                     <p>Sign out</p>
                   </div>
@@ -137,7 +137,7 @@ export default function DashboardLayout({
           <li className="ml-auto">
             <div
               onClick={handleLogout}
-              className="font-semibold text-slate-500 text-sm hover:cursor-pointer hover:underline hover:text-black rounded-xl p-2 "
+              className="font-semibold text-slate-500 text-sm hover:cursor-pointer hover:text-black rounded-xl p-2 "
             >
               <p>Sign out</p>
             </div>
