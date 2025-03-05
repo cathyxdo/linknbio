@@ -90,7 +90,7 @@ export default function AddLinkForm({ id, addNewLink }: LinkProps) {
       {!showLinkForm ? (
         <button
           onClick={() => setShowLinkForm(true)}
-          className="mt-5 tracking-wide font-semibold bg-custom-purple-800 text-gray-100 w-full py-4 rounded-full hover:bg-custom-purple-600 transition-all duration-300 ease-in-out flex gap-2 items-center justify-center focus:shadow-outline focus:outline-none"
+          className="mt-5 tracking-wide font-semibold bg-custom-blue-600 text-white w-full py-4 rounded-full hover:bg-custom-blue-700 transition-all duration-300 ease-in-out flex gap-2 items-center justify-center focus:shadow-outline focus:outline-none"
         >
           <AddIcon />
           <p>Add Link</p>
@@ -126,7 +126,7 @@ export default function AddLinkForm({ id, addNewLink }: LinkProps) {
               <button
                 type="submit"
                 disabled={!isUrlValid || !linkForm.title}
-                className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 py-2.5 px-16 rounded-full hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:bg-gray-200 disabled:text-gray-400"
+                className="mt-5 tracking-wide font-semibold bg-custom-blue-600 text-white py-2.5 px-16 rounded-full hover:bg-custom-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:bg-gray-200 disabled:text-gray-400"
               >
                 Add
               </button>
