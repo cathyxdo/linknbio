@@ -56,7 +56,7 @@ export default function AuthModal({
       >
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 hover:bg-stone-200 flex items-center rounded-full w-10 h-10 p-2"
+          className="absolute top-2 right-2 hover:bg-stone-100 flex items-center rounded-full w-10 h-10 p-2"
         >
           <CloseRounded />
         </button>
@@ -67,7 +67,7 @@ export default function AuthModal({
         <p>or</p>
         <button
           onClick={handleGoogleSignIn}
-          className="my-4 bg-white border border-black text-black py-3 px-4 rounded-lg"
+          className="my-4 bg-white border text-sm w-full border-black text-black py-3 px-4 rounded-full"
         >
           <div className="flex items-center gap-4">
             <Image
