@@ -53,9 +53,9 @@ export default function SignUpModalSection() {
         />
         <button
           type="submit"
-          className="bg-custom-blue-500 font-semibold hover:bg-custom-blue-200 text-black py-3 px-4 rounded-lg"
+          className="bg-custom-blue-600 tracking-wide font-semibold text-sm hover:bg-custom-blue-700 text-white py-3 px-4 rounded-full"
         >
-          Sign Up with Email
+          Sign up with email
         </button>
       </form>
     </div>

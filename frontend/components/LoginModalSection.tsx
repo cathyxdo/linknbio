@@ -30,7 +30,7 @@ export default function LoginModalSection() {
 
   return (
     <div className="w-full">
-      <h1 className="text-xl font-bold ">Log in</h1>
+      <h1 className="text-xl font-bold ">Login</h1>
       {error && <p className="text-red-500">{error}</p>}
 
       <form onSubmit={handleSignIn} className="my-4 flex flex-col">
@@ -52,9 +52,9 @@ export default function LoginModalSection() {
         />
         <button
           type="submit"
-          className="bg-custom-blue-500 font-semibold hover:bg-custom-blue-200 text-black py-3 px-4 rounded-lg"
+          className="bg-custom-blue-600 font-semibold hover:bg-custom-blue-700 text-white tracking-wide py-3 text-sm px-4 rounded-full"
         >
-          Log In with Email
+          Log in with email
         </button>
       </form>
     </div>
