@@ -100,7 +100,7 @@ export default function GraphPageViews({ data }) {
         svg.append("path")
             .attr("class", "line")
             .attr("fill", "none")
-            .attr("stroke", "blue")
+            .attr("stroke", "#3394e6")
             .attr("stroke-width", 1.5)
             .attr("d", line(mergedData)); // Use the merged data with zeros for missing dates
         // Add circles for each data point (scatter plot)
@@ -129,14 +129,14 @@ export default function GraphPageViews({ data }) {
     .attr("cx", d => x(d.date))
     .attr("cy", d => y(d.count))
     .attr("r", 5) // Radius of the circle
-    .attr("fill", "blue")
+    .attr("fill", "#3394e6")
     .attr("stroke", "white")
     .attr("stroke-width", 1)
     .on("mouseover", function(event,d) {
         tooltip.style("visibility", "visible")
             .html(`Date: ${d3.timeFormat("%m/%d")(d.date)}<br>Page Views: ${d.count}`);
         d3.select(this)
-            .attr("stroke", "orange") // Change stroke to fuchsia on hover
+            .attr("stroke", "#3394e6") 
             .attr("stroke-width", 4); // Optionally, increase the stroke width
         })
         .on("mousemove", function(event) {

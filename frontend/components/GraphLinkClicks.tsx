@@ -116,12 +116,12 @@ export default function GraphLinkClicks({ data }: LinkClicksProps) {
             .attr("y", d => y(d.count))
             .attr("width", barWidth - 1)
             .attr("height", d => Math.max(0, height - marginBottom - y(d.count)))
-            .attr("fill", "blue")
+            .attr("fill", "#b9e9c5")
             .on("mouseover", function (event, d) {
                 tooltip.style("visibility", "visible")
                     .html(`Date: ${d3.timeFormat("%a %m/%d")(d.date)}<br>Clicks: ${d.count}`);
                 d3.select(this)
-                    .attr("fill", "orange");
+                    .attr("fill", "#b9e9c5");
             })
             .on("mousemove", function (event) {
                 tooltip
@@ -131,7 +131,7 @@ export default function GraphLinkClicks({ data }: LinkClicksProps) {
             .on("mouseout", function () {
                 tooltip.style("visibility", "hidden");
                 d3.select(this)
-                    .attr("fill", "blue");
+                    .attr("fill", "#b9e9c5");
             });
 
         return () => {

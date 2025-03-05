@@ -116,12 +116,12 @@ export default function GraphSocialMediaClicks({ data }: SocialMediaClicksProps)
             .attr("y", d => y(d.count))
             .attr("width", barWidth - 1)
             .attr("height", d => Math.max(0, height - marginBottom - y(d.count)))
-            .attr("fill", "blue")
+            .attr("fill", "#e7c9f1")
             .on("mouseover", function (event, d) {
                 tooltip.style("visibility", "visible")
                     .html(`Date: ${d3.timeFormat("%a %m/%d")(d.date)}<br>Clicks: ${d.count}`);
                 d3.select(this)
-                    .attr("fill", "orange");
+                    .attr("fill", "#e7c9f1");
             })
             .on("mousemove", function (event) {
                 tooltip
@@ -131,7 +131,7 @@ export default function GraphSocialMediaClicks({ data }: SocialMediaClicksProps)
             .on("mouseout", function () {
                 tooltip.style("visibility", "hidden");
                 d3.select(this)
-                    .attr("fill", "blue");
+                    .attr("fill", "#e7c9f1");
             });
 
         return () => {
