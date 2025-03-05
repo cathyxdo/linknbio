@@ -12,7 +12,7 @@ export default function Home() {
 
   const avatars = [
     { src: "https://linknbio-resources.s3.amazonaws.com/1b99eb8a-71c2-4a50-8448-0a34e2dc1a29.png", name: "Maya James", link: "/share/mayajames", desc: "Fashion Influencer"},
-    { src: "https://linknbio-resources.s3.amazonaws.com/bcc1463c-cf4d-47f2-a384-5846268fd8e7.png", name: "The Golden Crust", link: "/share/thegoldencrust", desc: "Laminated Baked Goods" },
+    { src: "https://linknbio-resources.s3.amazonaws.com/bcc1463c-cf4d-47f2-a384-5846268fd8e7.png", name: "The Golden Crust", link: "/share/thegoldencrust", desc: "Bakery" },
     { src: "https://linknbio-resources.s3.amazonaws.com/177d79f6-fcb2-401a-a1aa-5199519d1c1b.png", name: "Fur Babies Rescue", link: "/share/fur_babies_rescue" , desc: "Non-profit"},
     { src: "https://linknbio-resources.s3.amazonaws.com/f16d1b9d-3779-4fcd-8dac-3af39779fd64.png", name: "Pure Radiance Co", link: "/share/pureradianceco" , desc: "Natural Shampoo Bars"},
     { src: "https://linknbio-resources.s3.amazonaws.com/8e9379c6-3585-4ea9-a4a1-8eed465b89fa.png", name: "Logan Steele", link: "/share/logansteele" , desc: "Musician"},
@@ -26,7 +26,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col w-full items-center">
-      <header className="fixed w-full">
+      <header className="fixed w-full z-50">
         <nav className="bg-white border-b border-gray-200 py-2.5">
           <div className="flex flex-wrap items-center justify-between px-4 ">
             <Link href="/" className="flex items-center">
@@ -37,13 +37,13 @@ export default function Home() {
             <div className="flex items-center lg:order-2 gap-2">
               <button
                 onClick={() => handleAuthButtonClick("login")}
-                className=" bg-stone-200 hover:bg-stone-300  text-black py-2 px-6 text-sm font-semibold rounded-lg "
+                className=" bg-white  text-black py-2 px-6 text-sm font-semibold rounded-full"
               >
-                Log in
+                Login
               </button>
               <button
                 onClick={() => handleAuthButtonClick("signup")}
-                className="bg-custom-blue-500 hover:bg-custom-blue-200 text-black py-2 px-6 font-semibold text-sm rounded-lg"
+                className="bg-custom-blue-600 hover:bg-custom-blue-700 text-white py-2 px-6 font-semibold text-sm rounded-full"
               >
                 Sign up
               </button>
@@ -62,7 +62,7 @@ export default function Home() {
               place. Create a page that matches your style and never worry about
               changing your bio link again.            </h3>
             <button
-              className="bg-custom-blue-500 hover:bg-custom-blue-200 text-black font-bold py-3 px-8  w-max md:w-fit rounded-lg mt-8"
+              className="bg-custom-blue-600 tracking-wide hover:bg-custom-blue-700 text-white font-semibold py-3 px-8  w-max md:w-full rounded-full mt-8"
               onClick={() => handleAuthButtonClick("signup")}
             >
               Get Started
@@ -79,15 +79,18 @@ export default function Home() {
           </div>
         </div>
         <div className="py-32 bg-stone-800 text-center w-full text-white flex flex-col items-center gap-20">
-          <h2 className="text-3xl font-bold italic">Check out these <span className="border-b-4 border-custom-blue-500">Linknbios</span> for inspiration</h2>
-          <div className="flex gap-16 overflow-x-auto flex-nowrap w-full px-8 pb-10">
+          <h2 className="text-3xl font-bold italic">Check out these <span className="border-b-4 border-custom-blue-600">Linknbios</span> for inspiration</h2>
+            
+          <div className="relative w-full overflow-hidden">
+            <div className="flex gap-16 overflow-x-auto flex-nowrap px-8 pb-10 scrollbar-custom scroll-smooth">
             {avatars.map((avatar, index) => (
                 <a
                   target="_blank"
-                  key={index} 
+                  key={index}
                   href={avatar.link}
-                  rel="noopener noreferrer" 
-                  className="flex flex-col items-center w-48 ">
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center w-48 snap-start"
+                >
                   <div className="w-48 h-48 p-4 hover:scale-105 transition-transform duration-300">
                     <Image
                       src={avatar.src}
@@ -100,7 +103,8 @@ export default function Home() {
                   <span className="font-bold tracking-wider text-center mt-4">{avatar.name}</span>
                   <span className="text-sm mt-2">{avatar.desc}</span>
                 </a>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
         <div className="bg-stone-100 py-20 md:py-40 px-4 lg:px-24 w-full flex flex-col items-center text-center  gap-12">
@@ -113,7 +117,7 @@ export default function Home() {
             </h3>
             <div>
             <button
-              className="bg-custom-blue-500 hover:bg-custom-blue-200 text-black font-bold py-3 px-8 w-max md:w-fit rounded-lg mt-8"
+              className="bg-custom-blue-600 tracking-wide hover:bg-custom-blue-700 text-white font-semibold py-3 px-8  w-max md:w-fit rounded-full mt-8"
               onClick={() => handleAuthButtonClick("signup")}
             >
               Get Started
@@ -121,7 +125,7 @@ export default function Home() {
               </div>
           </div>
           <div className="flex-1">
-             <video autoPlay loop muted playsInline className="border-4 border-black rounded-lg max-w-3xl w-full">
+             <video autoPlay loop muted playsInline className="border-2 border-black  max-w-3xl w-full">
               <source src="/AppearanceRecording.mp4" type="video/mp4" />
              </video>
           </div>
@@ -137,8 +141,8 @@ export default function Home() {
             </h3>
             <div>
               <button
-                className="bg-custom-blue-500 hover:bg-custom-blue-200 text-black font-bold py-3 px-8 w-max md:w-fit rounded-lg mt-8"
-                onClick={() => handleAuthButtonClick("signup")}
+              className="bg-custom-blue-600 tracking-wide hover:bg-custom-blue-700 text-white font-semibold py-3 px-8  w-max md:w-fit rounded-full mt-8"
+              onClick={() => handleAuthButtonClick("signup")}
               >
                 Get Started
               </button>
@@ -168,8 +172,8 @@ export default function Home() {
             </h3>
             <div>
               <button
-                className="bg-custom-blue-500 hover:bg-custom-blue-200 text-black font-bold py-3 px-8 w-max md:w-fit rounded-lg mt-8"
-                onClick={() => handleAuthButtonClick("signup")}
+              className="bg-custom-blue-600 tracking-wide hover:bg-custom-blue-700 text-white font-semibold py-3 px-8  w-max md:w-fit rounded-full mt-8"
+              onClick={() => handleAuthButtonClick("signup")}
               >
                 Get Started
               </button>
