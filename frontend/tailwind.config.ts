@@ -43,7 +43,10 @@ const config: Config = {
         'custom-green-200': "#b9e9c5",
         'custom-green-500': "#65dc8d",
         'custom-green-800': "#157033",
-  
+
+        'custom-green-600': "#4cb875",
+        'custom-green-700': "#2f8e54",
+        'custom-green-900': "#0f4d24",
       
         'custom-yellow-50': "#fdf8f1",
         'custom-yellow-200': "#f7e3c6",
@@ -57,6 +60,11 @@ const config: Config = {
         'custom-blue-200': "#a2d1f1",
         'custom-blue-500': "#44b1ff",
         'custom-blue-800': "#144264",
+
+        'custom-blue-600': "#3394e6",
+        'custom-blue-700': "#1e7bbf",
+        'custom-blue-900': "#0a3d59",
+
 
         'custom-purple-100': "#f3e4f8",
         'custom-purple-200': "#e7c9f1",
