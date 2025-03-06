@@ -125,7 +125,7 @@ export default function Page() {
               Create new Linknbio
             </h1>
             <div className="flex mt-8 items-center gap-1">
-              <p>linknbio.com/share/</p>
+              <p>{`${process.env.NEXT_PUBLIC_SHARE_URL}/`}</p>
               <input
                 className="w-full px-4 py-4 rounded font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
                 type="text"
