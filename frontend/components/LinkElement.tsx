@@ -157,7 +157,7 @@ export default function LinkElement({
                 value={linkData.title}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className="border p-2 rounded-lg block w-full mb-4"
+                className="border p-2 rounded-lg block w-full mb-4 mt-4"
               />
               <input
                 name="link"
