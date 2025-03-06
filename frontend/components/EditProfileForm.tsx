@@ -125,8 +125,8 @@ export default function EditProfileForm({
                   <a
                     className="underline"
                     target="_blank"
-                    href={`${process.env.NEXT_PUBLIC_SHARE_URL}/share/${username}`}
-                  >{`${process.env.NEXT_PUBLIC_SHARE_URL}/share/${username}`}</a>
+                    href={`${process.env.NEXT_PUBLIC_SHARE_URL}/${username}`}
+                  >{`${process.env.NEXT_PUBLIC_SHARE_URL}/${username}`}</a>
                 </div>
               </div>
               <div className="basis-1/4 flex flex-col items-center">
