@@ -89,5 +89,5 @@ export default function Page() {
     );
   }
 
-  return list ? <Dashboard data={list} /> : <div>No data available</div>;
+  return list ? <Dashboard data={list} /> : <div className="mt-24">No data available</div>;
 }
