@@ -125,7 +125,7 @@ export default function Home() {
               </div>
           </div>
           <div className="flex-1">
-             <video autoPlay loop muted playsInline className="border-2 border-black  max-w-3xl w-full">
+             <video autoPlay loop muted playsInline className="border-2 border-stone-500 rounded  max-w-3xl w-full">
               <source src="/AppearanceRecording.mp4" type="video/mp4" />
              </video>
           </div>
