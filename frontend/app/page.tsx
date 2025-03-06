@@ -11,12 +11,12 @@ export default function Home() {
   const [authType, setAuthType] = useState("");
 
   const avatars = [
-    { src: "https://linknbio-resources.s3.amazonaws.com/1b99eb8a-71c2-4a50-8448-0a34e2dc1a29.png", name: "Maya James", link: "/share/mayajames", desc: "Fashion Influencer"},
-    { src: "https://linknbio-resources.s3.amazonaws.com/bcc1463c-cf4d-47f2-a384-5846268fd8e7.png", name: "The Golden Crust", link: "/share/thegoldencrust", desc: "Bakery" },
-    { src: "https://linknbio-resources.s3.amazonaws.com/177d79f6-fcb2-401a-a1aa-5199519d1c1b.png", name: "Fur Babies Rescue", link: "/share/fur_babies_rescue" , desc: "Non-profit"},
-    { src: "https://linknbio-resources.s3.amazonaws.com/f16d1b9d-3779-4fcd-8dac-3af39779fd64.png", name: "Pure Radiance Co", link: "/share/pureradianceco" , desc: "Natural Shampoo Bars"},
-    { src: "https://linknbio-resources.s3.amazonaws.com/8e9379c6-3585-4ea9-a4a1-8eed465b89fa.png", name: "Logan Steele", link: "/share/logansteele" , desc: "Musician"},
-    { src: "https://linknbio-resources.s3.amazonaws.com/173b76f7-d99f-40fa-b313-63042f4718d2.png", name: "Tessa's Table", link: "/share/tessastable", desc: "Food Blog" },
+    { src: "https://linknbio-resources.s3.amazonaws.com/1b99eb8a-71c2-4a50-8448-0a34e2dc1a29.png", name: "Maya James", link: "/mayajames", desc: "Fashion Influencer"},
+    { src: "https://linknbio-resources.s3.amazonaws.com/bcc1463c-cf4d-47f2-a384-5846268fd8e7.png", name: "The Golden Crust", link: "/thegoldencrust", desc: "Bakery" },
+    { src: "https://linknbio-resources.s3.amazonaws.com/177d79f6-fcb2-401a-a1aa-5199519d1c1b.png", name: "Fur Babies Rescue", link: "/fur_babies_rescue" , desc: "Non-profit"},
+    { src: "https://linknbio-resources.s3.amazonaws.com/f16d1b9d-3779-4fcd-8dac-3af39779fd64.png", name: "Pure Radiance Co", link: "/pureradianceco" , desc: "Natural Shampoo Bars"},
+    { src: "https://linknbio-resources.s3.amazonaws.com/8e9379c6-3585-4ea9-a4a1-8eed465b89fa.png", name: "Logan Steele", link: "/logansteele" , desc: "Musician"},
+    { src: "https://linknbio-resources.s3.amazonaws.com/173b76f7-d99f-40fa-b313-63042f4718d2.png", name: "Tessa's Table", link: "/tessastable", desc: "Food Blog" },
   ]
 
   function handleAuthButtonClick(type: string) {
