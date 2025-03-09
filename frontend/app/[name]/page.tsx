@@ -3,6 +3,21 @@ import { ListProfile } from "@/shared/interfaces";
 import Link from "@/components/share/Link";
 import SocialMedia from "@/components/share/SocialMedia";
 import { notFound } from "next/navigation";
+
+export async function generateMetadata({ params }: any) {
+  const list = await getList(params.name);
+
+  if (!list) {
+    return {
+      title: "Page Not Found",
+    };
+  }
+
+  return {
+    title: list.name ? `${list.name} • Linknbio` : `@${list.username} • Linknbio`,
+  };
+}
+
 export default async function Page({ params }: any) {
   const list = await getList(params.name);
 
