@@ -3,7 +3,7 @@ import "./globals.css";
 import { AuthProvider } from "@/utils/AuthContext";
 
 export const metadata: Metadata = {
-  title: "Linknbio: Share your links in one place",
+  title: "Linknbio",
   description: "Create a custom centralized site for your entire online presence",
 };
 
