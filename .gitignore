@@ -1,5 +1,6 @@
 venv/
 .env
+serviceAccountKey.json
 
 # Ignore Python cache files
 __pycache__/
