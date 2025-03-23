@@ -150,7 +150,7 @@ export default function Home() {
           </div>
           <div className="flex-1">
             <Image
-              src="/SocialsLanding4.svg"
+              src="/SocialsLanding.svg"
               width={938}
               height={599}
               alt="hero-image"
