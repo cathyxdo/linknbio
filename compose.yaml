@@ -6,6 +6,8 @@ services:
       - "8000:8000" # Maps Django's dev server to localhost:8000
     volumes:
       - ./backend:/app # Sync code changes in backend to the container
+      - ./backend/firebase_auth:/firebase_auth  # Mount the whole firebase_auth directory
+
     env_file:
       - .env # Specifies the path to your .env file
 
