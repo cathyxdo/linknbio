@@ -19,6 +19,9 @@ services:
       - "3000:3000" # Maps Next.js to localhost:3000
     volumes:
       - ./frontend:/app # Sync code changes in frontend to the container
+      - /app/node_modules  # 👈 Add this line
+
+    working_dir: /app  
     environment:
       - NODE_ENV=development
     depends_on:
