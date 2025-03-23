@@ -2,19 +2,13 @@
 
 import firebase_admin
 from firebase_admin import auth, credentials
-
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
-
 from users.models import CustomUser 
 import os
+from django.conf import settings
 
-# At the top of your authentication file
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-FIREBASE_KEY_PATH = os.path.join(BASE_DIR, 'serviceAccountKey.json')
-
-# Then use FIREBASE_KEY_PATH when initializing Firebase
-cred = credentials.Certificate(FIREBASE_KEY_PATH)
+cred = credentials.Certificate(settings.FIREBASE_KEY_PATH)
 firebase_admin.initialize_app(cred)
 
 class FirebaseAuthentication(BaseAuthentication):
