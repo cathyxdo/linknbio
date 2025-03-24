@@ -8,8 +8,12 @@ from users.models import CustomUser
 import os
 from django.conf import settings
 
-cred = credentials.Certificate(settings.FIREBASE_KEY_PATH)
-firebase_admin.initialize_app(cred)
+# Initialize Firebase based on settings
+if hasattr(settings, 'FIREBASE_KEY_PATH') and settings.FIREBASE_KEY_PATH:
+    cred = credentials.Certificate(settings.FIREBASE_KEY_PATH)
+    firebase_admin.initialize_app(cred)
+else:
+    firebase_admin.initialize_app()  # Use ADC (Application Default Credentials)
 
 class FirebaseAuthentication(BaseAuthentication):
     def authenticate(self, request):
