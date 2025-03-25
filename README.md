@@ -17,10 +17,10 @@ Landing Page
 User's Dashboard Page
 ![Dashboard](screenshots/Dashboard.png)
 
-Customized Appearance
+Customize Appearance
 ![Appearance](screenshots/Appearance.png)
 
-Analytics
+Analytics - Page Views
 ![Analytics](screenshots/Analytics.png)
 
 
