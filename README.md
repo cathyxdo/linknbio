@@ -113,10 +113,6 @@ uploads)
 - Add ability to "section" to categorize related links
 - Add template styles
 
-## Contributing
-
-Feel free to fork the project and submit pull requests for any improvements, bug fixes, or new features!
-
 ## License
 
 This project is open-source and available under the MIT License.
